@@ -1,10 +1,6 @@
-import { UsersTable } from '@/features/UsersTable';
 import { appRouter } from '@/server/routers/_app';
-import { apiJsonPlaceholder } from '@/shared/api';
 
 export default async function Home() {
-  const users = await apiJsonPlaceholder.users.getUsers();
-
   const caller = appRouter.createCaller({});
 
   console.log(
@@ -14,5 +10,9 @@ export default async function Home() {
     }),
   );
 
-  return <UsersTable users={users} />;
+  return (
+    <>
+      <h1>Home page</h1>
+    </>
+  );
 }
