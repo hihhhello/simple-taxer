@@ -8,11 +8,7 @@ export const metadata: Metadata = {
   description: 'Created by Anton',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className="h-full" lang="en">
       <body className="h-full">
@@ -23,3 +19,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;
