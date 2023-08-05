@@ -17,8 +17,8 @@ export const QueryClientProvider = ({ children }: QueryClientProviderProps) => {
   const [queryClient] = useState(() => new QueryClient());
 
   const url = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : 'http://localhost:3001/api/trpc/';
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/trpc`
+    : 'http://localhost:3001/api/trpc';
 
   const [trpcClient] = useState(() =>
     trpc.createClient({
