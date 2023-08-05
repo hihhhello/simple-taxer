@@ -1,18 +1,17 @@
+import { TransactionsTable } from '@/features/TransactionsTable';
+import { prisma } from '@/server/prisma';
 import { appRouter } from '@/server/routers/_app';
 
 export default async function Home() {
-  const caller = appRouter.createCaller({});
+  const caller = appRouter.createCaller({
+    prisma,
+  });
 
-  console.log(
-    'caller users',
-    await caller.greeting({
-      name: 'Anton',
-    }),
-  );
+  const transactions = await caller.transactions.getAll();
 
   return (
     <>
-      <h1>Home page</h1>
+      <TransactionsTable transactions={transactions} />
     </>
   );
 }
