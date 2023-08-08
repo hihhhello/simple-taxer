@@ -2,16 +2,11 @@
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils/helpers';
 import { RouterOutputs, trpc } from '@/shared/utils/trpc';
-import { format, parseISO } from 'date-fns';
-import { FormEvent, useState } from 'react';
+import { format } from 'date-fns';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-type NewTransactionFormValues = {
-  date: string;
-  amount: number;
-  bankName?: string;
-  sourceName?: string;
-};
+import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
 
 type TransactionsTableProps = {
   transactions: RouterOutputs['transactions']['getAll'];
@@ -25,65 +20,14 @@ export const TransactionsTable = ({
       initialData: initialTransactions,
     });
 
-  const {
-    mutate: apiCreateNewTransaction,
-    isLoading: isCreateNewTransactionLoading,
-  } = trpc.transactions.create.useMutation();
-
-  const {
-    mutate: apiDeleteTransaction,
-    isLoading: isDeleteTransactionLoading,
-  } = trpc.transactions.delete.useMutation();
+  const { mutate: apiDeleteTransaction } =
+    trpc.transactions.delete.useMutation();
 
   const [taxPercent, setTaxPercent] = useState(0);
 
   const [transactionToDelete, setTransactionToDelete] = useState<number | null>(
     null,
   );
-
-  const [newTransactionFormValues, setNewTransactionFormValues] =
-    useState<NewTransactionFormValues>({
-      date: '',
-      amount: 0,
-      bankName: undefined,
-      sourceName: undefined,
-    });
-
-  const makeHandleChangeNewTransactionFormValues =
-    <TFieldKey extends keyof NewTransactionFormValues>(field: TFieldKey) =>
-    (newValue: NewTransactionFormValues[TFieldKey]) => {
-      setNewTransactionFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        [field]: newValue,
-      }));
-    };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    apiCreateNewTransaction(
-      {
-        ...newTransactionFormValues,
-        date: parseISO(newTransactionFormValues.date),
-      },
-      {
-        onSuccess: () => {
-          toast('New transactions has been added.', {
-            type: 'success',
-          });
-
-          setNewTransactionFormValues({
-            amount: 0,
-            date: '',
-            bankName: '',
-            sourceName: '',
-          });
-
-          refetchTransactions();
-        },
-      },
-    );
-  };
 
   const makeHandleDeleteTransaction = (transactionId: number) => () => {
     setTransactionToDelete(transactionId);
@@ -178,93 +122,7 @@ export const TransactionsTable = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
-        <div className="mb-16">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <span className="font-bold text-lg">Add New Transaction</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
-              <div>
-                <label htmlFor="date">Date</label>
-                <input
-                  required
-                  type="date"
-                  name="date"
-                  id="date"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Date"
-                  value={newTransactionFormValues.date}
-                  onChange={(e) =>
-                    makeHandleChangeNewTransactionFormValues('date')(
-                      e.target.value,
-                    )
-                  }
-                />
-              </div>
-
-              <div>
-                <label htmlFor="amount">Amount</label>
-                <input
-                  required
-                  type="number"
-                  name="amount"
-                  defaultValue={0}
-                  id="amount"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Amount"
-                  value={newTransactionFormValues.amount.toString()}
-                  onChange={(e) =>
-                    makeHandleChangeNewTransactionFormValues('amount')(
-                      Number(e.target.value),
-                    )
-                  }
-                />
-              </div>
-
-              <div>
-                <label htmlFor="bankName">Bank Name</label>
-                <input
-                  type="text"
-                  name="bankName"
-                  id="bankName"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Bank Name"
-                  value={newTransactionFormValues.bankName}
-                  onChange={(e) =>
-                    makeHandleChangeNewTransactionFormValues('bankName')(
-                      e.target.value,
-                    )
-                  }
-                />
-              </div>
-
-              <div>
-                <label htmlFor="sourceName">Source Name</label>
-                <input
-                  type="text"
-                  name="sourceName"
-                  id="sourceName"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Source Name"
-                  value={newTransactionFormValues.sourceName}
-                  onChange={(e) =>
-                    makeHandleChangeNewTransactionFormValues('sourceName')(
-                      e.target.value,
-                    )
-                  }
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              {isCreateNewTransactionLoading ? 'Loading...' : 'Add +'}
-            </button>
-          </form>
-        </div>
+        <AddNewTransactionForm handleSuccessSubmit={refetchTransactions} />
 
         <div>
           <div className="sm:flex sm:items-center">
