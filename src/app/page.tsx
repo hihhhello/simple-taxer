@@ -1,6 +1,6 @@
-import { TransactionsTable } from '@/features/TransactionsTable';
 import { prisma } from '@/server/prisma';
 import { appRouter } from '@/server/routers/_app';
+import { HomePageContent } from '@/app/_ui/HomePage';
 
 export default async function Home() {
   const caller = appRouter.createCaller({
@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <>
-      <TransactionsTable transactions={transactions} />
+      <HomePageContent transactions={transactions} />
     </>
   );
 }
