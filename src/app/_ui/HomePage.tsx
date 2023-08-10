@@ -3,25 +3,25 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { formatToUSDCurrency } from '@/shared/utils/helpers';
-import { RouterOutputs, trpc } from '@/shared/utils/trpc';
+import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
-import { TransactionTable } from '@/shared/ui/TransactionsTable';
+import { TransactionTable } from '@/shared/ui';
+import { api } from '@/shared/api';
 
 type HomePageContentProps = {
-  transactions: RouterOutputs['transactions']['getAll'];
+  transactions: ApiRouterOutputs['transactions']['getAll'];
 };
 
 export const HomePageContent = ({
   transactions: initialTransactions,
 }: HomePageContentProps) => {
   const { data: transactions, refetch: refetchTransactions } =
-    trpc.transactions.getAll.useQuery(undefined, {
+    api.transactions.getAll.useQuery(undefined, {
       initialData: initialTransactions,
     });
 
   const { mutate: apiDeleteTransaction } =
-    trpc.transactions.delete.useMutation();
+    api.transactions.delete.useMutation();
 
   const [taxPercent, setTaxPercent] = useState(0);
 

@@ -2,8 +2,8 @@ import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
-import { trpc } from '@/shared/utils';
 import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils/addNewTransactionFormTypes';
+import { api } from '@/shared/api';
 
 type AddNewTransactionFormProps = {
   handleSuccessSubmit?: () => void;
@@ -23,7 +23,7 @@ export const AddNewTransactionForm = ({
   const {
     mutate: apiCreateNewTransaction,
     isLoading: isCreateNewTransactionLoading,
-  } = trpc.transactions.create.useMutation();
+  } = api.transactions.create.useMutation();
 
   const makeHandleChangeNewTransactionFormValues =
     <TFieldKey extends keyof NewTransactionFormValues>(field: TFieldKey) =>

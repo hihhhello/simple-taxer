@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 
-import { RouterOutputs, classNames } from '@/shared/utils';
+import { classNames } from '@/shared/utils';
 
 type TransactionTableProps = {
-  transactions: RouterOutputs['transactions']['getAll'];
+  transactions: ApiRouterOutputs['transactions']['getAll'];
   transactionToDeleteId?: number;
   makeHandleDeleteTransaction?: (transactionId: number) => () => void;
 };

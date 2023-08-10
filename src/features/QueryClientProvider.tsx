@@ -5,9 +5,10 @@ import {
   QueryClient,
   QueryClientProvider as TanStackQueryClientProvider,
 } from '@tanstack/react-query';
-import { trpc } from '@/shared/utils/trpc';
 import { httpBatchLink, getFetch, loggerLink } from '@trpc/client';
 import superjson from 'superjson';
+
+import { api as trpc } from '@/shared/api';
 
 type QueryClientProviderProps = {
   children: ReactNode;
