@@ -1,5 +1,4 @@
-import { prisma } from '@/server/prisma';
-import { appRouter } from '@/server/routers/_app';
+import { appRouter, prisma } from '@/server';
 import { HomePageContent } from '@/app/_ui/HomePage';
 
 export default async function Home() {

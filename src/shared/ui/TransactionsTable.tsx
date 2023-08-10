@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import { RouterOutputs, classNames } from '../utils';
+
+import { RouterOutputs, classNames } from '@/shared/utils';
 
 type TransactionTableProps = {
   transactions: RouterOutputs['transactions']['getAll'];
