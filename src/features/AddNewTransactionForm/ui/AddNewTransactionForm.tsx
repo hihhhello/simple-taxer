@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
-import { parseISO } from 'date-fns';
+import { formatISO, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
 import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils/addNewTransactionFormTypes';
@@ -14,7 +14,7 @@ export const AddNewTransactionForm = ({
 }: AddNewTransactionFormProps) => {
   const [newTransactionFormValues, setNewTransactionFormValues] =
     useState<NewTransactionFormValues>({
-      date: '',
+      date: formatISO(new Date(), { representation: 'date' }),
       amount: 0,
       bankName: undefined,
       sourceName: undefined,
@@ -26,7 +26,9 @@ export const AddNewTransactionForm = ({
   } = api.transactions.create.useMutation();
 
   const makeHandleChangeNewTransactionFormValues =
-    <TFieldKey extends keyof NewTransactionFormValues>(field: TFieldKey) =>
+    <TFieldKey extends keyof Omit<NewTransactionFormValues, 'amount'>>(
+      field: TFieldKey,
+    ) =>
     (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target
         .value as NewTransactionFormValues[TFieldKey];
@@ -36,6 +38,22 @@ export const AddNewTransactionForm = ({
         [field]: newValue,
       }));
     };
+
+  const handleChangeTransactionAmount = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = Number(event.target.value);
+
+      if (isNaN(value)) {
+        return;
+      }
+
+      setNewTransactionFormValues((prevFormValues) => ({
+        ...prevFormValues,
+        amount: value,
+      }));
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -54,7 +72,7 @@ export const AddNewTransactionForm = ({
 
             setNewTransactionFormValues({
               amount: 0,
-              date: '',
+              date: formatISO(new Date(), { representation: 'date' }),
               bankName: '',
               sourceName: '',
             });
@@ -93,14 +111,13 @@ export const AddNewTransactionForm = ({
             <label htmlFor="amount">Amount</label>
             <input
               required
-              type="number"
+              type="text"
               name="amount"
-              defaultValue={0}
               id="amount"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Amount"
               value={newTransactionFormValues.amount.toString()}
-              onChange={makeHandleChangeNewTransactionFormValues('amount')}
+              onChange={handleChangeTransactionAmount}
             />
           </div>
 

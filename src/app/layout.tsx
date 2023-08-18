@@ -1,9 +1,12 @@
-import { QueryClientProvider } from '@/features/QueryClientProvider';
 import './globals.css';
-import type { Metadata } from 'next';
-import { BaseLayout } from '@/app/_ui/BaseLayout';
 import 'react-toastify/dist/ReactToastify.css';
+
+import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
+
+import { QueryClientProvider } from '@/features/QueryClientProvider';
+import { BaseLayout } from '@/app/_ui/BaseLayout';
+import { NextAuthProvider } from '@/app/_ui/NextAuthProvider';
 
 export const metadata: Metadata = {
   title: 'Simple Taxer',
@@ -17,7 +20,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <QueryClientProvider>
           <ToastContainer />
 
-          <BaseLayout>{children}</BaseLayout>
+          <NextAuthProvider>
+            <BaseLayout>{children}</BaseLayout>
+          </NextAuthProvider>
         </QueryClientProvider>
       </body>
     </html>

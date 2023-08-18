@@ -3,7 +3,15 @@ import { publicProcedure, router } from '../trpc';
 
 export const transactionsRouter = router({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.transaction.findMany();
+    if (!ctx.user) {
+      return;
+    }
+
+    return ctx.prisma.transaction.findMany({
+      where: {
+        userId: ctx.user.id,
+      },
+    });
   }),
   create: publicProcedure
     .input(
@@ -15,9 +23,14 @@ export const transactionsRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!ctx.user) {
+        return;
+      }
+
       const newTransaction = await ctx.prisma.transaction.create({
         data: {
           ...input,
+          userId: ctx.user.id,
         },
       });
 
