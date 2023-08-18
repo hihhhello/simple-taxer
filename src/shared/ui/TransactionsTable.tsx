@@ -63,7 +63,7 @@ export const TransactionTable = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {transactions.map((transaction) => (
+              {transactions?.map((transaction) => (
                 <tr
                   key={transaction.id}
                   className={classNames(

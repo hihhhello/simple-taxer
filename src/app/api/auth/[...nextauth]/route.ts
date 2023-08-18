@@ -40,7 +40,6 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
       return params.token;
     },
     session(params) {
-      console.log('session params', params);
       params.session.user = params.token.user;
 
       return params.session;
