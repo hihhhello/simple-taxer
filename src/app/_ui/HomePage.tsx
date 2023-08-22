@@ -2,7 +2,6 @@
 
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { signOut, useSession } from 'next-auth/react';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
@@ -78,12 +77,8 @@ export const HomePageContent = ({
     [transactions],
   );
 
-  const handleSignOut = useCallback(() => signOut(), []);
-
   return (
     <div>
-      <button onClick={handleSignOut}>Sign Out</button>
-
       <div className="mb-16">
         <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
