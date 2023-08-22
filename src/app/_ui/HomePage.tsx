@@ -137,11 +137,13 @@ export const HomePageContent = ({
             </h1>
           </div>
 
-          <TransactionTable
-            transactions={transactions}
-            makeHandleDeleteTransaction={makeHandleDeleteTransaction}
-            transactionToDeleteId={transactionToDeleteId}
-          />
+          <div className="max-h-[calc(100vh/2)] overflow-y-auto">
+            <TransactionTable
+              transactions={transactions}
+              makeHandleDeleteTransaction={makeHandleDeleteTransaction}
+              transactionToDeleteId={transactionToDeleteId}
+            />
+          </div>
         </div>
       </div>
     </div>
