@@ -15,7 +15,7 @@ export const AddNewTransactionForm = ({
   const [newTransactionFormValues, setNewTransactionFormValues] =
     useState<NewTransactionFormValues>({
       date: formatISO(new Date(), { representation: 'date' }),
-      amount: 0,
+      amount: undefined,
       bankName: undefined,
       sourceName: undefined,
     });
@@ -57,11 +57,16 @@ export const AddNewTransactionForm = ({
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
+      if (!newTransactionFormValues.amount) {
+        return;
+      }
+
       e.preventDefault();
 
       apiCreateNewTransaction(
         {
           ...newTransactionFormValues,
+          amount: newTransactionFormValues.amount ?? 0,
           date: parseISO(newTransactionFormValues.date),
         },
         {
@@ -71,10 +76,10 @@ export const AddNewTransactionForm = ({
             });
 
             setNewTransactionFormValues({
-              amount: 0,
+              amount: undefined,
               date: formatISO(new Date(), { representation: 'date' }),
-              bankName: '',
-              sourceName: '',
+              bankName: undefined,
+              sourceName: undefined,
             });
 
             handleSuccessSubmit?.();
@@ -92,7 +97,7 @@ export const AddNewTransactionForm = ({
           <span className="font-bold text-lg">Add New Transaction</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <label htmlFor="date">Date</label>
             <input
@@ -116,7 +121,11 @@ export const AddNewTransactionForm = ({
               id="amount"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Amount"
-              value={newTransactionFormValues.amount.toString()}
+              value={
+                newTransactionFormValues.amount
+                  ? newTransactionFormValues.amount.toString()
+                  : newTransactionFormValues.amount
+              }
               onChange={handleChangeTransactionAmount}
             />
           </div>

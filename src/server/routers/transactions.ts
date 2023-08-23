@@ -13,6 +13,24 @@ export const transactionsRouter = router({
       },
     });
   }),
+  getOne: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      if (!ctx.user) {
+        return;
+      }
+
+      return ctx.prisma.transaction.findFirst({
+        where: {
+          userId: ctx.user.id,
+          id: input.id,
+        },
+      });
+    }),
   create: publicProcedure
     .input(
       z.object({

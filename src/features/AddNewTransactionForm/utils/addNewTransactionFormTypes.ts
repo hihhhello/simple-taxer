@@ -1,6 +1,6 @@
 export type NewTransactionFormValues = {
   date: string;
-  amount: number;
+  amount: number | undefined;
   bankName?: string;
   sourceName?: string;
 };

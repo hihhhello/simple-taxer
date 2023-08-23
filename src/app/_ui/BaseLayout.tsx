@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { Topbar } from './Topbar';
 
 type BaseLayoutProps = {

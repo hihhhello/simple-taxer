@@ -127,10 +127,10 @@ export const HomePageContent = ({
         </dl>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-16">
         <AddNewTransactionForm handleSuccessSubmit={refetchTransactions} />
 
-        <div>
+        <div className="col-span-2">
           <div className="sm:flex-auto mb-4">
             <h1 className="text-lg font-bold leading-6 text-gray-900">
               Transactions
