@@ -66,20 +66,17 @@ export const TransactionTable = ({
     }
   }, [selectedTransactions, transactions?.length]);
 
-  const handleToggleAllSelectedTransactions = useCallback(
-    () => () => {
-      setSelectedTransactions(
-        isBulkCheckboxChecked || isBulkCheckboxIndeterminate
-          ? []
-          : transactions ?? [],
-      );
-      setIsBulkCheckboxChecked(
-        !isBulkCheckboxChecked && !isBulkCheckboxIndeterminate,
-      );
-      setIsBulkCheckboxIndeterminate(false);
-    },
-    [isBulkCheckboxChecked, isBulkCheckboxIndeterminate, transactions],
-  );
+  const handleToggleAllSelectedTransactions = useCallback(() => {
+    setSelectedTransactions(
+      isBulkCheckboxChecked || isBulkCheckboxIndeterminate
+        ? []
+        : transactions ?? [],
+    );
+    setIsBulkCheckboxChecked(
+      !isBulkCheckboxChecked && !isBulkCheckboxIndeterminate,
+    );
+    setIsBulkCheckboxIndeterminate(false);
+  }, [isBulkCheckboxChecked, isBulkCheckboxIndeterminate, transactions]);
 
   const getIsTransactionSelected = useCallback(
     (transactionId: number) =>
