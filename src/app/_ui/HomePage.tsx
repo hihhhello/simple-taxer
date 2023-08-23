@@ -175,7 +175,7 @@ export const HomePageContent = ({
             </h1>
           </div>
 
-          <div className="max-h-[calc(100vh/2)] overflow-y-auto">
+          <div className="min-h-[calc(100vh/3)] max-h-[calc(100vh/2)] overflow-y-auto">
             <TransactionTable
               transactions={transactions}
               handleDeleteAllTransactions={handleDeleteAllTransactions}
