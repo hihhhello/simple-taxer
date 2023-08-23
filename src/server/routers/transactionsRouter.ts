@@ -13,7 +13,7 @@ export const transactionsRouter = router({
       },
     });
   }),
-  getOne: publicProcedure
+  getOneById: publicProcedure
     .input(
       z.object({
         id: z.number(),
@@ -54,7 +54,6 @@ export const transactionsRouter = router({
 
       return newTransaction;
     }),
-
   delete: publicProcedure
     .input(
       z.object({
@@ -65,6 +64,21 @@ export const transactionsRouter = router({
       return await ctx.prisma.transaction.delete({
         where: {
           id: input.transactionId,
+        },
+      });
+    }),
+  deleteMany: publicProcedure
+    .input(
+      z.object({
+        transactionIds: z.array(z.number()),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.transaction.deleteMany({
+        where: {
+          id: {
+            in: input.transactionIds,
+          },
         },
       });
     }),

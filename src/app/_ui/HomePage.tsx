@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
-import { TransactionTable } from '@/shared/ui';
+import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 
 type HomePageContentProps = {
@@ -22,6 +22,8 @@ export const HomePageContent = ({
 
   const { mutate: apiDeleteTransaction } =
     api.transactions.delete.useMutation();
+  const { mutate: apiDeleteManyTransactions } =
+    api.transactions.deleteMany.useMutation();
 
   const [taxPercent, setTaxPercent] = useState(0);
 
@@ -45,6 +47,42 @@ export const HomePageContent = ({
       },
     );
   };
+
+  const handleDeleteAllTransactions: TransactionTableProps['handleDeleteAllTransactions'] =
+    useCallback(
+      (transactionIds, setSelectedTransactions) => {
+        const toastId = toast.loading('Deleting transactions...');
+
+        apiDeleteManyTransactions(
+          {
+            transactionIds,
+          },
+          {
+            onSuccess: () => {
+              setSelectedTransactions([]);
+
+              toast.update(toastId, {
+                render: 'Transactions deleted successfully.',
+                type: 'success',
+                autoClose: 2500,
+                isLoading: false,
+              });
+
+              refetchTransactions();
+            },
+            onError: () => {
+              toast.update(toastId, {
+                render: 'Transactions deleting error. Try again.',
+                type: 'error',
+                autoClose: 2500,
+                isLoading: false,
+              });
+            },
+          },
+        );
+      },
+      [apiDeleteManyTransactions, refetchTransactions],
+    );
 
   const handleChangeTaxPercent = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -140,6 +178,7 @@ export const HomePageContent = ({
           <div className="max-h-[calc(100vh/2)] overflow-y-auto">
             <TransactionTable
               transactions={transactions}
+              handleDeleteAllTransactions={handleDeleteAllTransactions}
               makeHandleDeleteTransaction={makeHandleDeleteTransaction}
               transactionToDeleteId={transactionToDeleteId}
             />

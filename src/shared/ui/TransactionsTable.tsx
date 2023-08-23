@@ -1,5 +1,7 @@
 import {
   ChangeEvent,
+  Dispatch,
+  SetStateAction,
   useCallback,
   useLayoutEffect,
   useRef,
@@ -10,16 +12,21 @@ import { format } from 'date-fns';
 import { classNames } from '@/shared/utils';
 import { Transaction } from '@/shared/types';
 
-type TransactionTableProps = {
+export type TransactionTableProps = {
   transactions?: Transaction[];
   transactionToDeleteId?: number;
   makeHandleDeleteTransaction?: (transactionId: number) => () => void;
+  handleDeleteAllTransactions: (
+    transactionIds: number[],
+    setSelectedTransactions: Dispatch<SetStateAction<Transaction[]>>,
+  ) => void;
 };
 
 export const TransactionTable = ({
   transactions,
   transactionToDeleteId,
   makeHandleDeleteTransaction,
+  handleDeleteAllTransactions: propsHandleDeleteAllTransactions,
 }: TransactionTableProps) => {
   const [selectedTransactions, setSelectedTransactions] = useState<
     Transaction[]
@@ -57,9 +64,9 @@ export const TransactionTable = ({
     if (bulkCheckboxRef.current) {
       bulkCheckboxRef.current.indeterminate = isIndeterminate;
     }
-  }, [selectedTransactions.length, transactions?.length]);
+  }, [selectedTransactions, transactions?.length]);
 
-  const handleToggleSelectedTransactions = useCallback(
+  const handleToggleAllSelectedTransactions = useCallback(
     () => () => {
       setSelectedTransactions(
         isBulkCheckboxChecked || isBulkCheckboxIndeterminate
@@ -84,6 +91,13 @@ export const TransactionTable = ({
     [selectedTransactions],
   );
 
+  const handleDeleteAllTransactions = useCallback(() => {
+    propsHandleDeleteAllTransactions(
+      selectedTransactions.map((selectedTransaction) => selectedTransaction.id),
+      setSelectedTransactions,
+    );
+  }, [propsHandleDeleteAllTransactions, selectedTransactions]);
+
   return (
     <div className="relative">
       <table className="relative min-w-full divide-y divide-gray-300">
@@ -91,6 +105,7 @@ export const TransactionTable = ({
           {selectedTransactions.length > 0 && (
             <div className="absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 bg-white sm:left-12">
               <button
+                onClick={handleDeleteAllTransactions}
                 type="button"
                 className="inline-flex items-center rounded bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
               >
@@ -106,7 +121,7 @@ export const TransactionTable = ({
                 type="checkbox"
                 className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                 checked={isBulkCheckboxChecked}
-                onChange={handleToggleSelectedTransactions}
+                onChange={handleToggleAllSelectedTransactions}
               />
             </th>
 
