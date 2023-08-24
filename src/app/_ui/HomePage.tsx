@@ -147,7 +147,7 @@ export const HomePageContent = ({
               <div className="flex items-center">
                 <input
                   required
-                  type="text"
+                  type="number"
                   inputMode="decimal"
                   name="taxPercent"
                   id="taxPercent"
