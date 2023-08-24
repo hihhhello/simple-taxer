@@ -50,13 +50,16 @@ export const TransactionTable = ({
   const [isBulkCheckboxIndeterminate, setIsBulkCheckboxIndeterminate] =
     useState(false);
 
+  const areTransactionsEmpty = (transactions?.length ?? 0) === 0;
+
   useLayoutEffect(() => {
     const isIndeterminate =
       selectedTransactions.length > 0 &&
       selectedTransactions.length < (transactions?.length ?? 0);
 
     setIsBulkCheckboxChecked(
-      selectedTransactions.length === transactions?.length,
+      selectedTransactions.length === transactions?.length &&
+        !areTransactionsEmpty,
     );
 
     setIsBulkCheckboxIndeterminate(isIndeterminate);
@@ -64,7 +67,7 @@ export const TransactionTable = ({
     if (bulkCheckboxRef.current) {
       bulkCheckboxRef.current.indeterminate = isIndeterminate;
     }
-  }, [selectedTransactions, transactions?.length]);
+  }, [areTransactionsEmpty, selectedTransactions, transactions?.length]);
 
   const handleToggleAllSelectedTransactions = useCallback(() => {
     setSelectedTransactions(
@@ -114,9 +117,15 @@ export const TransactionTable = ({
           <tr>
             <th scope="col" className="relative px-7 sm:w-12 sm:px-6">
               <input
+                disabled={areTransactionsEmpty}
                 ref={bulkCheckboxRef}
                 type="checkbox"
-                className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                className={classNames(
+                  'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600',
+                  areTransactionsEmpty
+                    ? 'opacity-50 cursor-not-allowed'
+                    : 'cursor-pointer',
+                )}
                 checked={isBulkCheckboxChecked}
                 onChange={handleToggleAllSelectedTransactions}
               />

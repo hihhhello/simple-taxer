@@ -15,9 +15,9 @@ export const AddNewTransactionForm = ({
   const [newTransactionFormValues, setNewTransactionFormValues] =
     useState<NewTransactionFormValues>({
       date: formatISO(new Date(), { representation: 'date' }),
-      amount: undefined,
-      bankName: undefined,
-      sourceName: undefined,
+      amount: 0,
+      bankName: '',
+      sourceName: '',
     });
 
   const {
@@ -57,11 +57,15 @@ export const AddNewTransactionForm = ({
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
-      if (!newTransactionFormValues.amount) {
+      e.preventDefault();
+
+      if (newTransactionFormValues.amount === 0) {
+        toast.warning('Amount must be greater than 0.', {
+          autoClose: 2500,
+        });
+
         return;
       }
-
-      e.preventDefault();
 
       apiCreateNewTransaction(
         {
@@ -76,10 +80,10 @@ export const AddNewTransactionForm = ({
             });
 
             setNewTransactionFormValues({
-              amount: undefined,
+              amount: 0,
               date: formatISO(new Date(), { representation: 'date' }),
-              bankName: undefined,
-              sourceName: undefined,
+              bankName: '',
+              sourceName: '',
             });
 
             handleSuccessSubmit?.();
@@ -116,9 +120,10 @@ export const AddNewTransactionForm = ({
             <label htmlFor="amount">Amount</label>
             <input
               required
-              type="text"
+              type="number"
               name="amount"
               id="amount"
+              min={0}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Amount"
               value={
