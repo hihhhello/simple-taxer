@@ -104,7 +104,7 @@ export const TransactionTable = ({
               <button
                 onClick={handleDeleteAllTransactions}
                 type="button"
-                className="inline-flex items-center rounded bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
+                className="inline-flex items-center rounded bg-white px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
               >
                 Delete all
               </button>
