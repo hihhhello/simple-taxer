@@ -1,18 +1,39 @@
 import { z } from 'zod';
+
 import { publicProcedure, router } from '../trpc';
+import { ZOD_SORTING_ENUM } from '../utils/serverConstants';
 
 export const transactionsRouter = router({
-  getAll: publicProcedure.query(({ ctx }) => {
-    if (!ctx.user) {
-      return;
-    }
+  getAll: publicProcedure
+    .input(
+      z
+        .object({
+          sort: z
+            .object({
+              amount: ZOD_SORTING_ENUM,
+              bankName: ZOD_SORTING_ENUM,
+              sourceName: ZOD_SORTING_ENUM,
+              date: ZOD_SORTING_ENUM,
+            })
+            .optional(),
+        })
+        .optional(),
+    )
+    .query(({ ctx, input }) => {
+      if (!ctx.user) {
+        return;
+      }
 
-    return ctx.prisma.transaction.findMany({
-      where: {
-        userId: ctx.user.id,
-      },
-    });
-  }),
+      return ctx.prisma.transaction.findMany({
+        where: {
+          userId: ctx.user.id,
+        },
+        orderBy: {
+          date: 'desc',
+          ...input?.sort,
+        },
+      });
+    }),
   getOneById: publicProcedure
     .input(
       z.object({

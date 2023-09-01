@@ -16,9 +16,12 @@ export const HomePageContent = ({
   transactions: initialTransactions,
 }: HomePageContentProps) => {
   const { data: transactions, refetch: refetchTransactions } =
-    api.transactions.getAll.useQuery(undefined, {
-      initialData: initialTransactions,
-    });
+    api.transactions.getAll.useQuery(
+      {},
+      {
+        initialData: initialTransactions,
+      },
+    );
 
   const { mutate: apiDeleteTransaction } =
     api.transactions.delete.useMutation();

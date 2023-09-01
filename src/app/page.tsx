@@ -4,7 +4,7 @@ import { HomePageContent } from '@/app/_ui/HomePage';
 export default async function Home() {
   const caller = await createAuthorizedCaller();
 
-  const transactions = await caller.transactions.getAll();
+  const transactions = await caller.transactions.getAll({});
 
   return (
     <>
