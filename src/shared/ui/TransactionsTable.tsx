@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { format } from 'date-fns';
 
-import { classNames } from '@/shared/utils';
+import { classNames, formatToUSDCurrency } from '@/shared/utils';
 import { Transaction } from '@/shared/types';
 
 export type TransactionTableProps = {
@@ -212,7 +212,7 @@ export const TransactionTable = ({
                 </td>
 
                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {transaction.amount}
+                  {formatToUSDCurrency(transaction.amount)}
                 </td>
 
                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">

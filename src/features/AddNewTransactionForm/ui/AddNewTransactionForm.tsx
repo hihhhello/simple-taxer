@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils/addNewTransactionFormTypes';
 import { api } from '@/shared/api';
+import { DollarInput } from '@/shared/ui';
 
 type AddNewTransactionFormProps = {
   handleSuccessSubmit?: () => void;
@@ -15,9 +16,9 @@ export const AddNewTransactionForm = ({
   const [newTransactionFormValues, setNewTransactionFormValues] =
     useState<NewTransactionFormValues>({
       date: formatISO(new Date(), { representation: 'date' }),
-      amount: 0,
-      bankName: '',
-      sourceName: '',
+      amount: null,
+      bankName: undefined,
+      sourceName: undefined,
     });
 
   const {
@@ -39,21 +40,12 @@ export const AddNewTransactionForm = ({
       }));
     };
 
-  const handleChangeTransactionAmount = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const value = Number(event.target.value);
-
-      if (isNaN(value)) {
-        return;
-      }
-
-      setNewTransactionFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        amount: value,
-      }));
-    },
-    [],
-  );
+  const handleChangeTransactionAmount = useCallback((value: number) => {
+    setNewTransactionFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      amount: value,
+    }));
+  }, []);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -118,20 +110,15 @@ export const AddNewTransactionForm = ({
 
           <div>
             <label htmlFor="amount">Amount</label>
-            <input
+            <DollarInput
               required
-              type="number"
               name="amount"
               id="amount"
               min={0}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Amount"
-              value={
-                newTransactionFormValues.amount
-                  ? newTransactionFormValues.amount.toString()
-                  : newTransactionFormValues.amount
-              }
-              onChange={handleChangeTransactionAmount}
+              value={newTransactionFormValues.amount}
+              handleValueChange={handleChangeTransactionAmount}
             />
           </div>
 
@@ -143,7 +130,7 @@ export const AddNewTransactionForm = ({
               id="bankName"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Bank Name"
-              value={newTransactionFormValues.bankName}
+              value={newTransactionFormValues.bankName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('bankName')}
             />
           </div>
@@ -156,7 +143,7 @@ export const AddNewTransactionForm = ({
               id="sourceName"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Source Name"
-              value={newTransactionFormValues.sourceName}
+              value={newTransactionFormValues.sourceName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('sourceName')}
             />
           </div>
