@@ -86,9 +86,37 @@ export const AddNewTransactionForm = ({
     [apiCreateNewTransaction, handleSuccessSubmit, newTransactionFormValues],
   );
 
+  const handleUploadCSV = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+
+      if (!file) {
+        return;
+      }
+
+      if (file && file.type !== 'text/csv') {
+        toast.error('Only CSV files are allowed.');
+
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('csv', file);
+
+      fetch('/api/transactions/upload-csv', { method: 'POST', body: formData })
+        .then((res) => {
+          res.json();
+        })
+        .then(() => {
+          handleSuccessSubmit?.();
+        });
+    },
+    [handleSuccessSubmit],
+  );
+
   return (
     <div className="mb-16">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-4">
           <span className="font-bold text-lg">Add New Transaction</span>
         </div>
@@ -156,6 +184,24 @@ export const AddNewTransactionForm = ({
           {isCreateNewTransactionLoading ? 'Loading...' : 'Add +'}
         </button>
       </form>
+
+      <p className="mb-4">OR</p>
+
+      <div>
+        <label
+          htmlFor="uploadTransactionsCSV"
+          className="cursor-pointer rounded-md bg-white py-1 px-2 text-md font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        >
+          Upload CSV
+        </label>
+        <input
+          onChange={handleUploadCSV}
+          type="file"
+          id="uploadTransactionsCSV"
+          accept=".csv"
+          hidden
+        />
+      </div>
     </div>
   );
 };

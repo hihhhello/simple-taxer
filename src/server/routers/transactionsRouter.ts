@@ -2,6 +2,26 @@ import { z } from 'zod';
 
 import { publicProcedure, router } from '../trpc';
 import { ZOD_SORTING_ENUM } from '../utils/serverConstants';
+import { Prisma } from '@prisma/client';
+
+function parseCSV(csvContent: string) {
+  // Split the CSV content into lines
+  const lines = csvContent.split('\n');
+
+  // Initialize an array to store the parsed data
+  const data = [];
+
+  // Iterate through each line and split it into individual values
+  for (const line of lines) {
+    const values = line.split(',');
+    data.push(values);
+  }
+
+  // Now 'data' contains the parsed CSV data as a 2D array
+  console.log(data);
+
+  // You can further process or display the data as needed
+}
 
 export const transactionsRouter = router({
   getAll: publicProcedure
@@ -74,6 +94,34 @@ export const transactionsRouter = router({
       });
 
       return newTransaction;
+    }),
+  createMany: publicProcedure
+    .input(
+      z.array(
+        z.object({
+          amount: z.number(),
+          bankName: z.string().optional().nullable(),
+          sourceName: z.string().optional().nullable(),
+          date: z.date(),
+        }),
+      ),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.user;
+
+      if (!user) {
+        return;
+      }
+
+      const transactionsWithUser = input.map<Prisma.TransactionCreateManyInput>(
+        (transaction) => ({ ...transaction, userId: user.id }),
+      );
+
+      const newTransactions = await ctx.prisma.transaction.createMany({
+        data: transactionsWithUser,
+      });
+
+      return newTransactions;
     }),
   delete: publicProcedure
     .input(
