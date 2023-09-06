@@ -103,13 +103,12 @@ export const AddNewTransactionForm = ({
       const formData = new FormData();
       formData.append('csv', file);
 
-      fetch('/api/transactions/upload-csv', { method: 'POST', body: formData })
-        .then((res) => {
-          res.json();
-        })
-        .then(() => {
-          handleSuccessSubmit?.();
-        });
+      fetch('/api/transactions/upload-csv', {
+        method: 'POST',
+        body: formData,
+      }).then(() => {
+        handleSuccessSubmit?.();
+      });
     },
     [handleSuccessSubmit],
   );

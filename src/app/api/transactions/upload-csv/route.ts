@@ -1,66 +1,34 @@
-import { createAuthorizedCaller } from '@/server';
 import { NextRequest, NextResponse } from 'next/server';
 import csvParser from 'csv-parser';
 import { Readable } from 'stream';
-import { Transaction } from '@/shared/types';
-import { formatISO, isValid, parse } from 'date-fns';
 
-type ParsedTransaction = {
-  amount: number;
-  bankName: string | null;
-  sourceName: string | null;
-  date: Date;
-};
+import { createAuthorizedCaller } from '@/server';
 
-function parseToDate(dateString: string) {
-  // Array of potential date formats to try
-  const dateFormats = [
-    'MMM dd',
-    'MMMM dd',
-    'yyyy-MM-dd',
-    'MM/dd/yyyy',
-    'M/d/yyyy',
-    'MMMM dd, yyyy',
-  ];
-
-  for (const format of dateFormats) {
-    try {
-      const parsedDate = parse(dateString, format, new Date());
-
-      if (!isValid(parsedDate)) {
-        continue;
-      }
-
-      return parsedDate;
-    } catch (error) {
-      // If parsing fails for a format, continue to the next one
-      continue;
-    }
-  }
-
-  // If none of the formats worked, return null or handle the error accordingly
-  return null;
-}
+import { parseDateStringToDate } from './utils/uploadCSVHelpers';
+import { UploadCSVParsedTransaction } from './utils/uploadCSVTypes';
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
 
-  const csvFile = formData.get('csv') as File;
+  const csvFile = formData.get('csv') as File | null;
+
+  if (!csvFile) {
+    return new Response('No CSV file found in the received FormData.', {
+      status: 400,
+    });
+  }
 
   const csvFileText = await csvFile.text();
 
-  const rows = csvFileText.split('\n');
-  const data = rows.map((row) => row.split(','));
-
   const caller = await createAuthorizedCaller();
 
-  const parsedTransactions = await new Promise<ParsedTransaction[]>(
+  const parsedTransactions = await new Promise<UploadCSVParsedTransaction[]>(
     (resolve, reject) => {
-      const results: ParsedTransaction[] = [];
+      const results: UploadCSVParsedTransaction[] = [];
 
-      const readableStream = Readable.from(csvFileText);
+      const csvFileTextReadableStream = Readable.from(csvFileText);
 
-      readableStream
+      csvFileTextReadableStream
         .pipe(csvParser())
         .on(
           'data',
@@ -80,7 +48,7 @@ export async function POST(request: NextRequest) {
               amount: parseFloat(data.Amount.replace(/[^\d.]/g, '')),
               bankName: data.Bank ?? null,
               sourceName: data.Source ?? null,
-              date: parseToDate(data.Date) ?? new Date(),
+              date: parseDateStringToDate(data.Date) ?? new Date(),
             });
           },
         )
