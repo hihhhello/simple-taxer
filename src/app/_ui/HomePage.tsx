@@ -8,6 +8,7 @@ import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
 import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
+import { parseISO } from 'date-fns';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -28,6 +29,7 @@ export const HomePageContent = ({
     api.transactions.delete.useMutation();
   const { mutate: apiDeleteManyTransactions } =
     api.transactions.deleteMany.useMutation();
+  const { mutate: apiEditTransaction } = api.transactions.edit.useMutation();
 
   const [taxPercent, setTaxPercent] = useState(0);
 
@@ -66,7 +68,7 @@ export const HomePageContent = ({
               setSelectedTransactions([]);
 
               toast.update(toastId, {
-                render: 'Transactions deleted successfully.',
+                render: 'Transactions successfully deleted.',
                 type: 'success',
                 autoClose: 2500,
                 isLoading: false,
@@ -147,6 +149,44 @@ export const HomePageContent = ({
     onSuccess,
   });
 
+  const handleEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
+    useCallback(
+      ({ newValues, transactionId }) => {
+        const toastId = toast.loading('Editing transaction...');
+
+        apiEditTransaction(
+          {
+            newValues: {
+              ...newValues,
+              date: newValues.date ? parseISO(newValues.date) : undefined,
+            },
+            transactionId,
+          },
+          {
+            onSuccess: () => {
+              toast.update(toastId, {
+                render: 'Transactions successfully changed.',
+                type: 'success',
+                autoClose: 2500,
+                isLoading: false,
+              });
+
+              refetchTransactions();
+            },
+            onError: () => {
+              toast.update(toastId, {
+                render: 'Transaction editing error. Try again.',
+                type: 'error',
+                autoClose: 2500,
+                isLoading: false,
+              });
+            },
+          },
+        );
+      },
+      [apiEditTransaction, refetchTransactions],
+    );
+
   return (
     <div>
       <div className="mb-16">
@@ -213,6 +253,7 @@ export const HomePageContent = ({
               handleDeleteAllTransactions={handleDeleteAllTransactions}
               makeHandleDeleteTransaction={makeHandleDeleteTransaction}
               transactionToDeleteId={transactionToDeleteId}
+              handleSubmitEditTransaction={handleEditTransaction}
             />
           </div>
         </div>

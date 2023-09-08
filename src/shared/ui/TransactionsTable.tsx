@@ -3,14 +3,22 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import { format } from 'date-fns';
+import { format, formatISO } from 'date-fns';
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils';
 import { Transaction } from '@/shared/types';
+import { DollarInput } from './DollarInput';
+
+type EditTransactionValues = Partial<
+  Omit<Transaction, 'id' | 'date'> & { date: string }
+>;
 
 export type TransactionTableProps = {
   transactions?: Transaction[];
@@ -20,6 +28,10 @@ export type TransactionTableProps = {
     transactionIds: number[],
     setSelectedTransactions: Dispatch<SetStateAction<Transaction[]>>,
   ) => void;
+  handleSubmitEditTransaction: (params: {
+    transactionId: number;
+    newValues: EditTransactionValues;
+  }) => void;
 };
 
 export const TransactionTable = ({
@@ -27,10 +39,16 @@ export const TransactionTable = ({
   transactionToDeleteId,
   makeHandleDeleteTransaction,
   handleDeleteAllTransactions: propsHandleDeleteAllTransactions,
+  handleSubmitEditTransaction: propsHandleSubmitEditTransaction,
 }: TransactionTableProps) => {
   const [selectedTransactions, setSelectedTransactions] = useState<
     Transaction[]
   >([]);
+  const [transactionToEditId, setTransactionToEditId] = useState<number | null>(
+    null,
+  );
+  const [transactionToEditValues, setTransactionToEditValues] =
+    useState<EditTransactionValues | null>(null);
 
   const makeHandleSelectTransaction =
     (transaction: Transaction) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +116,70 @@ export const TransactionTable = ({
     );
   }, [propsHandleDeleteAllTransactions, selectedTransactions]);
 
+  const makeHandleSelectTransactionToEdit = (transactionId: number) => () =>
+    setTransactionToEditId(transactionId);
+
+  const handleCancelTransactionEdit = useCallback(
+    () => setTransactionToEditId(null),
+    [],
+  );
+
+  const handleSubmitEditTransaction = useCallback(() => {
+    if (!transactionToEditId || !transactionToEditValues) {
+      return;
+    }
+
+    propsHandleSubmitEditTransaction({
+      transactionId: transactionToEditId,
+      newValues: transactionToEditValues,
+    });
+    setTransactionToEditId(null);
+    setTransactionToEditValues(null);
+  }, [
+    propsHandleSubmitEditTransaction,
+    transactionToEditId,
+    transactionToEditValues,
+  ]);
+
+  const makeHandleChangeTransactionToEditValues =
+    (fieldKey: keyof Omit<Transaction, 'id'>) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setTransactionToEditValues((prevTransactionValues) => ({
+        ...prevTransactionValues,
+        [fieldKey]: event.target.value,
+      }));
+    };
+
+  const handleChangeTransactionToEditAmount = useCallback(
+    (value: number) =>
+      setTransactionToEditValues((prevTransactionValues) => ({
+        ...prevTransactionValues,
+        amount: value,
+      })),
+    [],
+  );
+
+  useEffect(() => {
+    const transactionEditingEventListener = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleCancelTransactionEdit();
+
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        handleSubmitEditTransaction();
+
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', transactionEditingEventListener);
+
+    return () =>
+      document.removeEventListener('keydown', transactionEditingEventListener);
+  }, [handleCancelTransactionEdit, handleSubmitEditTransaction]);
+
   return (
     <div className="relative">
       <table className="relative min-w-full divide-y divide-gray-300">
@@ -133,7 +215,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
+              className="pl-4 py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
             >
               Id
             </th>
@@ -167,7 +249,7 @@ export const TransactionTable = ({
             </th>
 
             {makeHandleDeleteTransaction && (
-              <th scope="col" className="py-3.5 pl-3 pr-4 sm:pr-0">
+              <th scope="col" className="py-3.5 pl-3 pr-4">
                 <span className="sr-only">Delete</span>
               </th>
             )}
@@ -203,34 +285,123 @@ export const TransactionTable = ({
                   />
                 </td>
 
-                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                  {transaction.id}
-                </td>
+                {transactionToEditId === transaction.id ? (
+                  <>
+                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                      {transaction.id}
+                    </td>
 
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {format(transaction.date, 'yyyy-MM-dd')}
-                </td>
+                    <td className="whitespace-nowrap text-gray-500">
+                      <input
+                        value={
+                          transactionToEditValues?.date ??
+                          formatISO(transaction.date, {
+                            representation: 'date',
+                          })
+                        }
+                        onChange={makeHandleChangeTransactionToEditValues(
+                          'date',
+                        )}
+                        type="date"
+                        className="text-sm px-3 py-4"
+                      />
+                    </td>
 
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {formatToUSDCurrency(transaction.amount)}
-                </td>
+                    <td className="whitespace-nowrap text-gray-500">
+                      <DollarInput
+                        value={
+                          transactionToEditValues?.amount ??
+                          transaction.amount ??
+                          ''
+                        }
+                        handleValueChange={handleChangeTransactionToEditAmount}
+                        className="text-sm px-3 py-4"
+                      />
+                    </td>
 
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {transaction.bankName ?? '--'}
-                </td>
+                    <td className="whitespace-nowrap text-gray-500">
+                      <input
+                        value={
+                          transactionToEditValues?.bankName ??
+                          transaction.bankName ??
+                          ''
+                        }
+                        placeholder="Bank name"
+                        className="text-sm px-3 py-4"
+                        onChange={makeHandleChangeTransactionToEditValues(
+                          'bankName',
+                        )}
+                      />
+                    </td>
 
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {transaction.sourceName ?? '--'}
-                </td>
+                    <td className="whitespace-nowrap text-gray-500">
+                      <input
+                        value={
+                          transactionToEditValues?.sourceName ??
+                          transaction.sourceName ??
+                          ''
+                        }
+                        placeholder="Source name"
+                        className="text-sm px-3 py-4"
+                        onChange={makeHandleChangeTransactionToEditValues(
+                          'sourceName',
+                        )}
+                      />
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
+                      {transaction.id}
+                    </td>
+
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {format(transaction.date, 'MM-dd-yyyy')}
+                    </td>
+
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {formatToUSDCurrency(transaction.amount)}
+                    </td>
+
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {transaction.bankName ?? '--'}
+                    </td>
+
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {transaction.sourceName ?? '--'}
+                    </td>
+                  </>
+                )}
 
                 {makeHandleDeleteTransaction && (
-                  <td
-                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 pr-4 sm:pr-0 cursor-pointer group"
-                    onClick={makeHandleDeleteTransaction(transaction.id)}
-                  >
-                    <span className="text-red-600 group-hover:text-red-900 font-bold">
-                      Delete
-                    </span>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 pr-4">
+                    <div className="flex gap-2 justify-end">
+                      {transactionToEditId === transaction.id && (
+                        <XCircleIcon
+                          className="w-5 h-5 cursor-pointer text-gray-600 hover:text-gray-900"
+                          onClick={handleCancelTransactionEdit}
+                        />
+                      )}
+
+                      {transactionToEditId === transaction.id ? (
+                        <CheckCircleIcon
+                          className="w-5 h-5 cursor-pointer text-green-600 hover:text-green-900"
+                          onClick={handleSubmitEditTransaction}
+                        />
+                      ) : (
+                        <PencilIcon
+                          className="w-5 h-5 text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                          onClick={makeHandleSelectTransactionToEdit(
+                            transaction.id,
+                          )}
+                        />
+                      )}
+
+                      <TrashIcon
+                        onClick={makeHandleDeleteTransaction(transaction.id)}
+                        className="w-5 h-5 text-red-600 hover:text-red-900 cursor-pointer"
+                      />
+                    </div>
                   </td>
                 )}
               </tr>

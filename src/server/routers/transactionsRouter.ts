@@ -151,4 +151,30 @@ export const transactionsRouter = router({
         },
       });
     }),
+  edit: publicProcedure
+    .input(
+      z.object({
+        newValues: z.object({
+          amount: z.number().optional(),
+          bankName: z.string().optional().nullable(),
+          sourceName: z.string().optional().nullable(),
+          date: z.date().optional(),
+        }),
+        transactionId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.user;
+
+      if (!user) {
+        return;
+      }
+
+      return ctx.prisma.transaction.update({
+        where: {
+          id: input.transactionId,
+        },
+        data: input.newValues,
+      });
+    }),
 });
