@@ -2,7 +2,6 @@
 
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { usePlaidLink } from 'react-plaid-link';
 import { parseISO } from 'date-fns';
 
 import { formatToUSDCurrency } from '@/shared/utils';
@@ -149,34 +148,6 @@ export const HomePageContent = ({
     [transactions],
   );
 
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    const createLinkToken = async () => {
-      const response = await fetch('/api/plaid/create-link-token', {
-        method: 'GET',
-      });
-      const { link_token } = await response.json();
-      setToken(link_token);
-    };
-    createLinkToken();
-  }, []);
-
-  const onSuccess = useCallback(async (publicToken: string) => {
-    await fetch('/api/plaid/exchange-public-token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ public_token: publicToken }),
-    });
-  }, []);
-
-  const { open, ready } = usePlaidLink({
-    token,
-    onSuccess,
-  });
-
   const handleEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
     useCallback(
       ({ newValues, transactionId }) => {
@@ -287,10 +258,6 @@ export const HomePageContent = ({
           </div>
         </div>
       </div>
-
-      <button onClick={() => open()} disabled={!ready}>
-        <strong>Link account</strong>
-      </button>
     </div>
   );
 };
