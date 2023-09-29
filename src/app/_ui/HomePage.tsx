@@ -3,12 +3,13 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { usePlaidLink } from 'react-plaid-link';
+import { parseISO } from 'date-fns';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
 import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
-import { parseISO } from 'date-fns';
+import { useLoadingToast } from '@/shared/utils/hooks';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -17,6 +18,8 @@ type HomePageContentProps = {
 export const HomePageContent = ({
   transactions: initialTransactions,
 }: HomePageContentProps) => {
+  const loadingToast = useLoadingToast();
+
   const { data: transactions, refetch: refetchTransactions } =
     api.transactions.getAll.useQuery(
       {},
@@ -30,6 +33,8 @@ export const HomePageContent = ({
   const { mutate: apiDeleteManyTransactions } =
     api.transactions.deleteMany.useMutation();
   const { mutate: apiEditTransaction } = api.transactions.edit.useMutation();
+  const { mutate: apiDuplicateTransaction } =
+    api.transactions.duplicate.useMutation();
 
   const [taxPercent, setTaxPercent] = useState(0);
 
@@ -57,7 +62,7 @@ export const HomePageContent = ({
   const handleDeleteAllTransactions: TransactionTableProps['handleDeleteAllTransactions'] =
     useCallback(
       (transactionIds, setSelectedTransactions) => {
-        const toastId = toast.loading('Deleting transactions...');
+        const toastId = loadingToast.showLoading('Deleting transactions...');
 
         apiDeleteManyTransactions(
           {
@@ -65,29 +70,24 @@ export const HomePageContent = ({
           },
           {
             onSuccess: () => {
-              setSelectedTransactions([]);
-
-              toast.update(toastId, {
-                render: 'Transactions successfully deleted.',
-                type: 'success',
-                autoClose: 2500,
-                isLoading: false,
+              loadingToast.handleSuccess({
+                message: 'Transactions successfully deleted.',
+                toastId,
               });
+              setSelectedTransactions([]);
 
               refetchTransactions();
             },
             onError: () => {
-              toast.update(toastId, {
-                render: 'Transactions deleting error. Try again.',
-                type: 'error',
-                autoClose: 2500,
-                isLoading: false,
+              loadingToast.handleError({
+                message: 'Transactions deleting error. Try again.',
+                toastId,
               });
             },
           },
         );
       },
-      [apiDeleteManyTransactions, refetchTransactions],
+      [apiDeleteManyTransactions, loadingToast, refetchTransactions],
     );
 
   const handleChangeTaxPercent = useCallback(
@@ -106,6 +106,34 @@ export const HomePageContent = ({
     },
     [],
   );
+
+  const makeHandleDuplicateTransaction = (transactionId: number) => () => {
+    const toastId = loadingToast.showLoading('Duplicating...');
+
+    apiDuplicateTransaction(
+      {
+        transactionId,
+      },
+      {
+        onSuccess: () => {
+          loadingToast.handleSuccess({
+            message: 'Transaction has been duplicated.',
+            toastId,
+          });
+
+          refetchTransactions();
+        },
+
+        onError: () => {
+          loadingToast.handleError({
+            message:
+              'Something gone wrong while duplicating transaction. Try again.',
+            toastId,
+          });
+        },
+      },
+    );
+  };
 
   const totalIncome = useMemo(
     () =>
@@ -252,6 +280,7 @@ export const HomePageContent = ({
               transactions={transactions}
               handleDeleteAllTransactions={handleDeleteAllTransactions}
               makeHandleDeleteTransaction={makeHandleDeleteTransaction}
+              makeHandleDuplicateTransaction={makeHandleDuplicateTransaction}
               transactionToDeleteId={transactionToDeleteId}
               handleSubmitEditTransaction={handleEditTransaction}
             />

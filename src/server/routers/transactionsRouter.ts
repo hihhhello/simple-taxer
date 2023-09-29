@@ -177,4 +177,39 @@ export const transactionsRouter = router({
         data: input.newValues,
       });
     }),
+  duplicate: publicProcedure
+    .input(
+      z.object({
+        transactionId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.user;
+
+      if (!user) {
+        return;
+      }
+
+      const transactionToDuplicate = await ctx.prisma.transaction.findUnique({
+        where: {
+          id: input.transactionId,
+        },
+      });
+
+      if (!transactionToDuplicate) {
+        throw new Error('Transaction to duplicate not found.');
+      }
+
+      const duplicatedTransaction = await ctx.prisma.transaction.create({
+        data: {
+          amount: transactionToDuplicate.amount,
+          date: new Date(),
+          bankName: transactionToDuplicate.bankName,
+          sourceName: transactionToDuplicate.sourceName,
+          userId: transactionToDuplicate.userId,
+        },
+      });
+
+      return duplicatedTransaction;
+    }),
 });

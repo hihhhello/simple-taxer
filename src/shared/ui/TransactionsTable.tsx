@@ -10,7 +10,11 @@ import {
 } from 'react';
 import { format, formatISO } from 'date-fns';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import {
+  CheckCircleIcon,
+  XCircleIcon,
+  DocumentDuplicateIcon,
+} from '@heroicons/react/24/outline';
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils';
 import { Transaction } from '@/shared/types';
@@ -23,7 +27,8 @@ type EditTransactionValues = Partial<
 export type TransactionTableProps = {
   transactions?: Transaction[];
   transactionToDeleteId?: number;
-  makeHandleDeleteTransaction?: (transactionId: number) => () => void;
+  makeHandleDeleteTransaction: (transactionId: number) => () => void;
+  makeHandleDuplicateTransaction: (transactionId: number) => () => void;
   handleDeleteAllTransactions: (
     transactionIds: number[],
     setSelectedTransactions: Dispatch<SetStateAction<Transaction[]>>,
@@ -38,6 +43,7 @@ export const TransactionTable = ({
   transactions,
   transactionToDeleteId,
   makeHandleDeleteTransaction,
+  makeHandleDuplicateTransaction,
   handleDeleteAllTransactions: propsHandleDeleteAllTransactions,
   handleSubmitEditTransaction: propsHandleSubmitEditTransaction,
 }: TransactionTableProps) => {
@@ -248,11 +254,9 @@ export const TransactionTable = ({
               Source Name
             </th>
 
-            {makeHandleDeleteTransaction && (
-              <th scope="col" className="py-3.5 pl-3 pr-4">
-                <span className="sr-only">Delete</span>
-              </th>
-            )}
+            <th scope="col" className="py-3.5 pl-3 pr-4">
+              <span className="sr-only">Delete</span>
+            </th>
           </tr>
         </thead>
 
@@ -373,37 +377,40 @@ export const TransactionTable = ({
                   </>
                 )}
 
-                {makeHandleDeleteTransaction && (
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 pr-4">
-                    <div className="flex gap-2 justify-end">
-                      {transactionToEditId === transaction.id && (
-                        <XCircleIcon
-                          className="w-5 h-5 cursor-pointer text-gray-600 hover:text-gray-900"
-                          onClick={handleCancelTransactionEdit}
-                        />
-                      )}
-
-                      {transactionToEditId === transaction.id ? (
-                        <CheckCircleIcon
-                          className="w-5 h-5 cursor-pointer text-green-600 hover:text-green-900"
-                          onClick={handleSubmitEditTransaction}
-                        />
-                      ) : (
-                        <PencilIcon
-                          className="w-5 h-5 text-indigo-600 hover:text-indigo-900 cursor-pointer"
-                          onClick={makeHandleSelectTransactionToEdit(
-                            transaction.id,
-                          )}
-                        />
-                      )}
-
-                      <TrashIcon
-                        onClick={makeHandleDeleteTransaction(transaction.id)}
-                        className="w-5 h-5 text-red-600 hover:text-red-900 cursor-pointer"
+                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 pr-4">
+                  <div className="flex gap-2 justify-end">
+                    {transactionToEditId === transaction.id && (
+                      <XCircleIcon
+                        className="w-5 h-5 cursor-pointer text-gray-600 hover:text-gray-900"
+                        onClick={handleCancelTransactionEdit}
                       />
-                    </div>
-                  </td>
-                )}
+                    )}
+
+                    {transactionToEditId === transaction.id ? (
+                      <CheckCircleIcon
+                        className="w-5 h-5 cursor-pointer text-green-600 hover:text-green-900"
+                        onClick={handleSubmitEditTransaction}
+                      />
+                    ) : (
+                      <PencilIcon
+                        className="w-5 h-5 text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                        onClick={makeHandleSelectTransactionToEdit(
+                          transaction.id,
+                        )}
+                      />
+                    )}
+
+                    <DocumentDuplicateIcon
+                      onClick={makeHandleDuplicateTransaction(transaction.id)}
+                      className="w-5 h-5 cursor-pointer hover:text-gray-600"
+                    />
+
+                    <TrashIcon
+                      onClick={makeHandleDeleteTransaction(transaction.id)}
+                      className="w-5 h-5 text-red-600 hover:text-red-900 cursor-pointer"
+                    />
+                  </div>
+                </td>
               </tr>
             );
           })}
