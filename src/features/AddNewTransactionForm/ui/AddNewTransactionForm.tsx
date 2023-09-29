@@ -114,7 +114,7 @@ export const AddNewTransactionForm = ({
   );
 
   return (
-    <div className="mb-16">
+    <div>
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-4">
           <span className="font-bold text-lg">Add New Transaction</span>
@@ -178,21 +178,22 @@ export const AddNewTransactionForm = ({
 
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="w-full rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          {isCreateNewTransactionLoading ? 'Loading...' : 'Add +'}
+          {isCreateNewTransactionLoading ? 'Loading...' : 'Add'}
         </button>
       </form>
 
-      <p className="mb-4">OR</p>
+      <p className="mb-4 text-center">OR</p>
 
-      <div>
+      <div className="w-full">
         <label
           htmlFor="uploadTransactionsCSV"
-          className="cursor-pointer rounded-md bg-white py-1 px-2 text-md font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          className="w-full block text-center cursor-pointer rounded-md bg-white py-1 px-2 text-md font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         >
           Upload CSV
         </label>
+
         <input
           onChange={handleUploadCSV}
           type="file"
