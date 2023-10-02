@@ -9,6 +9,8 @@ import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
 import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
+import { TaxCalculator } from '@/features/TaxCalculator';
+import { HomePageTabs } from './_ui/HomePageTabs';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -38,6 +40,10 @@ export const HomePageContent = ({
   const [taxPercent, setTaxPercent] = useState(0);
 
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
+
+  const [currentTab, setCurrentTab] = useState<'transactions' | 'calculator'>(
+    'transactions',
+  );
 
   const makeHandleDeleteTransaction = (transactionId: number) => () => {
     setTransactionToDeleteId(transactionId);
@@ -188,7 +194,7 @@ export const HomePageContent = ({
 
   return (
     <div>
-      <div className="mb-16">
+      <div className="mb-4">
         <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
             <dt className="truncate text-sm font-medium text-gray-500">
@@ -236,28 +242,54 @@ export const HomePageContent = ({
         </dl>
       </div>
 
-      <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
-        <AddNewTransactionForm handleSuccessSubmit={refetchTransactions} />
+      <HomePageTabs
+        currentTab={currentTab}
+        handleSelectTab={setCurrentTab}
+        className="mb-4"
+      />
 
-        <div className="col-span-2">
-          <div className="sm:flex-auto mb-4">
-            <h1 className="text-lg font-bold leading-6 text-gray-900">
-              Transactions
-            </h1>
-          </div>
+      {(() => {
+        if (currentTab === 'transactions') {
+          return (
+            <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
+              <AddNewTransactionForm
+                handleSuccessSubmit={refetchTransactions}
+              />
 
-          <div className="min-h-[calc(100vh/3)] max-h-[calc(100vh/2)] overflow-y-auto">
-            <TransactionTable
-              transactions={transactions}
-              handleDeleteAllTransactions={handleDeleteAllTransactions}
-              makeHandleDeleteTransaction={makeHandleDeleteTransaction}
-              makeHandleDuplicateTransaction={makeHandleDuplicateTransaction}
-              transactionToDeleteId={transactionToDeleteId}
-              handleSubmitEditTransaction={handleEditTransaction}
-            />
-          </div>
-        </div>
-      </div>
+              <div className="col-span-2">
+                <div className="mb-4 sm:flex-auto">
+                  <h1 className="text-lg font-bold leading-6 text-gray-900">
+                    Transactions
+                  </h1>
+                </div>
+
+                <div className="max-h-[calc(100vh/3)] overflow-y-auto">
+                  <TransactionTable
+                    transactions={transactions}
+                    handleDeleteAllTransactions={handleDeleteAllTransactions}
+                    makeHandleDeleteTransaction={makeHandleDeleteTransaction}
+                    makeHandleDuplicateTransaction={
+                      makeHandleDuplicateTransaction
+                    }
+                    transactionToDeleteId={transactionToDeleteId}
+                    handleSubmitEditTransaction={handleEditTransaction}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        if (currentTab === 'calculator') {
+          return (
+            <div>
+              <TaxCalculator totalIncome={totalIncome} />
+            </div>
+          );
+        }
+
+        return null;
+      })()}
     </div>
   );
 };

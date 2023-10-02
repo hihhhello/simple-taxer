@@ -117,10 +117,10 @@ export const AddNewTransactionForm = ({
     <div>
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-4">
-          <span className="font-bold text-lg">Add New Transaction</span>
+          <span className="text-lg font-bold">Add New Transaction</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="date">Date</label>
             <input
@@ -189,7 +189,7 @@ export const AddNewTransactionForm = ({
       <div className="w-full">
         <label
           htmlFor="uploadTransactionsCSV"
-          className="w-full block text-center cursor-pointer rounded-md bg-white py-1 px-2 text-md font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          className="text-md block w-full cursor-pointer rounded-md bg-white px-2 py-1 text-center font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         >
           Upload CSV
         </label>

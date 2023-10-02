@@ -1,5 +1,5 @@
 import { createAuthorizedCaller } from '@/server';
-import { HomePageContent } from '@/app/_ui/HomePage';
+import { HomePageContent } from '@/app/_ui/HomePage/HomePage';
 
 export default async function Home() {
   const caller = await createAuthorizedCaller();

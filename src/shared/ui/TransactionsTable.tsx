@@ -189,7 +189,7 @@ export const TransactionTable = ({
   return (
     <div className="relative">
       <table className="relative min-w-full divide-y divide-gray-300">
-        <thead className="sticky bg-white top-0 z-10">
+        <thead className="sticky top-0 z-10 bg-white">
           {selectedTransactions.length > 0 && (
             <div className="absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 bg-white sm:left-12">
               <button
@@ -211,7 +211,7 @@ export const TransactionTable = ({
                 className={classNames(
                   'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600',
                   areTransactionsEmpty
-                    ? 'opacity-50 cursor-not-allowed'
+                    ? 'cursor-not-allowed opacity-50'
                     : 'cursor-pointer',
                 )}
                 checked={isBulkCheckboxChecked}
@@ -221,7 +221,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="pl-4 py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
+              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900"
             >
               Id
             </th>
@@ -307,7 +307,7 @@ export const TransactionTable = ({
                           'date',
                         )}
                         type="date"
-                        className="text-sm px-3 py-4"
+                        className="px-3 py-4 text-sm"
                       />
                     </td>
 
@@ -319,7 +319,7 @@ export const TransactionTable = ({
                           ''
                         }
                         handleValueChange={handleChangeTransactionToEditAmount}
-                        className="text-sm px-3 py-4"
+                        className="px-3 py-4 text-sm"
                       />
                     </td>
 
@@ -331,7 +331,7 @@ export const TransactionTable = ({
                           ''
                         }
                         placeholder="Bank name"
-                        className="text-sm px-3 py-4"
+                        className="px-3 py-4 text-sm"
                         onChange={makeHandleChangeTransactionToEditValues(
                           'bankName',
                         )}
@@ -346,7 +346,7 @@ export const TransactionTable = ({
                           ''
                         }
                         placeholder="Source name"
-                        className="text-sm px-3 py-4"
+                        className="px-3 py-4 text-sm"
                         onChange={makeHandleChangeTransactionToEditValues(
                           'sourceName',
                         )}
@@ -377,23 +377,23 @@ export const TransactionTable = ({
                   </>
                 )}
 
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 pr-4">
-                  <div className="flex gap-2 justify-end">
+                <td className="whitespace-nowrap px-3 py-4 pr-4 text-sm text-gray-500">
+                  <div className="flex justify-end gap-2">
                     {transactionToEditId === transaction.id && (
                       <XCircleIcon
-                        className="w-5 h-5 cursor-pointer text-gray-600 hover:text-gray-900"
+                        className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900"
                         onClick={handleCancelTransactionEdit}
                       />
                     )}
 
                     {transactionToEditId === transaction.id ? (
                       <CheckCircleIcon
-                        className="w-5 h-5 cursor-pointer text-green-600 hover:text-green-900"
+                        className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900"
                         onClick={handleSubmitEditTransaction}
                       />
                     ) : (
                       <PencilIcon
-                        className="w-5 h-5 text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                        className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900"
                         onClick={makeHandleSelectTransactionToEdit(
                           transaction.id,
                         )}
@@ -402,12 +402,12 @@ export const TransactionTable = ({
 
                     <DocumentDuplicateIcon
                       onClick={makeHandleDuplicateTransaction(transaction.id)}
-                      className="w-5 h-5 cursor-pointer hover:text-gray-600"
+                      className="h-5 w-5 cursor-pointer hover:text-gray-600"
                     />
 
                     <TrashIcon
                       onClick={makeHandleDeleteTransaction(transaction.id)}
-                      className="w-5 h-5 text-red-600 hover:text-red-900 cursor-pointer"
+                      className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900"
                     />
                   </div>
                 </td>

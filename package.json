@@ -43,7 +43,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.199",
     "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "prisma": "^5.1.1"
   }
 }

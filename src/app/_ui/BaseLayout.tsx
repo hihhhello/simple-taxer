@@ -11,7 +11,7 @@ export const BaseLayout = ({ children }: BaseLayoutProps) => {
     <div className="min-h-full">
       <Topbar />
 
-      <div className="py-10 px-4 sm:px-0">
+      <div className="px-4 pt-10 sm:px-0">
         <main>
           <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{children}</div>
         </main>

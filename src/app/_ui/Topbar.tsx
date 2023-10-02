@@ -36,7 +36,7 @@ export const Topbar = () => {
                           width={32}
                         />
                       ) : (
-                        <div className="h-8 w-8 bg-slate-200 animate-pulse rounded-full"></div>
+                        <div className="h-8 w-8 animate-pulse rounded-full bg-slate-200"></div>
                       )}
                     </Menu.Button>
                   </div>
@@ -53,7 +53,7 @@ export const Topbar = () => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {session.data?.user?.name && (
                         <Menu.Item>
-                          <p className="font-semibold text-sm px-4 py-2 text-center border-b-2">
+                          <p className="border-b-2 px-4 py-2 text-center text-sm font-semibold">
                             {session.data?.user?.name}
                           </p>
                         </Menu.Item>
@@ -65,7 +65,7 @@ export const Topbar = () => {
                             onClick={handleSignOut}
                             className={classNames(
                               active && 'bg-gray-100',
-                              'block px-4 py-2 text-sm text-left w-full text-gray-700',
+                              'block w-full px-4 py-2 text-left text-sm text-gray-700',
                             )}
                           >
                             Sign out
