@@ -22,6 +22,111 @@ const MARRIED_FILERS_TAX_BRACKETS_2023 = [
   { rate: 0.37, lower: 693750, upper: Number.POSITIVE_INFINITY },
 ];
 
+const US_STATES = [
+  { key: 'AL', name: 'Alabama' },
+  { key: 'AK', name: 'Alaska' },
+  { key: 'AZ', name: 'Arizona' },
+  { key: 'AR', name: 'Arkansas' },
+  { key: 'CA', name: 'California' },
+  { key: 'CO', name: 'Colorado' },
+  { key: 'CT', name: 'Connecticut' },
+  { key: 'DE', name: 'Delaware' },
+  { key: 'FL', name: 'Florida' },
+  { key: 'GA', name: 'Georgia' },
+  { key: 'HI', name: 'Hawaii' },
+  { key: 'ID', name: 'Idaho' },
+  { key: 'IL', name: 'Illinois' },
+  { key: 'IN', name: 'Indiana' },
+  { key: 'IA', name: 'Iowa' },
+  { key: 'KS', name: 'Kansas' },
+  { key: 'KY', name: 'Kentucky' },
+  { key: 'LA', name: 'Louisiana' },
+  { key: 'ME', name: 'Maine' },
+  { key: 'MD', name: 'Maryland' },
+  { key: 'MA', name: 'Massachusetts' },
+  { key: 'MI', name: 'Michigan' },
+  { key: 'MN', name: 'Minnesota' },
+  { key: 'MS', name: 'Mississippi' },
+  { key: 'MO', name: 'Missouri' },
+  { key: 'MT', name: 'Montana' },
+  { key: 'NE', name: 'Nebraska' },
+  { key: 'NV', name: 'Nevada' },
+  { key: 'NH', name: 'New Hampshire' },
+  { key: 'NJ', name: 'New Jersey' },
+  { key: 'NM', name: 'New Mexico' },
+  { key: 'NY', name: 'New York' },
+  { key: 'NC', name: 'North Carolina' },
+  { key: 'ND', name: 'North Dakota' },
+  { key: 'OH', name: 'Ohio' },
+  { key: 'OK', name: 'Oklahoma' },
+  { key: 'OR', name: 'Oregon' },
+  { key: 'PA', name: 'Pennsylvania' },
+  { key: 'RI', name: 'Rhode Island' },
+  { key: 'SC', name: 'South Carolina' },
+  { key: 'SD', name: 'South Dakota' },
+  { key: 'TN', name: 'Tennessee' },
+  { key: 'TX', name: 'Texas' },
+  { key: 'UT', name: 'Utah' },
+  { key: 'VT', name: 'Vermont' },
+  { key: 'VA', name: 'Virginia' },
+  { key: 'WA', name: 'Washington' },
+  { key: 'WV', name: 'West Virginia' },
+  { key: 'WI', name: 'Wisconsin' },
+  { key: 'WY', name: 'Wyoming' },
+  { key: 'DC', name: 'District of Columbia' },
+] as const;
+
+const US_STATES_WITH_NO_INCOME_TAX = ['AL', 'FL', 'NV', 'SD', 'TN', 'TX', 'WY'];
+
+const US_STATES_WITH_FLAT_INCOME_TAX = [
+  'AZ',
+  'CO',
+  'ID',
+  'IL',
+  'IN',
+  'KY',
+  'MI',
+  'MS',
+  'NH',
+  'NC',
+  'PA',
+  'UT',
+  'WA',
+];
+
+const US_STATES_WITH_GRADUATED_INCOME_TAX = [
+  'AL',
+  'AR',
+  'CA',
+  'CT',
+  'DE',
+  'GA',
+  'HI',
+  'IA',
+  'KS',
+  'LA',
+  'ME',
+  'MD',
+  'MA',
+  'MN',
+  'MO',
+  'MT',
+  'NE',
+  'NJ',
+  'NM',
+  'NY',
+  'ND',
+  'OH',
+  'OK',
+  'OR',
+  'RI',
+  'SC',
+  'VT',
+  'WV',
+  'WI',
+  '',
+];
+
 const STANDARD_DEDUCTION_2023 = {
   single: 13850,
   married: 27700,
@@ -37,6 +142,9 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
     'single',
   );
   const [householdIncome, setHouseholdIncome] = useState<number | null>(null);
+  const [taxState, setTaxState] = useState<(typeof US_STATES)[number] | null>(
+    null,
+  );
 
   const calculateTax = (income: number, brackets: any[]): number => {
     const { tax } = brackets.reduce(
@@ -69,7 +177,7 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
 
   return (
     <div>
-      <div className="mx-auto w-full max-w-xs">
+      <div className="mx-auto w-full max-w-md">
         <div className="isolate -space-y-px rounded-md shadow-sm">
           <div className="relative rounded-md rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
             <div className="flex w-full items-center justify-between">
@@ -100,27 +208,53 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
             />
           </div>
 
-          <div className="relative rounded-md rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-            <label
-              htmlFor="job-title"
-              className="block text-xs font-medium text-gray-900"
-            >
-              Filing Status
-            </label>
+          <div className="flex">
+            <div className="relative flex-1 rounded-md rounded-r-none rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
+              <label
+                htmlFor="job-title"
+                className="block text-xs font-medium text-gray-900"
+              >
+                Filing Status
+              </label>
 
-            <select
-              id="filingStatus"
-              name="filingStatus"
-              autoComplete="country-name"
-              className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-              value={filingStatus}
-              onChange={(e) =>
-                setFilingStatus(e.target.value as typeof filingStatus)
-              }
-            >
-              <option value="single">Single</option>
-              <option value="married">Married</option>
-            </select>
+              <select
+                id="filingStatus"
+                name="filingStatus"
+                className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                value={filingStatus}
+                onChange={(e) =>
+                  setFilingStatus(e.target.value as typeof filingStatus)
+                }
+              >
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+              </select>
+            </div>
+
+            <div className="relative flex-1 rounded-md rounded-l-none rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
+              <label
+                htmlFor="job-title"
+                className="block text-xs font-medium text-gray-900"
+              >
+                State
+              </label>
+
+              <select
+                id="taxState"
+                name="taxState"
+                className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                value={filingStatus}
+                onChange={(e) =>
+                  setFilingStatus(e.target.value as typeof filingStatus)
+                }
+              >
+                {US_STATES.map(({ key, name }) => (
+                  <option key={key} value={key}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
