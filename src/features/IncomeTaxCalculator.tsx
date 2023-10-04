@@ -5,11 +5,13 @@ import { formatToUSDCurrency } from '@/shared/utils';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 import { isNil } from 'lodash';
 
-type TaxCalculatorProps = {
+type IncomeTaxCalculatorProps = {
   totalIncome: number;
 };
 
-export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
+export const IncomeTaxCalculator = ({
+  totalIncome,
+}: IncomeTaxCalculatorProps) => {
   const [filingStatus, setFilingStatus] = useState<'single' | 'married'>(
     'single',
   );

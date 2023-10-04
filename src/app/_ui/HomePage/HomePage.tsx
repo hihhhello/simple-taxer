@@ -9,7 +9,7 @@ import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
 import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
-import { TaxCalculator } from '@/features/TaxCalculator';
+import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabs } from './_ui/HomePageTabs';
 
 type HomePageContentProps = {
@@ -283,7 +283,7 @@ export const HomePageContent = ({
         if (currentTab === 'calculator') {
           return (
             <div>
-              <TaxCalculator totalIncome={totalIncome} />
+              <IncomeTaxCalculator totalIncome={totalIncome} />
             </div>
           );
         }
