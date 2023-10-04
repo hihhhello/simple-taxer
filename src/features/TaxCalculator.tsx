@@ -1,137 +1,8 @@
+import { useMemo, useState } from 'react';
+
 import { DollarInput } from '@/shared/ui';
 import { formatToUSDCurrency } from '@/shared/utils';
-import { useState } from 'react';
-
-const SINGLE_FILERS_TAX_BRACKETS_2023 = [
-  { rate: 0.1, lower: 0, upper: 11000 },
-  { rate: 0.12, lower: 11000, upper: 44725 },
-  { rate: 0.22, lower: 44725, upper: 95375 },
-  { rate: 0.24, lower: 95375, upper: 182100 },
-  { rate: 0.32, lower: 182100, upper: 231250 },
-  { rate: 0.35, lower: 231250, upper: 578125 },
-  { rate: 0.37, lower: 578125, upper: Number.POSITIVE_INFINITY },
-];
-
-const MARRIED_FILERS_TAX_BRACKETS_2023 = [
-  { rate: 0.1, lower: 0, upper: 22000 },
-  { rate: 0.12, lower: 22000, upper: 89450 },
-  { rate: 0.22, lower: 89450, upper: 190750 },
-  { rate: 0.24, lower: 190750, upper: 364200 },
-  { rate: 0.32, lower: 364200, upper: 462500 },
-  { rate: 0.35, lower: 462500, upper: 693750 },
-  { rate: 0.37, lower: 693750, upper: Number.POSITIVE_INFINITY },
-];
-
-const US_STATES = [
-  { key: 'AL', name: 'Alabama' },
-  { key: 'AK', name: 'Alaska' },
-  { key: 'AZ', name: 'Arizona' },
-  { key: 'AR', name: 'Arkansas' },
-  { key: 'CA', name: 'California' },
-  { key: 'CO', name: 'Colorado' },
-  { key: 'CT', name: 'Connecticut' },
-  { key: 'DE', name: 'Delaware' },
-  { key: 'FL', name: 'Florida' },
-  { key: 'GA', name: 'Georgia' },
-  { key: 'HI', name: 'Hawaii' },
-  { key: 'ID', name: 'Idaho' },
-  { key: 'IL', name: 'Illinois' },
-  { key: 'IN', name: 'Indiana' },
-  { key: 'IA', name: 'Iowa' },
-  { key: 'KS', name: 'Kansas' },
-  { key: 'KY', name: 'Kentucky' },
-  { key: 'LA', name: 'Louisiana' },
-  { key: 'ME', name: 'Maine' },
-  { key: 'MD', name: 'Maryland' },
-  { key: 'MA', name: 'Massachusetts' },
-  { key: 'MI', name: 'Michigan' },
-  { key: 'MN', name: 'Minnesota' },
-  { key: 'MS', name: 'Mississippi' },
-  { key: 'MO', name: 'Missouri' },
-  { key: 'MT', name: 'Montana' },
-  { key: 'NE', name: 'Nebraska' },
-  { key: 'NV', name: 'Nevada' },
-  { key: 'NH', name: 'New Hampshire' },
-  { key: 'NJ', name: 'New Jersey' },
-  { key: 'NM', name: 'New Mexico' },
-  { key: 'NY', name: 'New York' },
-  { key: 'NC', name: 'North Carolina' },
-  { key: 'ND', name: 'North Dakota' },
-  { key: 'OH', name: 'Ohio' },
-  { key: 'OK', name: 'Oklahoma' },
-  { key: 'OR', name: 'Oregon' },
-  { key: 'PA', name: 'Pennsylvania' },
-  { key: 'RI', name: 'Rhode Island' },
-  { key: 'SC', name: 'South Carolina' },
-  { key: 'SD', name: 'South Dakota' },
-  { key: 'TN', name: 'Tennessee' },
-  { key: 'TX', name: 'Texas' },
-  { key: 'UT', name: 'Utah' },
-  { key: 'VT', name: 'Vermont' },
-  { key: 'VA', name: 'Virginia' },
-  { key: 'WA', name: 'Washington' },
-  { key: 'WV', name: 'West Virginia' },
-  { key: 'WI', name: 'Wisconsin' },
-  { key: 'WY', name: 'Wyoming' },
-  { key: 'DC', name: 'District of Columbia' },
-] as const;
-
-const US_STATES_WITH_NO_INCOME_TAX = ['AL', 'FL', 'NV', 'SD', 'TN', 'TX', 'WY'];
-
-const US_STATES_WITH_FLAT_INCOME_TAX = [
-  'AZ',
-  'CO',
-  'ID',
-  'IL',
-  'IN',
-  'KY',
-  'MI',
-  'MS',
-  'NH',
-  'NC',
-  'PA',
-  'UT',
-  'WA',
-];
-
-const US_STATES_WITH_GRADUATED_INCOME_TAX = [
-  'AL',
-  'AR',
-  'CA',
-  'CT',
-  'DE',
-  'GA',
-  'HI',
-  'IA',
-  'KS',
-  'LA',
-  'ME',
-  'MD',
-  'MA',
-  'MN',
-  'MO',
-  'MT',
-  'NE',
-  'NJ',
-  'NM',
-  'NY',
-  'ND',
-  'OH',
-  'OK',
-  'OR',
-  'RI',
-  'SC',
-  'VT',
-  'WV',
-  'WI',
-  '',
-];
-
-const STANDARD_DEDUCTION_2023 = {
-  single: 13850,
-  married: 27700,
-  head: 20800,
-};
+import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 
 type TaxCalculatorProps = {
   totalIncome: number;
@@ -142,11 +13,9 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
     'single',
   );
   const [householdIncome, setHouseholdIncome] = useState<number | null>(null);
-  const [taxState, setTaxState] = useState<(typeof US_STATES)[number] | null>(
-    null,
-  );
+  const [taxStateKey, setTaxStateKey] = useState<string | null>(null);
 
-  const calculateTax = (income: number, brackets: any[]): number => {
+  const calculateFederalTax = (income: number, brackets: any[]): number => {
     const { tax } = brackets.reduce(
       (acc, bracket) => {
         if (acc.remainingIncome <= bracket.lower) return acc;
@@ -166,14 +35,40 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
     return tax;
   };
 
-  const filingBrackets =
+  const federalFilingBrackets =
     filingStatus === 'single'
-      ? SINGLE_FILERS_TAX_BRACKETS_2023
-      : MARRIED_FILERS_TAX_BRACKETS_2023;
+      ? usIncomeTaxes2023.federalSingleFilersIncomeTaxBrackets
+      : usIncomeTaxes2023.federalMarriedFilersIncomeTaxBrackets;
 
-  const tax = householdIncome
-    ? calculateTax(householdIncome, filingBrackets)
+  const federalTax = householdIncome
+    ? calculateFederalTax(householdIncome, federalFilingBrackets)
     : undefined;
+
+  const stateTax = useMemo(() => {
+    if (!householdIncome || !taxStateKey) {
+      return;
+    }
+
+    const taxState = usIncomeTaxes2023.stateIncomeTaxesByStates.find(
+      ({ key }) => key === taxStateKey,
+    );
+
+    if (!taxState) {
+      return;
+    }
+
+    const taxBracket = taxState.brackets[filingStatus].find(
+      ({ lower, upper }) =>
+        householdIncome > lower &&
+        householdIncome <= (upper ?? Number.POSITIVE_INFINITY),
+    );
+
+    if (!taxBracket) {
+      return;
+    }
+
+    return householdIncome * taxBracket.rate;
+  }, [filingStatus, householdIncome, taxStateKey]);
 
   return (
     <div>
@@ -243,63 +138,90 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
                 id="taxState"
                 name="taxState"
                 className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                value={filingStatus}
+                value={taxStateKey ?? ''}
                 onChange={(e) =>
-                  setFilingStatus(e.target.value as typeof filingStatus)
+                  setTaxStateKey(e.target.value as typeof taxStateKey)
                 }
               >
-                {US_STATES.map(({ key, name }) => (
-                  <option key={key} value={key}>
-                    {name}
-                  </option>
-                ))}
+                <option value="">Select state</option>
+
+                {usIncomeTaxes2023.stateIncomeTaxesByStates.map(
+                  ({ key, name }) => (
+                    <option key={key} value={key}>
+                      {name}
+                    </option>
+                  ),
+                )}
               </select>
             </div>
           </div>
         </div>
       </div>
 
-      {tax && householdIncome && (
+      {federalTax && householdIncome && (
         <>
           <p>
-            <span>{formatToUSDCurrency(tax)}</span> <span>=</span>{' '}
+            <span>Federal tax: {formatToUSDCurrency(federalTax)}</span>{' '}
+            <span>=</span>{' '}
             <span>
-              {Math.round((tax * 100) / householdIncome)}% from household income
+              {((federalTax * 100) / householdIncome).toFixed(2)}% from
+              household income
             </span>
           </p>
 
+          {stateTax && (
+            <p>
+              <span>State tax: {formatToUSDCurrency(stateTax)}</span>{' '}
+              <span>=</span>{' '}
+              <span>
+                {(stateTax * 100) / householdIncome}% from household income
+              </span>
+            </p>
+          )}
+
           <div className="flex flex-wrap gap-4">
-            {filingBrackets.map(({ rate, upper, lower }, index) => (
-              <div key={rate}>
-                <span>{rate * 100}%</span>
+            {federalFilingBrackets.map(
+              ({ rate, upper: bracketUpper, lower }, index) => {
+                const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
 
-                <div
-                  style={{
-                    width: BASE_BRACKET_WIDTH * (index + 1),
-                  }}
-                  className="relative h-[90px] ring-1"
-                >
-                  <div
-                    style={{
-                      width:
-                        householdIncome > upper ||
-                        (householdIncome <= upper && householdIncome > lower)
-                          ? `${Math.min(100, (householdIncome / upper) * 100)}%`
-                          : 0,
-                    }}
-                    className={`absolute left-0 top-0 h-full bg-red-500`}
-                  >
-                    {householdIncome <= upper && householdIncome > lower && (
-                      <span className="absolute -right-1/2 top-1/2 -translate-y-1/2">
-                        {formatToUSDCurrency(householdIncome)}
-                      </span>
-                    )}
+                return (
+                  <div key={rate}>
+                    <span>{rate * 100}%</span>
+
+                    <div
+                      style={{
+                        width: BASE_BRACKET_WIDTH * (index + 1),
+                      }}
+                      className="relative h-[90px] ring-1"
+                    >
+                      <div
+                        style={{
+                          width:
+                            householdIncome > upper ||
+                            (householdIncome <= upper &&
+                              householdIncome > lower)
+                              ? `${Math.min(
+                                  100,
+                                  (householdIncome / upper) * 100,
+                                )}%`
+                              : 0,
+                        }}
+                        className={`absolute left-0 top-0 h-full bg-red-500`}
+                      >
+                        {householdIncome <= upper &&
+                          householdIncome > lower && (
+                            <span className="absolute -right-1/2 top-1/2 -translate-y-1/2">
+                              {formatToUSDCurrency(householdIncome)}
+                            </span>
+                          )}
+                      </div>
+                    </div>
+
+                    <p className="text-right">{formatToUSDCurrency(upper)}</p>
                   </div>
-                </div>
-
-                <p className="text-right">{formatToUSDCurrency(upper)}</p>
-              </div>
-            ))}
+                );
+              },
+            )}
           </div>
         </>
       )}

@@ -1,0 +1,859 @@
+{
+  "stateIncomeTaxesByStates": [
+    {
+      "key": "AL",
+      "name": "Alabama",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.02, "lower": 0, "upper": 500 },
+          { "rate": 0.04, "lower": 500, "upper": 3000 },
+          { "rate": 0.05, "lower": 3000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.02, "lower": 0, "upper": 1000 },
+          { "rate": 0.04, "lower": 1000, "upper": 6000 },
+          { "rate": 0.05, "lower": 6000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "AK",
+      "name": "Alaska",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "AZ",
+      "name": "Arizona",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.025, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.025, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "AR",
+      "name": "Arkansas",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.02, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.02, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "CA",
+      "name": "California",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.01, "lower": 0, "upper": 10099 },
+          { "rate": 0.02, "lower": 10099, "upper": 23942 },
+          { "rate": 0.04, "lower": 23942, "upper": 37788 },
+          { "rate": 0.06, "lower": 37788, "upper": 52455 },
+          { "rate": 0.08, "lower": 52455, "upper": 66295 },
+          { "rate": 0.093, "lower": 66295, "upper": 338639 },
+          { "rate": 0.103, "lower": 338639, "upper": 406364 },
+          { "rate": 0.113, "lower": 406364, "upper": 677275 },
+          { "rate": 0.123, "lower": 677275, "upper": 1000000 },
+          { "rate": 0.133, "lower": 1000000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.01, "lower": 0, "upper": 20198 },
+          { "rate": 0.02, "lower": 20198, "upper": 47884 },
+          { "rate": 0.04, "lower": 47884, "upper": 75576 },
+          { "rate": 0.06, "lower": 75576, "upper": 104910 },
+          { "rate": 0.08, "lower": 104910, "upper": 132590 },
+          { "rate": 0.093, "lower": 132590, "upper": 677278 },
+          { "rate": 0.103, "lower": 677278, "upper": 812278 },
+          { "rate": 0.113, "lower": 812278, "upper": 1000000 },
+          { "rate": 0.123, "lower": 1000000, "upper": 1354550 },
+          { "rate": 0.133, "lower": 1354550, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "CO",
+      "name": "Colorado",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.044, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.044, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "CT",
+      "name": "Connecticut",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.03, "lower": 0, "upper": 10000 },
+          { "rate": 0.05, "lower": 10000, "upper": 50000 },
+          { "rate": 0.055, "lower": 50000, "upper": 100000 },
+          { "rate": 0.06, "lower": 100000, "upper": 200000 },
+          { "rate": 0.065, "lower": 200000, "upper": 250000 },
+          { "rate": 0.069, "lower": 250000, "upper": 500000 },
+          { "rate": 0.0699, "lower": 500000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.03, "lower": 0, "upper": 20000 },
+          { "rate": 0.05, "lower": 20000, "upper": 100000 },
+          { "rate": 0.055, "lower": 100000, "upper": 200000 },
+          { "rate": 0.06, "lower": 200000, "upper": 400000 },
+          { "rate": 0.065, "lower": 400000, "upper": 500000 },
+          { "rate": 0.069, "lower": 500000, "upper": 1000000 },
+          { "rate": 0.0699, "lower": 1000000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "DE",
+      "name": "Delaware",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.022, "lower": 2000, "upper": 5000 },
+          { "rate": 0.039, "lower": 5000, "upper": 10000 },
+          { "rate": 0.048, "lower": 10000, "upper": 20000 },
+          { "rate": 0.052, "lower": 20000, "upper": 25000 },
+          { "rate": 0.0555, "lower": 25000, "upper": 60000 },
+          { "rate": 0.066, "lower": 60000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.022, "lower": 2000, "upper": 5000 },
+          { "rate": 0.039, "lower": 5000, "upper": 10000 },
+          { "rate": 0.048, "lower": 10000, "upper": 20000 },
+          { "rate": 0.052, "lower": 20000, "upper": 25000 },
+          { "rate": 0.0555, "lower": 25000, "upper": 60000 },
+          { "rate": 0.066, "lower": 60000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "FL",
+      "name": "Florida",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "GA",
+      "name": "Georgia",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.01, "lower": 0, "upper": 750 },
+          { "rate": 0.02, "lower": 750, "upper": 2250 },
+          { "rate": 0.03, "lower": 2250, "upper": 3750 },
+          { "rate": 0.04, "lower": 3750, "upper": 5250 },
+          { "rate": 0.05, "lower": 5250, "upper": 7000 },
+          { "rate": 0.0575, "lower": 7000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.01, "lower": 0, "upper": 1000 },
+          { "rate": 0.02, "lower": 1000, "upper": 3000 },
+          { "rate": 0.03, "lower": 3000, "upper": 5000 },
+          { "rate": 0.04, "lower": 5000, "upper": 7000 },
+          { "rate": 0.05, "lower": 7000, "upper": 10000 },
+          { "rate": 0.0575, "lower": 10000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "HI",
+      "name": "Hawaii",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.014, "lower": 0, "upper": 2400 },
+          { "rate": 0.032, "lower": 2400, "upper": 4800 },
+          { "rate": 0.055, "lower": 4800, "upper": 9600 },
+          { "rate": 0.064, "lower": 9600, "upper": 14400 },
+          { "rate": 0.068, "lower": 14400, "upper": 19200 },
+          { "rate": 0.072, "lower": 19200, "upper": 24000 },
+          { "rate": 0.076, "lower": 24000, "upper": 36000 },
+          { "rate": 0.079, "lower": 36000, "upper": 48000 },
+          { "rate": 0.0825, "lower": 48000, "upper": 150000 },
+          { "rate": 0.09, "lower": 150000, "upper": 175000 },
+          { "rate": 0.1, "lower": 175000, "upper": 200000 },
+          { "rate": 0.11, "lower": 200000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.014, "lower": 0, "upper": 4800 },
+          { "rate": 0.032, "lower": 4800, "upper": 9600 },
+          { "rate": 0.055, "lower": 9600, "upper": 19200 },
+          { "rate": 0.064, "lower": 19200, "upper": 28800 },
+          { "rate": 0.068, "lower": 28800, "upper": 38400 },
+          { "rate": 0.072, "lower": 38400, "upper": 48000 },
+          { "rate": 0.076, "lower": 48000, "upper": 72000 },
+          { "rate": 0.079, "lower": 72000, "upper": 96000 },
+          { "rate": 0.0825, "lower": 96000, "upper": 300000 },
+          { "rate": 0.09, "lower": 300000, "upper": 350000 },
+          { "rate": 0.1, "lower": 35000, "upper": 400000 },
+          { "rate": 0.11, "lower": 400000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "ID",
+      "name": "Idaho",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.058, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.058, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "IL",
+      "name": "Illinois",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0495, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0495, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "IN",
+      "name": "Indiana",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0315, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0315, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "IA",
+      "name": "Iowa",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.044, "lower": 0, "upper": 6000 },
+          { "rate": 0.0482, "lower": 6000, "upper": 30000 },
+          { "rate": 0.057, "lower": 30000, "upper": 75000 },
+          { "rate": 0.06, "lower": 75000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.044, "lower": 0, "upper": 12000 },
+          { "rate": 0.0482, "lower": 12000, "upper": 60000 },
+          { "rate": 0.057, "lower": 60000, "upper": 150000 },
+          { "rate": 0.06, "lower": 150000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "KS",
+      "name": "Kansas",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.031, "lower": 0, "upper": 15000 },
+          { "rate": 0.0525, "lower": 15000, "upper": 30000 },
+          { "rate": 0.057, "lower": 30000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.031, "lower": 0, "upper": 30000 },
+          { "rate": 0.0525, "lower": 30000, "upper": 60000 },
+          { "rate": 0.057, "lower": 60000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "KY",
+      "name": "Kentucky",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.045, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.045, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "LA",
+      "name": "Louisiana",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0185, "lower": 0, "upper": 12500 },
+          { "rate": 0.035, "lower": 12500, "upper": 50000 },
+          { "rate": 0.0425, "lower": 50000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0185, "lower": 0, "upper": 25000 },
+          { "rate": 0.035, "lower": 25000, "upper": 100000 },
+          { "rate": 0.0425, "lower": 100000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "ME",
+      "name": "Maine",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.058, "lower": 0, "upper": 24500 },
+          { "rate": 0.0675, "lower": 24500, "upper": 58050 },
+          { "rate": 0.0715, "lower": 58050, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.058, "lower": 0, "upper": 49050 },
+          { "rate": 0.0675, "lower": 49050, "upper": 116100 },
+          { "rate": 0.0715, "lower": 116100, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "MD",
+      "name": "Maryland",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.02, "lower": 0, "upper": 1000 },
+          { "rate": 0.03, "lower": 1000, "upper": 2000 },
+          { "rate": 0.04, "lower": 2000, "upper": 3000 },
+          { "rate": 0.0475, "lower": 3000, "upper": 100000 },
+          { "rate": 0.05, "lower": 100000, "upper": 125000 },
+          { "rate": 0.0525, "lower": 125000, "upper": 150000 },
+          { "rate": 0.055, "lower": 150000, "upper": 250000 },
+          { "rate": 0.0575, "lower": 250000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.02, "lower": 0, "upper": 1000 },
+          { "rate": 0.03, "lower": 1000, "upper": 2000 },
+          { "rate": 0.04, "lower": 2000, "upper": 3000 },
+          { "rate": 0.0475, "lower": 3000, "upper": 150000 },
+          { "rate": 0.05, "lower": 150000, "upper": 175000 },
+          { "rate": 0.0525, "lower": 175000, "upper": 225000 },
+          { "rate": 0.055, "lower": 225000, "upper": 300000 },
+          { "rate": 0.0575, "lower": 300000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "MA",
+      "name": "Massachusetts",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.05, "lower": 0, "upper": 1000 },
+          { "rate": 0.09, "lower": 1000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.05, "lower": 0, "upper": 1000 },
+          { "rate": 0.09, "lower": 1000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "MI",
+      "name": "Michigan",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0425, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0425, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "MN",
+      "name": "Minnesota",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0535, "lower": 0, "upper": 30070 },
+          { "rate": 0.068, "lower": 30070, "upper": 98760 },
+          { "rate": 0.0785, "lower": 98760, "upper": 183340 },
+          { "rate": 0.0985, "lower": 183340, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0535, "lower": 0, "upper": 43950 },
+          { "rate": 0.068, "lower": 43950, "upper": 174610 },
+          { "rate": 0.0785, "lower": 174610, "upper": 304970 },
+          { "rate": 0.0985, "lower": 304970, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "MS",
+      "name": "Mississippi",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.05, "lower": 10000, "upper": null }],
+        "married": [{ "rate": 0.05, "lower": 10000, "upper": null }]
+      }
+    },
+    {
+      "key": "MO",
+      "name": "Missouri",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.02, "lower": 1121, "upper": 2242 },
+          { "rate": 0.025, "lower": 2242, "upper": 3363 },
+          { "rate": 0.03, "lower": 3363, "upper": 4484 },
+          { "rate": 0.035, "lower": 4484, "upper": 5605 },
+          { "rate": 0.04, "lower": 5605, "upper": 6726 },
+          { "rate": 0.045, "lower": 6726, "upper": 7847 },
+          { "rate": 0.0495, "lower": 7847, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.02, "lower": 1121, "upper": 2242 },
+          { "rate": 0.025, "lower": 2242, "upper": 3363 },
+          { "rate": 0.03, "lower": 3363, "upper": 4484 },
+          { "rate": 0.035, "lower": 4484, "upper": 5605 },
+          { "rate": 0.04, "lower": 5605, "upper": 6726 },
+          { "rate": 0.045, "lower": 6726, "upper": 7847 },
+          { "rate": 0.0495, "lower": 7847, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "MT",
+      "name": "Montana",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.01, "lower": 0, "upper": 3600 },
+          { "rate": 0.02, "lower": 3600, "upper": 6300 },
+          { "rate": 0.03, "lower": 6300, "upper": 9700 },
+          { "rate": 0.04, "lower": 9700, "upper": 13000 },
+          { "rate": 0.05, "lower": 13000, "upper": 16800 },
+          { "rate": 0.06, "lower": 16800, "upper": 21600 },
+          { "rate": 0.0675, "lower": 21600, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.01, "lower": 0, "upper": 3600 },
+          { "rate": 0.02, "lower": 3600, "upper": 6300 },
+          { "rate": 0.03, "lower": 6300, "upper": 9700 },
+          { "rate": 0.04, "lower": 9700, "upper": 13000 },
+          { "rate": 0.05, "lower": 13000, "upper": 16800 },
+          { "rate": 0.06, "lower": 16800, "upper": 21600 },
+          { "rate": 0.0675, "lower": 21600, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "NE",
+      "name": "Nebraska",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0246, "lower": 0, "upper": 3700 },
+          { "rate": 0.0351, "lower": 3700, "upper": 22170 },
+          { "rate": 0.0501, "lower": 22170, "upper": 35730 },
+          { "rate": 0.0664, "lower": 35730, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0246, "lower": 0, "upper": 7390 },
+          { "rate": 0.0351, "lower": 7390, "upper": 44350 },
+          { "rate": 0.0501, "lower": 44350, "upper": 71460 },
+          { "rate": 0.0664, "lower": 71460, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "NV",
+      "name": "Nevada",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "NH",
+      "name": "New Hampshire",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "NJ",
+      "name": "New Jersey",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.014, "lower": 0, "upper": 20000 },
+          { "rate": 0.0175, "lower": 20000, "upper": 35000 },
+          { "rate": 0.035, "lower": 35000, "upper": 40000 },
+          { "rate": 0.0552, "lower": 40000, "upper": 75000 },
+          { "rate": 0.0637, "lower": 75000, "upper": 500000 },
+          { "rate": 0.0897, "lower": 500000, "upper": 1000000 },
+          { "rate": 0.1075, "lower": 1000000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.014, "lower": 0, "upper": 20000 },
+          { "rate": 0.0175, "lower": 20000, "upper": 50000 },
+          { "rate": 0.0245, "lower": 50000, "upper": 70000 },
+          { "rate": 0.035, "lower": 70000, "upper": 80000 },
+          { "rate": 0.0552, "lower": 80000, "upper": 150000 },
+          { "rate": 0.0637, "lower": 150000, "upper": 500000 },
+          { "rate": 0.0897, "lower": 500000, "upper": 1000000 },
+          { "rate": 0.1075, "lower": 1000000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "NM",
+      "name": "New Mexico",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.017, "lower": 0, "upper": 5000 },
+          { "rate": 0.032, "lower": 5000, "upper": 11000 },
+          { "rate": 0.047, "lower": 11000, "upper": 16000 },
+          { "rate": 0.049, "lower": 16000, "upper": 210000 },
+          { "rate": 0.059, "lower": 210000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.017, "lower": 0, "upper": 8000 },
+          { "rate": 0.032, "lower": 8000, "upper": 16000 },
+          { "rate": 0.047, "lower": 16000, "upper": 24000 },
+          { "rate": 0.049, "lower": 24000, "upper": 315000 },
+          { "rate": 0.059, "lower": 315000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "NY",
+      "name": "New York",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.04, "lower": 0, "upper": 8500 },
+          { "rate": 0.045, "lower": 8500, "upper": 11700 },
+          { "rate": 0.0525, "lower": 11700, "upper": 13900 },
+          { "rate": 0.055, "lower": 13900, "upper": 80650 },
+          { "rate": 0.06, "lower": 80650, "upper": 215400 },
+          { "rate": 0.0685, "lower": 215400, "upper": 1077550 },
+          { "rate": 0.0965, "lower": 1077550, "upper": 5000000 },
+          { "rate": 0.103, "lower": 5000000, "upper": 25000000 },
+          { "rate": 0.109, "lower": 25000000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.04, "lower": 0, "upper": 17150 },
+          { "rate": 0.045, "lower": 17150, "upper": 23600 },
+          { "rate": 0.0525, "lower": 23600, "upper": 27900 },
+          { "rate": 0.055, "lower": 27900, "upper": 161550 },
+          { "rate": 0.06, "lower": 161550, "upper": 323200 },
+          { "rate": 0.0685, "lower": 323200, "upper": 2155350 },
+          { "rate": 0.0965, "lower": 2155350, "upper": 5000000 },
+          { "rate": 0.103, "lower": 5000000, "upper": 25000000 },
+          { "rate": 0.109, "lower": 25000000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "NC",
+      "name": "North Carolina",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0475, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0475, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "ND",
+      "name": "North Dakota",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.011, "lower": 0, "upper": 41775 },
+          { "rate": 0.0204, "lower": 41775, "upper": 101050 },
+          { "rate": 0.0227, "lower": 101050, "upper": 210825 },
+          { "rate": 0.0264, "lower": 210825, "upper": 458350 },
+          { "rate": 0.029, "lower": 458350, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.011, "lower": 0, "upper": 17150 },
+          { "rate": 0.0204, "lower": 17150, "upper": 23600 },
+          { "rate": 0.0227, "lower": 23600, "upper": 27900 },
+          { "rate": 0.0264, "lower": 27900, "upper": 161550 },
+          { "rate": 0.029, "lower": 161550, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "OH",
+      "name": "Ohio",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.02765, "lower": 0, "upper": 41775 },
+          { "rate": 0.03226, "lower": 41775, "upper": 101050 },
+          { "rate": 0.03688, "lower": 101050, "upper": 210825 },
+          { "rate": 0.0399, "lower": 210825, "upper": 458350 }
+        ],
+        "married": [
+          { "rate": 0.02765, "lower": 0, "upper": 17150 },
+          { "rate": 0.03226, "lower": 17150, "upper": 23600 },
+          { "rate": 0.03688, "lower": 23600, "upper": 27900 },
+          { "rate": 0.0399, "lower": 27900, "upper": 161550 }
+        ]
+      }
+    },
+    {
+      "key": "OK",
+      "name": "Oklahoma",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0025, "lower": 0, "upper": 1000 },
+          { "rate": 0.0075, "lower": 1000, "upper": 2500 },
+          { "rate": 0.0175, "lower": 2500, "upper": 3750 },
+          { "rate": 0.0275, "lower": 3750, "upper": 4900 },
+          { "rate": 0.0375, "lower": 4900, "upper": 7200 },
+          { "rate": 0.0475, "lower": 7200, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0025, "lower": 0, "upper": 2000 },
+          { "rate": 0.0075, "lower": 2000, "upper": 5000 },
+          { "rate": 0.0175, "lower": 5000, "upper": 7500 },
+          { "rate": 0.0275, "lower": 7500, "upper": 9800 },
+          { "rate": 0.0375, "lower": 9800, "upper": 12200 },
+          { "rate": 0.0475, "lower": 12200, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "OR",
+      "name": "Oregon",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0475, "lower": 0, "upper": 4050 },
+          { "rate": 0.0675, "lower": 4050, "upper": 10200 },
+          { "rate": 0.0875, "lower": 10200, "upper": 125000 },
+          { "rate": 0.099, "lower": 125000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0475, "lower": 0, "upper": 8100 },
+          { "rate": 0.0675, "lower": 8100, "upper": 20400 },
+          { "rate": 0.0875, "lower": 20400, "upper": 250000 },
+          { "rate": 0.099, "lower": 250000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "PA",
+      "name": "Pennsylvania",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0307, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0307, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "RI",
+      "name": "Rhode Island",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0375, "lower": 0, "upper": 68200 },
+          { "rate": 0.0475, "lower": 68200, "upper": 155050 },
+          { "rate": 0.0599, "lower": 155050, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0375, "lower": 0, "upper": 68200 },
+          { "rate": 0.0475, "lower": 68200, "upper": 155050 },
+          { "rate": 0.0599, "lower": 155050, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "SC",
+      "name": "South Carolina",
+      "brackets": {
+        "single": [
+          { "rate": 0, "lower": 0, "upper": 3200 },
+          { "rate": 0.0475, "lower": 3200, "upper": 16040 },
+          { "rate": 0.0599, "lower": 16040, "upper": null }
+        ],
+        "married": [
+          { "rate": 0, "lower": 0, "upper": 3200 },
+          { "rate": 0.0475, "lower": 3200, "upper": 16040 },
+          { "rate": 0.0599, "lower": 16040, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "SD",
+      "name": "South Dakota",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "TN",
+      "name": "Tennessee",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "TX",
+      "name": "Texas",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "UT",
+      "name": "Utah",
+      "taxType": "flat",
+      "brackets": {
+        "single": [{ "rate": 0.0485, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0.0485, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "VT",
+      "name": "Vermont",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0335, "lower": 0, "upper": 42150 },
+          { "rate": 0.066, "lower": 42150, "upper": 102200 },
+          { "rate": 0.076, "lower": 102200, "upper": 213150 },
+          { "rate": 0.0875, "lower": 213150, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0335, "lower": 0, "upper": 70450 },
+          { "rate": 0.066, "lower": 70450, "upper": 170300 },
+          { "rate": 0.076, "lower": 170300, "upper": 259500 },
+          { "rate": 0.0875, "lower": 259500, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "VA",
+      "name": "Virginia",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.02, "lower": 0, "upper": 3000 },
+          { "rate": 0.03, "lower": 3000, "upper": 5000 },
+          { "rate": 0.05, "lower": 5000, "upper": 17000 },
+          { "rate": 0.0575, "lower": 17000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.02, "lower": 0, "upper": 3000 },
+          { "rate": 0.03, "lower": 3000, "upper": 5000 },
+          { "rate": 0.05, "lower": 5000, "upper": 17000 },
+          { "rate": 0.0575, "lower": 17000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "WA",
+      "name": "Washington",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "WV",
+      "name": "West Virginia",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.03, "lower": 0, "upper": 10000 },
+          { "rate": 0.04, "lower": 10000, "upper": 25000 },
+          { "rate": 0.045, "lower": 25000, "upper": 40000 },
+          { "rate": 0.06, "lower": 40000, "upper": 60000 },
+          { "rate": 0.065, "lower": 60000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.03, "lower": 0, "upper": 10000 },
+          { "rate": 0.04, "lower": 10000, "upper": 25000 },
+          { "rate": 0.045, "lower": 25000, "upper": 40000 },
+          { "rate": 0.06, "lower": 40000, "upper": 60000 },
+          { "rate": 0.065, "lower": 60000, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "WI",
+      "name": "Wisconsin",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.0354, "lower": 0, "upper": 13810 },
+          { "rate": 0.0465, "lower": 13810, "upper": 27630 },
+          { "rate": 0.053, "lower": 27630, "upper": 304170 },
+          { "rate": 0.0765, "lower": 304170, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.0354, "lower": 0, "upper": 18420 },
+          { "rate": 0.0465, "lower": 18420, "upper": 36840 },
+          { "rate": 0.053, "lower": 36840, "upper": 405550 },
+          { "rate": 0.0765, "lower": 405550, "upper": null }
+        ]
+      }
+    },
+    {
+      "key": "WY",
+      "name": "Wyoming",
+      "taxType": "none",
+      "brackets": {
+        "single": [{ "rate": 0, "lower": 0, "upper": null }],
+        "married": [{ "rate": 0, "lower": 0, "upper": null }]
+      }
+    },
+    {
+      "key": "DC",
+      "name": "District of Columbia",
+      "taxType": "graduated",
+      "brackets": {
+        "single": [
+          { "rate": 0.04, "lower": 0, "upper": 10000 },
+          { "rate": 0.06, "lower": 10000, "upper": 40000 },
+          { "rate": 0.065, "lower": 40000, "upper": 60000 },
+          { "rate": 0.085, "lower": 60000, "upper": 250000 },
+          { "rate": 0.0925, "lower": 250000, "upper": 500000 },
+          { "rate": 0.0975, "lower": 500000, "upper": 1000000 },
+          { "rate": 0.1075, "lower": 7100000000, "upper": null }
+        ],
+        "married": [
+          { "rate": 0.04, "lower": 0, "upper": 10000 },
+          { "rate": 0.06, "lower": 10000, "upper": 40000 },
+          { "rate": 0.065, "lower": 40000, "upper": 60000 },
+          { "rate": 0.085, "lower": 60000, "upper": 250000 },
+          { "rate": 0.0925, "lower": 250000, "upper": 500000 },
+          { "rate": 0.0975, "lower": 500000, "upper": 1000000 },
+          { "rate": 0.1075, "lower": 7100000000, "upper": null }
+        ]
+      }
+    }
+  ],
+  "federalSingleFilersIncomeTaxBrackets": [
+    { "rate": 0.1, "lower": 0, "upper": 11000 },
+    { "rate": 0.12, "lower": 11000, "upper": 44725 },
+    { "rate": 0.22, "lower": 44725, "upper": 95375 },
+    { "rate": 0.24, "lower": 95375, "upper": 182100 },
+    { "rate": 0.32, "lower": 182100, "upper": 231250 },
+    { "rate": 0.35, "lower": 231250, "upper": 578125 },
+    { "rate": 0.37, "lower": 578125, "upper": null }
+  ],
+  "federalMarriedFilersIncomeTaxBrackets": [
+    { "rate": 0.1, "lower": 0, "upper": 22000 },
+    { "rate": 0.12, "lower": 22000, "upper": 89450 },
+    { "rate": 0.22, "lower": 89450, "upper": 190750 },
+    { "rate": 0.24, "lower": 190750, "upper": 364200 },
+    { "rate": 0.32, "lower": 364200, "upper": 462500 },
+    { "rate": 0.35, "lower": 462500, "upper": 693750 },
+    { "rate": 0.37, "lower": 693750, "upper": null }
+  ]
+}
