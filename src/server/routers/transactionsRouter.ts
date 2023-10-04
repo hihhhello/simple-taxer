@@ -4,25 +4,6 @@ import { publicProcedure, router } from '../trpc';
 import { ZOD_SORTING_ENUM } from '../utils/serverConstants';
 import { Prisma } from '@prisma/client';
 
-function parseCSV(csvContent: string) {
-  // Split the CSV content into lines
-  const lines = csvContent.split('\n');
-
-  // Initialize an array to store the parsed data
-  const data = [];
-
-  // Iterate through each line and split it into individual values
-  for (const line of lines) {
-    const values = line.split(',');
-    data.push(values);
-  }
-
-  // Now 'data' contains the parsed CSV data as a 2D array
-  console.log(data);
-
-  // You can further process or display the data as needed
-}
-
 export const transactionsRouter = router({
   getAll: publicProcedure
     .input(
