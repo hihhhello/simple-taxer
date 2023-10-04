@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { DollarInput } from '@/shared/ui';
 import { formatToUSDCurrency } from '@/shared/utils';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
+import { isNil } from 'lodash';
 
 type TaxCalculatorProps = {
   totalIncome: number;
@@ -69,6 +70,9 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
 
     return householdIncome * taxBracket.rate;
   }, [filingStatus, householdIncome, taxStateKey]);
+
+  const totalTax =
+    !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
   return (
     <div>
@@ -162,21 +166,40 @@ export const TaxCalculator = ({ totalIncome }: TaxCalculatorProps) => {
         <>
           <p>
             <span>Federal tax: {formatToUSDCurrency(federalTax)}</span>{' '}
-            <span>=</span>{' '}
+            <span>{'='}</span>{' '}
             <span>
               {((federalTax * 100) / householdIncome).toFixed(2)}% from
               household income
             </span>
           </p>
 
-          {stateTax && (
+          {!isNil(stateTax) && (
             <p>
               <span>State tax: {formatToUSDCurrency(stateTax)}</span>{' '}
-              <span>=</span>{' '}
+              <span>{'='}</span>{' '}
               <span>
-                {(stateTax * 100) / householdIncome}% from household income
+                {((stateTax * 100) / householdIncome).toFixed(2)}% from
+                household income
               </span>
             </p>
+          )}
+
+          {totalTax && (
+            <>
+              <p>
+                <span>Total tax: {formatToUSDCurrency(totalTax)}</span>{' '}
+                <span>{'='}</span>{' '}
+                <span>
+                  {((totalTax * 100) / householdIncome).toFixed(2)}% from
+                  household income
+                </span>
+              </p>
+
+              <p>
+                <span>Take home pay</span> <span>{'='}</span>{' '}
+                <span>{formatToUSDCurrency(householdIncome - totalTax)}</span>
+              </p>
+            </>
           )}
 
           <div className="flex flex-wrap gap-4">
