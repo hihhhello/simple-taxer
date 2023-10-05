@@ -29,7 +29,6 @@ export const HomePageTabs = ({
         onChange={(e) =>
           handleSelectTab(e.target.value as 'transactions' | 'calculator')
         }
-        defaultValue="transactions"
       >
         {TABS.map((tab) => (
           <option value={tab} key={tab}>
