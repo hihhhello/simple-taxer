@@ -1,12 +1,17 @@
 import { upperFirst } from 'lodash';
 
 import { classNames } from '@/shared/utils';
+import { HomePageTab } from '../utils/homePageTypes';
 
-const TABS = ['transactions', 'calculator'] as const;
+const TABS = [
+  HomePageTab.TRANSACTIONS,
+  HomePageTab.ANALYTICS,
+  HomePageTab.CALCULATOR,
+];
 
 type HomePageTabsProps = {
-  handleSelectTab: (selectedTab: 'transactions' | 'calculator') => void;
-  currentTab: 'transactions' | 'calculator';
+  handleSelectTab: (selectedTab: HomePageTab) => void;
+  currentTab: HomePageTab;
   className?: string;
 };
 
@@ -26,9 +31,7 @@ export const HomePageTabs = ({
         name="tabs"
         className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
         value={currentTab}
-        onChange={(e) =>
-          handleSelectTab(e.target.value as 'transactions' | 'calculator')
-        }
+        onChange={(e) => handleSelectTab(e.target.value as HomePageTab)}
       >
         {TABS.map((tab) => (
           <option value={tab} key={tab}>

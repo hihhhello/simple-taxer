@@ -10,7 +10,8 @@ import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
-import { HomePageTabs } from './_ui/HomePageTabs';
+import { HomePageTabs } from './ui/HomePageTabs';
+import { HomePageTab } from './utils/homePageTypes';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -41,8 +42,8 @@ export const HomePageContent = ({
 
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
 
-  const [currentTab, setCurrentTab] = useState<'transactions' | 'calculator'>(
-    'transactions',
+  const [currentTab, setCurrentTab] = useState<HomePageTab>(
+    HomePageTab.TRANSACTIONS,
   );
 
   const makeHandleDeleteTransaction = (transactionId: number) => () => {
@@ -249,7 +250,7 @@ export const HomePageContent = ({
       />
 
       {(() => {
-        if (currentTab === 'transactions') {
+        if (currentTab === HomePageTab.TRANSACTIONS) {
           return (
             <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
               <AddNewTransactionForm
@@ -280,7 +281,7 @@ export const HomePageContent = ({
           );
         }
 
-        if (currentTab === 'calculator') {
+        if (currentTab === HomePageTab.CALCULATOR) {
           return (
             <div>
               <IncomeTaxCalculator totalIncome={totalIncome} />
