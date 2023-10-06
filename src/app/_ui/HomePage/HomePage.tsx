@@ -12,6 +12,7 @@ import { useLoadingToast } from '@/shared/utils/hooks';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabs } from './ui/HomePageTabs';
 import { HomePageTab } from './utils/homePageTypes';
+import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -29,6 +30,8 @@ export const HomePageContent = ({
         initialData: initialTransactions,
       },
     );
+  const { data: transactionsBySourceName } =
+    api.transactions.getBySourceName.useQuery({});
 
   const { mutate: apiDeleteTransaction } =
     api.transactions.delete.useMutation();
@@ -278,6 +281,18 @@ export const HomePageContent = ({
                 </div>
               </div>
             </div>
+          );
+        }
+
+        if (currentTab === HomePageTab.ANALYTICS) {
+          if (!transactionsBySourceName) {
+            return null;
+          }
+
+          return (
+            <IncomeBySourcePieChart
+              transactionsBySourceName={transactionsBySourceName}
+            />
           );
         }
 

@@ -193,4 +193,21 @@ export const transactionsRouter = router({
 
       return duplicatedTransaction;
     }),
+  getBySourceName: publicProcedure
+    .input(z.object({}))
+    .query(async ({ ctx }) => {
+      if (!ctx.user) {
+        return;
+      }
+
+      return ctx.prisma.transaction.groupBy({
+        by: ['sourceName'],
+        where: {
+          userId: ctx.user.id,
+        },
+        _sum: {
+          amount: true,
+        },
+      });
+    }),
 });
