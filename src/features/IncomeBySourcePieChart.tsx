@@ -3,34 +3,19 @@
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-import { Transaction } from '@/shared/types';
+import { formatToUSDCurrency } from '@/shared/utils';
 
-const data = [
-  { name: '<5', value: 19912018 },
-  { name: '5-9', value: 20501982 },
-  { name: '10-14', value: 20679786 },
-  { name: '15-19', value: 21354481 },
-  { name: '20-24', value: 22604232 },
-  { name: '25-29', value: 21698010 },
-  { name: '30-34', value: 21183639 },
-  { name: '35-39', value: 19855782 },
-  { name: '40-44', value: 20796128 },
-  { name: '45-49', value: 21370368 },
-  { name: '50-54', value: 22525490 },
-  { name: '55-59', value: 21001947 },
-  { name: '60-64', value: 18415681 },
-  { name: '65-69', value: 14547446 },
-  { name: '70-74', value: 10587721 },
-  { name: '75-79', value: 7730129 },
-  { name: '80-84', value: 5811429 },
-  { name: '≥85', value: 5938752 },
-];
+type SourceIncome = {
+  sourceName: string | null;
+  _sum: { amount: number | null };
+};
+
 type IncomeBySourcePieChartProps = {
-  transactions: Transaction[];
+  transactionsBySourceName: SourceIncome[];
 };
 
 export const IncomeBySourcePieChart = ({
-  transactions,
+  transactionsBySourceName,
 }: IncomeBySourcePieChartProps) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
@@ -43,51 +28,75 @@ export const IncomeBySourcePieChart = ({
     const height = 500;
 
     // Create the color scale.
-    const color = d3
-      .scaleOrdinal()
-      .domain(data.map((d) => d.name))
+    const getColor = d3
+      .scaleOrdinal<string>()
+      .domain(
+        transactionsBySourceName.map(
+          (d) => d.sourceName ?? 'Unknown source name',
+        ),
+      )
       .range(
         d3
-          .quantize((t) => d3.interpolateSpectral(t * 0.8 + 0.1), data.length)
+          .quantize(
+            (t) => d3.interpolateSpectral(t * 0.8 + 0.1),
+            transactionsBySourceName.length,
+          )
           .reverse(),
       );
 
     // Create the pie layout and arc generator.
     const pie = d3
-      .pie()
+      .pie<SourceIncome>()
       .sort(null)
-      .value((d) => d.value);
+      .value((d) => d._sum.amount ?? 0);
 
-    const arc = d3
-      .arc()
-      .innerRadius(0)
-      .outerRadius(Math.min(width, height) / 2 - 1);
+    const arcOuterRadius = Math.min(width, height) / 2 - 1;
 
-    const labelRadius = arc.outerRadius()() * 0.8;
+    const arc = d3.arc().innerRadius(0).outerRadius(arcOuterRadius);
+
+    const labelRadius = arcOuterRadius * 0.8;
 
     // A separate arc generator for labels.
     const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
 
-    const arcs = pie(data);
+    // Generates a pie for the given array of data, returning an array of objects representing each datum’s arc angles.
+    //  {"data":  1, "value":  1, "index": 6, "startAngle": 6.050474740247008, "endAngle": 6.166830023713296, "padAngle": 0}
+    const arcs = pie(transactionsBySourceName);
 
     const svg = d3
       .select(ref.current)
       .attr('width', width)
       .attr('height', height)
       .attr('viewBox', [-width / 2, -height / 2, width, height])
-      .attr('style', 'max-width: 100%; height: auto; font: 10px sans-serif;');
+      .attr('style', 'max-width: 100%; height: auto; font: 18px sans-serif;');
 
+    // Add colored sectors
     svg
+      // Add single <g> to group all colored sectors
       .append('g')
       .attr('stroke', 'white')
+      // Create empty Selection
       .selectAll()
+      // Fill empty selection with arcs
       .data(arcs)
+      // <path> for each element in the "arcs"
       .join('path')
-      .attr('fill', (d) => color(d.data.name))
+      .attr('fill', ({ data }) =>
+        getColor(data.sourceName ?? `Unknown-${data._sum.amount}`),
+      )
+      // <d> for each <path>
       .attr('d', arc)
+      // <title> for each <d>
       .append('title')
-      .text((d) => `${d.data.name}: ${d.data.value.toLocaleString('en-US')}`);
+      // Specify text node for the <title>
+      .text(
+        (d) =>
+          `${d.data.sourceName}: ${formatToUSDCurrency(
+            d.data._sum.amount ?? 0,
+          )}`,
+      );
 
+    // Add sector labels
     svg
       .append('g')
       .attr('text-anchor', 'middle')
@@ -100,7 +109,9 @@ export const IncomeBySourcePieChart = ({
           .append('tspan')
           .attr('y', '-0.4em')
           .attr('font-weight', 'bold')
-          .text((d) => d.data.name),
+          .text(
+            ({ data }) => data.sourceName ?? `Unknown-${data._sum.amount ?? 0}`,
+          ),
       )
       .call((text) =>
         text
@@ -109,9 +120,9 @@ export const IncomeBySourcePieChart = ({
           .attr('x', 0)
           .attr('y', '0.7em')
           .attr('fill-opacity', 0.7)
-          .text((d) => d.data.value.toLocaleString('en-US')),
+          .text(({ data }) => formatToUSDCurrency(data._sum.amount ?? 0)),
       );
-  }, []);
+  }, [transactionsBySourceName]);
 
   return <svg ref={ref} />;
 };

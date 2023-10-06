@@ -285,11 +285,15 @@ export const HomePageContent = ({
         }
 
         if (currentTab === HomePageTab.ANALYTICS) {
-          if (!transactions) {
+          if (!transactionsBySourceName) {
             return null;
           }
 
-          return <IncomeBySourcePieChart transactions={transactions} />;
+          return (
+            <IncomeBySourcePieChart
+              transactionsBySourceName={transactionsBySourceName}
+            />
+          );
         }
 
         if (currentTab === HomePageTab.CALCULATOR) {
