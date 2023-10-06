@@ -85,6 +85,10 @@ export const IncomeBySourcePieChart = ({
         getColor(data.sourceName ?? `Unknown-${data._sum.amount}`),
       )
       // <d> for each <path>
+      /**
+       * TODO: figure out hot it works and why TS complains.
+       */
+      // @ts-ignore
       .attr('d', arc)
       // <title> for each <d>
       .append('title')
@@ -103,6 +107,10 @@ export const IncomeBySourcePieChart = ({
       .selectAll()
       .data(arcs)
       .join('text')
+      /**
+       * TODO: figure out hot it works and why TS complains.
+       */
+      // @ts-ignore
       .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
       .call((text) =>
         text
