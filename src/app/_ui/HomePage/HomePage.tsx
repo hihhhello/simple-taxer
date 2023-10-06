@@ -12,6 +12,7 @@ import { useLoadingToast } from '@/shared/utils/hooks';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabs } from './ui/HomePageTabs';
 import { HomePageTab } from './utils/homePageTypes';
+import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -279,6 +280,14 @@ export const HomePageContent = ({
               </div>
             </div>
           );
+        }
+
+        if (currentTab === HomePageTab.ANALYTICS) {
+          if (!transactions) {
+            return null;
+          }
+
+          return <IncomeBySourcePieChart transactions={transactions} />;
         }
 
         if (currentTab === HomePageTab.CALCULATOR) {
