@@ -200,47 +200,13 @@ export const HomePageContent = ({
     <div>
       <div className="mb-4">
         <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
+          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
             <dt className="truncate text-sm font-medium text-gray-500">
               Total Income
             </dt>
 
             <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
               {formatToUSDCurrency(totalIncome)}
-            </dd>
-          </div>
-
-          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-            <dt className="truncate text-sm font-medium text-gray-500">
-              Taxes to pay
-            </dt>
-
-            <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-              {formatToUSDCurrency(totalIncome * (taxPercent / 100))}
-            </dd>
-          </div>
-          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-            <dt className="truncate text-sm font-medium text-gray-500">
-              Tax % (Min 0 - Max 100)
-            </dt>
-
-            <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-              <div className="flex items-center">
-                <input
-                  required
-                  type="number"
-                  inputMode="decimal"
-                  name="taxPercent"
-                  id="taxPercent"
-                  min={0}
-                  max={100}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-3xl sm:leading-6"
-                  placeholder="Tax Percent"
-                  value={taxPercent.toString()}
-                  onChange={handleChangeTaxPercent}
-                />
-                <span>%</span>
-              </div>
             </dd>
           </div>
         </dl>
