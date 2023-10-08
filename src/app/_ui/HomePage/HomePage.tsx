@@ -41,8 +41,6 @@ export const HomePageContent = ({
   const { mutate: apiDuplicateTransaction } =
     api.transactions.duplicate.useMutation();
 
-  const [taxPercent, setTaxPercent] = useState(0);
-
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
@@ -98,23 +96,6 @@ export const HomePageContent = ({
       },
       [apiDeleteManyTransactions, loadingToast, refetchTransactions],
     );
-
-  const handleChangeTaxPercent = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const value = Number(event.target.value);
-
-      if (isNaN(value)) {
-        return;
-      }
-
-      if (value > 100 || value < 0) {
-        return;
-      }
-
-      setTaxPercent(Number(value));
-    },
-    [],
-  );
 
   const makeHandleDuplicateTransaction = (transactionId: number) => () => {
     const toastId = loadingToast.showLoading('Duplicating...');
