@@ -47,6 +47,8 @@ export const HomePageContent = ({
     HomePageTab.TRANSACTIONS,
   );
 
+  const [transactionSearchQuery, setTransactionSearchQuery] = useState('');
+
   const makeHandleDeleteTransaction = (transactionId: number) => () => {
     setTransactionToDeleteId(transactionId);
 
@@ -177,6 +179,27 @@ export const HomePageContent = ({
       [apiEditTransaction, refetchTransactions],
     );
 
+  const handleChangeTransactionSearchQuery = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setTransactionSearchQuery(event.target.value),
+    [],
+  );
+
+  const searchedTransactions = useMemo(
+    () =>
+      transactionSearchQuery
+        ? transactions?.filter(({ bankName, sourceName }) => {
+            const searchQueryRegExp = new RegExp(transactionSearchQuery, 'ig');
+
+            return (
+              bankName?.match(searchQueryRegExp) ??
+              sourceName?.match(searchQueryRegExp)
+            );
+          })
+        : transactions,
+    [transactionSearchQuery, transactions],
+  );
+
   return (
     <div>
       <div className="mb-4">
@@ -214,9 +237,20 @@ export const HomePageContent = ({
                   </h1>
                 </div>
 
+                <div className="mb-4">
+                  <input
+                    name="transactionSearchQuery"
+                    id="transactionSearchQuery"
+                    className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Search source or bank name"
+                    value={transactionSearchQuery}
+                    onChange={handleChangeTransactionSearchQuery}
+                  />
+                </div>
+
                 <div className="max-h-[calc(100vh/3)] overflow-y-auto">
                   <TransactionTable
-                    transactions={transactions}
+                    transactions={searchedTransactions}
                     handleDeleteAllTransactions={handleDeleteAllTransactions}
                     makeHandleDeleteTransaction={makeHandleDeleteTransaction}
                     makeHandleDuplicateTransaction={
