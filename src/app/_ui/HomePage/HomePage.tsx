@@ -271,9 +271,17 @@ export const HomePageContent = ({
           }
 
           return (
-            <IncomeBySourcePieChart
-              transactionsBySourceName={transactionsBySourceName}
-            />
+            <div>
+              <div className="mb-4">
+                <h1 className="text-lg font-bold leading-6 text-gray-900">
+                  Income by source
+                </h1>
+              </div>
+
+              <IncomeBySourcePieChart
+                transactionsBySourceName={transactionsBySourceName}
+              />
+            </div>
           );
         }
 
