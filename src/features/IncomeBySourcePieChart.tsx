@@ -86,7 +86,7 @@ export const IncomeBySourcePieChart = ({
       )
       // <d> for each <path>
       /**
-       * TODO: figure out hot it works and why TS complains.
+       * TODO: figure out how it works and why TS complains.
        */
       // @ts-ignore
       .attr('d', arc)
@@ -108,7 +108,7 @@ export const IncomeBySourcePieChart = ({
       .data(arcs)
       .join('text')
       /**
-       * TODO: figure out hot it works and why TS complains.
+       * TODO: figure out how it works and why TS complains.
        */
       // @ts-ignore
       .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
