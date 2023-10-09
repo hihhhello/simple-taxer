@@ -86,7 +86,7 @@ export const IncomeBySourcePieChart = ({
       )
       // <d> for each <path>
       /**
-       * TODO: figure out how it works and why TS complains.
+       * TODO: figure out how "arc" can be assign to "d" attribute and transformed from ArcObject to path commands (See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#path_commands).
        */
       // @ts-ignore
       .attr('d', arc)
@@ -108,7 +108,7 @@ export const IncomeBySourcePieChart = ({
       .data(arcs)
       .join('text')
       /**
-       * TODO: figure out how it works and why TS complains.
+       * TODO: figure out how "centroid" method works and why TS complains.
        */
       // @ts-ignore
       .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
