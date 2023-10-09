@@ -126,7 +126,7 @@ export const IncomeBySourcePieChart = ({
           .append('tspan')
           .attr('x', 0)
           .attr('y', '0.7em')
-          .attr('fill-opacity', 0.7)
+          .attr('class', 'fill-gray-700')
           .text(({ data }) => formatToUSDCurrency(data._sum.amount ?? 0)),
       );
   }, [transactionsBySourceName]);
