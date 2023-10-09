@@ -68,7 +68,7 @@ export const IncomeBySourcePieChart = ({
       .attr('width', width)
       .attr('height', height)
       .attr('viewBox', [-width / 2, -height / 2, width, height])
-      .attr('style', 'max-width: 100%; height: auto; font: 18px sans-serif;');
+      .attr('style', 'max-width: 100%; height: auto; font-size: 18px;');
 
     // Add colored sectors
     svg
