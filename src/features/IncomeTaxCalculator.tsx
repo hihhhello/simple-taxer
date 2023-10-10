@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
+import { isNil } from 'lodash';
 
 import { DollarInput } from '@/shared/ui';
 import { formatToUSDCurrency } from '@/shared/utils';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
-import { isNil } from 'lodash';
 
 type IncomeTaxCalculatorProps = {
   totalIncome: number;

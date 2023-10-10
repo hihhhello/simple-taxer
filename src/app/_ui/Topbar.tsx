@@ -3,9 +3,9 @@
 import { Fragment, useCallback } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 import { classNames } from '@/shared/utils';
-import Image from 'next/image';
 
 export const Topbar = () => {
   const handleSignOut = useCallback(() => signOut(), []);
