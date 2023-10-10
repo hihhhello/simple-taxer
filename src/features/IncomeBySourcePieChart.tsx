@@ -28,7 +28,7 @@ export const IncomeBySourcePieChart = ({
     const height = 500;
 
     // Create the color scale.
-    const getColor = d3
+    const getPieSectionColor = d3
       .scaleOrdinal<string>()
       .domain(
         transactionsBySourceName.map(
@@ -45,14 +45,14 @@ export const IncomeBySourcePieChart = ({
       );
 
     // Create the pie layout and arc generator.
-    const pie = d3
+    const getPieLayout = d3
       .pie<SourceIncome>()
       .sort(null)
       .value((d) => d._sum.amount ?? 0);
 
     const arcOuterRadius = Math.min(width, height) / 2 - 1;
 
-    const arc = d3
+    const getPieArc = d3
       .arc<d3.PieArcDatum<SourceIncome>>()
       .innerRadius(0)
       .outerRadius(arcOuterRadius);
@@ -60,14 +60,14 @@ export const IncomeBySourcePieChart = ({
     const labelRadius = arcOuterRadius * 0.8;
 
     // A separate arc generator for labels.
-    const arcLabel = d3
+    const getPieLabelArc = d3
       .arc<d3.PieArcDatum<SourceIncome>>()
       .innerRadius(labelRadius)
       .outerRadius(labelRadius);
 
     // Generates a pie for the given array of data, returning an array of objects representing each datum’s arc angles.
     //  {"data":  1, "value":  1, "index": 6, "startAngle": 6.050474740247008, "endAngle": 6.166830023713296, "padAngle": 0}
-    const arcs = pie(transactionsBySourceName);
+    const pieArcsData = getPieLayout(transactionsBySourceName);
 
     const svg = d3
       .select(ref.current)
@@ -83,18 +83,15 @@ export const IncomeBySourcePieChart = ({
       .attr('stroke', 'white')
       // Create empty Selection
       .selectAll()
-      // Fill empty selection with arcs
-      .data(arcs)
+      // Fill empty selection with pie arcs
+      .data(pieArcsData)
       // <path> for each element in the "arcs"
       .join('path')
       .attr('fill', ({ data }) =>
-        getColor(data.sourceName ?? `Unknown-${data._sum.amount}`),
+        getPieSectionColor(data.sourceName ?? `Unknown-${data._sum.amount}`),
       )
-      // <d> for each <path>
-      /**
-       * TODO: figure out how "arc" can be assign to "d" attribute and transformed from ArcObject to path commands (See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#path_commands).
-       */
-      .attr('d', arc)
+      // "d" for each <path>
+      .attr('d', getPieArc)
       // <title> for each <d>
       .append('title')
       // Specify text node for the <title>
@@ -110,12 +107,12 @@ export const IncomeBySourcePieChart = ({
       .append('g')
       .attr('text-anchor', 'middle')
       .selectAll()
-      .data(arcs)
+      .data(pieArcsData)
       .join('text')
       /**
        * TODO: figure out how "centroid" method works and why TS complains.
        */
-      .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
+      .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`)
       .call((text) =>
         text
           .append('tspan')
