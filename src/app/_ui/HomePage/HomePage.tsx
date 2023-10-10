@@ -23,11 +23,15 @@ export const HomePageContent = ({
 }: HomePageContentProps) => {
   const loadingToast = useLoadingToast();
 
+  const [transactionsStartDate, setTransactionsStartDate] = useState('');
+  const [transactionsEndDate, setTransactionsEndDate] = useState('');
+
   const { data: transactions, refetch: refetchTransactions } =
     api.transactions.getAll.useQuery(
       {},
       {
         initialData: initialTransactions,
+        queryKey: ['transactions.getAll', {}],
       },
     );
   const { data: transactionsBySourceName } =
@@ -237,15 +241,49 @@ export const HomePageContent = ({
                   </h1>
                 </div>
 
-                <div className="mb-4">
-                  <input
-                    name="transactionSearchQuery"
-                    id="transactionSearchQuery"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
-                    placeholder="Search source or bank name"
-                    value={transactionSearchQuery}
-                    onChange={handleChangeTransactionSearchQuery}
-                  />
+                <div className="mb-4 grid grid-cols-1 items-end gap-x-2 gap-y-4 sm:grid-cols-3">
+                  <div>
+                    <input
+                      name="transactionSearchQuery"
+                      id="transactionSearchQuery"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
+                      placeholder="Search source or bank name"
+                      value={transactionSearchQuery}
+                      onChange={handleChangeTransactionSearchQuery}
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
+                    <div>
+                      <label htmlFor="transactionSearchQuery">Start date</label>
+
+                      <input
+                        type="date"
+                        name="transactionsStartDate"
+                        id="transactionsStartDate"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
+                        placeholder="Start date"
+                        value={transactionsStartDate}
+                        onChange={(e) =>
+                          setTransactionsStartDate(e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="transactionSearchQuery">End date</label>
+
+                      <input
+                        type="date"
+                        name="transactionsSEndDate"
+                        id="transactionsSEndDate"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
+                        placeholder="End date"
+                        value={transactionsEndDate}
+                        onChange={(e) => setTransactionsEndDate(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="max-h-[calc(100vh/3)] overflow-y-auto">
