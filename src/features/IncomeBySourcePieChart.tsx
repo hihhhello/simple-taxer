@@ -60,7 +60,10 @@ export const IncomeBySourcePieChart = ({
     const labelRadius = arcOuterRadius * 0.8;
 
     // A separate arc generator for labels.
-    const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
+    const arcLabel = d3
+      .arc<d3.PieArcDatum<SourceIncome>>()
+      .innerRadius(labelRadius)
+      .outerRadius(labelRadius);
 
     // Generates a pie for the given array of data, returning an array of objects representing each datum’s arc angles.
     //  {"data":  1, "value":  1, "index": 6, "startAngle": 6.050474740247008, "endAngle": 6.166830023713296, "padAngle": 0}
