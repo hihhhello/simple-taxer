@@ -109,9 +109,6 @@ export const IncomeBySourcePieChart = ({
       .selectAll()
       .data(pieArcsData)
       .join('text')
-      /**
-       * TODO: figure out how "centroid" method works and why TS complains.
-       */
       .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`)
       .call((text) =>
         text
