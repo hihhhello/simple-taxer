@@ -52,7 +52,10 @@ export const IncomeBySourcePieChart = ({
 
     const arcOuterRadius = Math.min(width, height) / 2 - 1;
 
-    const arc = d3.arc().innerRadius(0).outerRadius(arcOuterRadius);
+    const arc = d3
+      .arc<d3.PieArcDatum<SourceIncome>>()
+      .innerRadius(0)
+      .outerRadius(arcOuterRadius);
 
     const labelRadius = arcOuterRadius * 0.8;
 
@@ -88,7 +91,6 @@ export const IncomeBySourcePieChart = ({
       /**
        * TODO: figure out how "arc" can be assign to "d" attribute and transformed from ArcObject to path commands (See https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#path_commands).
        */
-      // @ts-ignore
       .attr('d', arc)
       // <title> for each <d>
       .append('title')
@@ -110,7 +112,6 @@ export const IncomeBySourcePieChart = ({
       /**
        * TODO: figure out how "centroid" method works and why TS complains.
        */
-      // @ts-ignore
       .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
       .call((text) =>
         text
