@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     default: 'Simple Taxer',
   },
   description: 'Created by Anton',
+  openGraph: {
+    title: 'Simple Taxer',
+    description: 'Get your taxes in a seconds',
+    url: 'https://simple-taxer.vercel.app/',
+    siteName: 'Simple Taxer',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 function RootLayout({ children }: { children: React.ReactNode }) {
