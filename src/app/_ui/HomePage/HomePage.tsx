@@ -1,9 +1,9 @@
 'use client';
 
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatISO, parseISO } from 'date-fns';
-import { useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
@@ -18,13 +18,13 @@ import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
+  session: Session | null;
 };
 
 export const HomePageContent = ({
   transactions: initialTransactions,
+  session,
 }: HomePageContentProps) => {
-  const session = useSession();
-
   const loadingToast = useLoadingToast();
 
   const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
@@ -58,21 +58,8 @@ export const HomePageContent = ({
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
-    session.data?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
+    session?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
   );
-
-  /**
-   * TODO: workaround to set current tab to Transactions when user info is loaded.
-   *
-   * @See https://app.asana.com/0/1205640478095475/1205696291581408/f.
-   */
-  useEffect(() => {
-    if (!session.data?.user) {
-      return;
-    }
-
-    setCurrentTab(HomePageTab.TRANSACTIONS);
-  }, [session.data?.user]);
 
   const [transactionSearchQuery, setTransactionSearchQuery] = useState('');
 
@@ -229,7 +216,7 @@ export const HomePageContent = ({
 
   return (
     <div>
-      {session.data?.user && (
+      {session?.user && (
         <div className="mb-4">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
@@ -253,7 +240,7 @@ export const HomePageContent = ({
 
       {(() => {
         if (currentTab === HomePageTab.TRANSACTIONS) {
-          if (!session.data?.user) {
+          if (!session?.user) {
             return <GoogleSignInButton />;
           }
 
@@ -355,7 +342,7 @@ export const HomePageContent = ({
         }
 
         if (currentTab === HomePageTab.ANALYTICS) {
-          if (!session.data?.user) {
+          if (!session?.user) {
             return <GoogleSignInButton />;
           }
 
@@ -383,7 +370,7 @@ export const HomePageContent = ({
             <div>
               <IncomeTaxCalculator
                 totalIncome={totalIncome}
-                me={session.data?.user}
+                me={session?.user}
               />
             </div>
           );
