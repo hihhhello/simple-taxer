@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '../../public/preview.png',
+        url: '/preview.png',
         width: 800,
         height: 600,
       },
