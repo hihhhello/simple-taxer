@@ -23,15 +23,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://nextjs.org/og.png',
+        url: './preview.png',
         width: 800,
         height: 600,
-      },
-      {
-        url: 'https://nextjs.org/og-alt.png',
-        width: 1800,
-        height: 1600,
-        alt: 'My custom alt',
       },
     ],
   },
