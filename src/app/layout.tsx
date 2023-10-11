@@ -9,7 +9,10 @@ import { BaseLayout } from '@/app/_ui/BaseLayout';
 import { NextAuthProvider } from '@/app/_ui/NextAuthProvider';
 
 export const metadata: Metadata = {
-  title: 'Simple Taxer',
+  title: {
+    template: 'Simple Taxer | %s',
+    default: 'Simple Taxer',
+  },
   description: 'Created by Anton',
 };
 
