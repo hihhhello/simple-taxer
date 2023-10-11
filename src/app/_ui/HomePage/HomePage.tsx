@@ -28,7 +28,10 @@ export const HomePageContent = ({
 
   const { data: transactions, refetch: refetchTransactions } =
     api.transactions.getAll.useQuery(
-      {},
+      {
+        endDate: transactionsEndDate,
+        startDate: transactionsStartDate,
+      },
       {
         initialData: initialTransactions,
         queryKey: [
@@ -274,7 +277,11 @@ export const HomePageContent = ({
                             : ''
                         }
                         onChange={(e) =>
-                          setTransactionsStartDate(parseISO(e.target.value))
+                          setTransactionsStartDate(
+                            e.target.value
+                              ? parseISO(e.target.value)
+                              : undefined,
+                          )
                         }
                       />
                     </div>
@@ -296,7 +303,11 @@ export const HomePageContent = ({
                             : ''
                         }
                         onChange={(e) =>
-                          setTransactionsEndDate(parseISO(e.target.value))
+                          setTransactionsEndDate(
+                            e.target.value
+                              ? parseISO(e.target.value)
+                              : undefined,
+                          )
                         }
                       />
                     </div>
