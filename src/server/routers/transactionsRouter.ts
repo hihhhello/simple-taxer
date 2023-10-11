@@ -17,6 +17,8 @@ export const transactionsRouter = router({
               date: ZOD_SORTING_ENUM,
             })
             .optional(),
+          startDate: z.date().optional(),
+          endDate: z.date().optional(),
         })
         .optional(),
     )
@@ -28,6 +30,10 @@ export const transactionsRouter = router({
       return ctx.prisma.transaction.findMany({
         where: {
           userId: ctx.user.id,
+          date: {
+            gte: input?.startDate,
+            lte: input?.endDate,
+          },
         },
         orderBy: {
           date: 'desc',
