@@ -10,10 +10,15 @@ export default async function Home() {
   const session = await getServerSession(NEXT_AUTH_OPTIONS);
 
   const transactions = await caller.transactions.getAll({});
+  const sourceIncomes = await caller.transactions.getBySourceName({});
 
   return (
     <>
-      <HomePageContent transactions={transactions} session={session} />
+      <HomePageContent
+        transactions={transactions}
+        session={session}
+        sourceIncomes={sourceIncomes}
+      />
     </>
   );
 }

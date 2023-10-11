@@ -5,16 +5,23 @@ import { User } from 'next-auth';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
+import { api } from '@/shared/api';
 
 type HomePageAnalyticsTabProps = {
   me: User | undefined | null;
-  transactionsBySourceName: AnalyticsSourceIncome[];
+  sourceIncomes: AnalyticsSourceIncome[] | undefined;
 };
 
 export const HomePageAnalyticsTab = ({
   me,
-  transactionsBySourceName,
+  sourceIncomes: initialSourceIncomes,
 }: HomePageAnalyticsTabProps) => {
+  const { data: transactionsBySourceName } =
+    api.transactions.getBySourceName.useQuery(
+      {},
+      { initialData: initialSourceIncomes },
+    );
+
   if (!me) {
     return <GoogleSignInButton />;
   }

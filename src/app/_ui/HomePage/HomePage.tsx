@@ -8,17 +8,18 @@ import { api } from '@/shared/api';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabBar } from './ui/HomePageTabBar';
 import { HomePageTab } from './utils/homePageTypes';
-import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
-import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { HomePageTransactionsTab } from './ui/HomePageTransactionsTab';
+import { HomePageAnalyticsTab } from './ui/HomePageAnalyticsTab';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
+  sourceIncomes: ApiRouterOutputs['transactions']['getBySourceName'];
   session: Session | null;
 };
 
 export const HomePageContent = ({
   transactions: initialTransactions,
+  sourceIncomes: initialSourceIncomes,
   session,
 }: HomePageContentProps) => {
   const { data: transactions } = api.transactions.getAll.useQuery(
@@ -27,8 +28,6 @@ export const HomePageContent = ({
       initialData: initialTransactions,
     },
   );
-  const { data: transactionsBySourceName } =
-    api.transactions.getBySourceName.useQuery({});
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
     session?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
@@ -83,26 +82,11 @@ export const HomePageContent = ({
         }
 
         if (currentTab === HomePageTab.ANALYTICS) {
-          if (!session?.user) {
-            return <GoogleSignInButton />;
-          }
-
-          if (!transactionsBySourceName) {
-            return null;
-          }
-
           return (
-            <div>
-              <div className="mb-4">
-                <h1 className="text-lg font-bold leading-6 text-gray-900">
-                  Income by source
-                </h1>
-              </div>
-
-              <IncomeBySourcePieChart
-                transactionsBySourceName={transactionsBySourceName}
-              />
-            </div>
+            <HomePageAnalyticsTab
+              me={session?.user}
+              sourceIncomes={initialSourceIncomes}
+            />
           );
         }
 
