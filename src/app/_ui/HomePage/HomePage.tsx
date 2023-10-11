@@ -92,12 +92,7 @@ export const HomePageContent = ({
 
         if (currentTab === HomePageTab.CALCULATOR) {
           return (
-            <div>
-              <IncomeTaxCalculator
-                totalIncome={totalIncome}
-                me={session?.user}
-              />
-            </div>
+            <IncomeTaxCalculator totalIncome={totalIncome} me={session?.user} />
           );
         }
 
