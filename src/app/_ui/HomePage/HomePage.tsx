@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { parseISO } from 'date-fns';
+import { formatISO, parseISO } from 'date-fns';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
@@ -23,15 +23,18 @@ export const HomePageContent = ({
 }: HomePageContentProps) => {
   const loadingToast = useLoadingToast();
 
-  const [transactionsStartDate, setTransactionsStartDate] = useState('');
-  const [transactionsEndDate, setTransactionsEndDate] = useState('');
+  const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
+  const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
 
   const { data: transactions, refetch: refetchTransactions } =
     api.transactions.getAll.useQuery(
       {},
       {
         initialData: initialTransactions,
-        queryKey: ['transactions.getAll', {}],
+        queryKey: [
+          'transactions.getAll',
+          { startDate: transactionsStartDate, endDate: transactionsEndDate },
+        ],
       },
     );
   const { data: transactionsBySourceName } =
@@ -263,9 +266,15 @@ export const HomePageContent = ({
                         id="transactionsStartDate"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
                         placeholder="Start date"
-                        value={transactionsStartDate}
+                        value={
+                          transactionsStartDate
+                            ? formatISO(transactionsStartDate, {
+                                representation: 'date',
+                              })
+                            : ''
+                        }
                         onChange={(e) =>
-                          setTransactionsStartDate(e.target.value)
+                          setTransactionsStartDate(parseISO(e.target.value))
                         }
                       />
                     </div>
@@ -279,8 +288,16 @@ export const HomePageContent = ({
                         id="transactionsSEndDate"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
                         placeholder="End date"
-                        value={transactionsEndDate}
-                        onChange={(e) => setTransactionsEndDate(e.target.value)}
+                        value={
+                          transactionsEndDate
+                            ? formatISO(transactionsEndDate, {
+                                representation: 'date',
+                              })
+                            : ''
+                        }
+                        onChange={(e) =>
+                          setTransactionsEndDate(parseISO(e.target.value))
+                        }
                       />
                     </div>
                   </div>
