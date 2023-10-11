@@ -11,7 +11,7 @@ import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
-import { HomePageTabs } from './ui/HomePageTabs';
+import { HomePageTabBar } from './ui/HomePageTabBar';
 import { HomePageTab } from './utils/homePageTypes';
 import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
@@ -232,7 +232,7 @@ export const HomePageContent = ({
         </div>
       )}
 
-      <HomePageTabs
+      <HomePageTabBar
         currentTab={currentTab}
         handleSelectTab={setCurrentTab}
         className="mb-4"

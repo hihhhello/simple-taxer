@@ -15,7 +15,7 @@ type HomePageTabsProps = {
   className?: string;
 };
 
-export const HomePageTabs = ({
+export const HomePageTabBar = ({
   handleSelectTab,
   currentTab,
   className,
