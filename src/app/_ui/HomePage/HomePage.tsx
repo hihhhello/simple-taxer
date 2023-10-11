@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatISO, parseISO } from 'date-fns';
 import { useSession } from 'next-auth/react';
@@ -60,6 +60,19 @@ export const HomePageContent = ({
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
     session.data?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
   );
+
+  /**
+   * TODO: workaround to set current tab to Transactions when user info is loaded.
+   *
+   * @See https://app.asana.com/0/1205640478095475/1205696291581408/f.
+   */
+  useEffect(() => {
+    if (!session.data?.user) {
+      return;
+    }
+
+    setCurrentTab(HomePageTab.TRANSACTIONS);
+  }, [session.data?.user]);
 
   const [transactionSearchQuery, setTransactionSearchQuery] = useState('');
 
