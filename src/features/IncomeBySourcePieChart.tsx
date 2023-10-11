@@ -4,14 +4,10 @@ import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
 import { formatToUSDCurrency } from '@/shared/utils';
-
-type SourceIncome = {
-  sourceName: string | null;
-  _sum: { amount: number | null };
-};
+import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 
 type IncomeBySourcePieChartProps = {
-  transactionsBySourceName: SourceIncome[];
+  transactionsBySourceName: AnalyticsSourceIncome[];
 };
 
 export const IncomeBySourcePieChart = ({
@@ -46,14 +42,14 @@ export const IncomeBySourcePieChart = ({
 
     // Create the pie layout and arc generator.
     const getPieLayout = d3
-      .pie<SourceIncome>()
+      .pie<AnalyticsSourceIncome>()
       .sort(null)
       .value((d) => d._sum.amount ?? 0);
 
     const arcOuterRadius = Math.min(width, height) / 2 - 1;
 
     const getPieArc = d3
-      .arc<d3.PieArcDatum<SourceIncome>>()
+      .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
       .innerRadius(0)
       .outerRadius(arcOuterRadius);
 
@@ -61,7 +57,7 @@ export const IncomeBySourcePieChart = ({
 
     // A separate arc generator for labels.
     const getPieLabelArc = d3
-      .arc<d3.PieArcDatum<SourceIncome>>()
+      .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
       .innerRadius(labelRadius)
       .outerRadius(labelRadius);
 
