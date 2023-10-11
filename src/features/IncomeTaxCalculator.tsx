@@ -1,16 +1,19 @@
 import { useMemo, useState } from 'react';
 import { isNil } from 'lodash';
+import { User } from 'next-auth';
 
 import { DollarInput } from '@/shared/ui';
 import { formatToUSDCurrency } from '@/shared/utils';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 
 type IncomeTaxCalculatorProps = {
-  totalIncome: number;
+  totalIncome: number | undefined;
+  me: User | undefined | null;
 };
 
 export const IncomeTaxCalculator = ({
   totalIncome,
+  me,
 }: IncomeTaxCalculatorProps) => {
   const [filingStatus, setFilingStatus] = useState<'single' | 'married'>(
     'single',
@@ -89,14 +92,16 @@ export const IncomeTaxCalculator = ({
                 Household Income
               </label>
 
-              <div className="text-sm">
-                <span
-                  onClick={() => setHouseholdIncome(totalIncome)}
-                  className="cursor-pointer text-indigo-600 hover:text-indigo-500"
-                >
-                  Use total
-                </span>
-              </div>
+              {me && totalIncome && (
+                <div className="text-sm">
+                  <span
+                    onClick={() => setHouseholdIncome(totalIncome)}
+                    className="cursor-pointer text-indigo-600 hover:text-indigo-500"
+                  >
+                    Use total
+                  </span>
+                </div>
+              )}
             </div>
 
             <DollarInput

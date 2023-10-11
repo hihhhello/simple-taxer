@@ -3,6 +3,7 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatISO, parseISO } from 'date-fns';
+import { useSession } from 'next-auth/react';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
@@ -13,6 +14,7 @@ import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabs } from './ui/HomePageTabs';
 import { HomePageTab } from './utils/homePageTypes';
 import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
+import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -21,6 +23,8 @@ type HomePageContentProps = {
 export const HomePageContent = ({
   transactions: initialTransactions,
 }: HomePageContentProps) => {
+  const session = useSession();
+
   const loadingToast = useLoadingToast();
 
   const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
@@ -54,7 +58,7 @@ export const HomePageContent = ({
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
-    HomePageTab.TRANSACTIONS,
+    session.data?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
   );
 
   const [transactionSearchQuery, setTransactionSearchQuery] = useState('');
@@ -212,19 +216,21 @@ export const HomePageContent = ({
 
   return (
     <div>
-      <div className="mb-4">
-        <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
-            <dt className="truncate text-sm font-medium text-gray-500">
-              Total Income
-            </dt>
+      {session.data?.user && (
+        <div className="mb-4">
+          <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
+              <dt className="truncate text-sm font-medium text-gray-500">
+                Total Income
+              </dt>
 
-            <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-              {formatToUSDCurrency(totalIncome)}
-            </dd>
-          </div>
-        </dl>
-      </div>
+              <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+                {formatToUSDCurrency(totalIncome)}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      )}
 
       <HomePageTabs
         currentTab={currentTab}
@@ -234,6 +240,10 @@ export const HomePageContent = ({
 
       {(() => {
         if (currentTab === HomePageTab.TRANSACTIONS) {
+          if (!session.data?.user) {
+            return <GoogleSignInButton />;
+          }
+
           return (
             <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
               <AddNewTransactionForm
@@ -332,6 +342,10 @@ export const HomePageContent = ({
         }
 
         if (currentTab === HomePageTab.ANALYTICS) {
+          if (!session.data?.user) {
+            return <GoogleSignInButton />;
+          }
+
           if (!transactionsBySourceName) {
             return null;
           }
@@ -354,7 +368,10 @@ export const HomePageContent = ({
         if (currentTab === HomePageTab.CALCULATOR) {
           return (
             <div>
-              <IncomeTaxCalculator totalIncome={totalIncome} />
+              <IncomeTaxCalculator
+                totalIncome={totalIncome}
+                me={session.data?.user}
+              />
             </div>
           );
         }
