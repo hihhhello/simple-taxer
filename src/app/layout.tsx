@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Simple Taxer',
     description: 'Get your taxes in a seconds',
-    url: 'https://simple-taxer.vercel.app/',
+    url: 'https://simple-taxer-hihhhello.vercel.app/',
     siteName: 'Simple Taxer',
     locale: 'en_US',
     type: 'website',
