@@ -37,6 +37,11 @@ export type TransactionTableProps = {
     transactionId: number;
     newValues: EditTransactionValues;
   }) => void;
+  handleSortTransactions?: (field: 'amount', order: 'asc' | 'desc') => void;
+  sort?: {
+    field: 'amount';
+    order: 'asc' | 'desc';
+  };
 };
 
 export const TransactionTable = ({
@@ -175,8 +180,6 @@ export const TransactionTable = ({
 
       if (event.key === 'Enter') {
         handleSubmitEditTransaction();
-
-        return;
       }
     };
 

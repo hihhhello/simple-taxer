@@ -25,6 +25,14 @@ export const HomePageTransactionsTab = ({
   const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
   const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
 
+  const [transactionsSort, setTransactionsSort] = useState<{
+    field: 'amount';
+    order: 'asc' | 'desc';
+  }>({
+    field: 'amount',
+    order: 'asc',
+  });
+
   const { data: transactions, refetch: refetchTransactions } =
     api.transactions.getAll.useQuery(
       {
@@ -189,6 +197,11 @@ export const HomePageTransactionsTab = ({
     [transactionSearchQuery, transactions],
   );
 
+  const handleSortTransactions = useCallback(
+    (field: 'amount', order: 'asc' | 'desc') => {},
+    [],
+  );
+
   if (!me) {
     return <GoogleSignInButton />;
   }
@@ -275,6 +288,7 @@ export const HomePageTransactionsTab = ({
             makeHandleDuplicateTransaction={makeHandleDuplicateTransaction}
             transactionToDeleteId={transactionToDeleteId}
             handleSubmitEditTransaction={handleEditTransaction}
+            sort={transactionsSort}
           />
         </div>
       </div>
