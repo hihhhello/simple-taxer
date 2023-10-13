@@ -4,19 +4,33 @@ import { publicProcedure, router } from '../trpc';
 import { ZOD_SORTING_ENUM } from '../utils/serverConstants';
 import { Prisma } from '@prisma/client';
 
+type SortField = 'amount' | 'bankName' | 'sourceName' | 'date';
+type SortOrder = 'asc' | 'desc';
+
+const SortStringZod = z.union([
+  z.literal('amount:asc'),
+  z.literal('amount:desc'),
+  z.literal('bankName:asc'),
+  z.literal('bankName:desc'),
+  z.literal('sourceName:asc'),
+  z.literal('sourceName:desc'),
+  z.literal('date:asc'),
+  z.literal('date:desc'),
+]);
+
+function typeSafeSplit<T extends `${SortField}:${SortOrder}`>(
+  input: T,
+): [SortField, SortOrder] {
+  const [field, order] = input.split(':') as [SortField, SortOrder];
+  return [field, order];
+}
+
 export const transactionsRouter = router({
   getAll: publicProcedure
     .input(
       z
         .object({
-          sort: z
-            .object({
-              amount: ZOD_SORTING_ENUM,
-              bankName: ZOD_SORTING_ENUM,
-              sourceName: ZOD_SORTING_ENUM,
-              date: ZOD_SORTING_ENUM,
-            })
-            .optional(),
+          sort: SortStringZod.optional(),
           startDate: z.date().optional(),
           endDate: z.date().optional(),
         })
@@ -27,6 +41,8 @@ export const transactionsRouter = router({
         return;
       }
 
+      const sortBy = input?.sort ? typeSafeSplit(input?.sort) : undefined;
+
       return ctx.prisma.transaction.findMany({
         where: {
           userId: ctx.user.id,
@@ -35,10 +51,13 @@ export const transactionsRouter = router({
             lte: input?.endDate,
           },
         },
-        orderBy: {
-          date: 'desc',
-          ...input?.sort,
-        },
+        orderBy: sortBy
+          ? {
+              [sortBy[0]]: sortBy[1],
+            }
+          : {
+              date: 'desc',
+            },
       });
     }),
   getOneById: publicProcedure

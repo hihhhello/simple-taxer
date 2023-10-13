@@ -26,11 +26,11 @@ export const HomePageTransactionsTab = ({
   const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
 
   const [transactionsSort, setTransactionsSort] = useState<{
-    field: 'amount';
+    field: 'amount' | 'date';
     order: 'asc' | 'desc';
   }>({
-    field: 'amount',
-    order: 'asc',
+    field: 'date',
+    order: 'desc',
   });
 
   const { data: transactions, refetch: refetchTransactions } =
@@ -38,6 +38,7 @@ export const HomePageTransactionsTab = ({
       {
         endDate: transactionsEndDate,
         startDate: transactionsStartDate,
+        sort: `${transactionsSort.field}:${transactionsSort.order}`,
       },
       {
         initialData: initialTransactions,

@@ -37,9 +37,12 @@ export type TransactionTableProps = {
     transactionId: number;
     newValues: EditTransactionValues;
   }) => void;
-  handleSortTransactions?: (field: 'amount', order: 'asc' | 'desc') => void;
+  handleSortTransactions?: (
+    field: 'amount' | 'date',
+    order: 'asc' | 'desc',
+  ) => void;
   sort?: {
-    field: 'amount';
+    field: 'amount' | 'date';
     order: 'asc' | 'desc';
   };
 };
