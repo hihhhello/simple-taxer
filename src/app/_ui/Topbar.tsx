@@ -4,10 +4,10 @@ import { Fragment, useCallback } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { Session } from 'next-auth';
 
 import { classNames } from '@/shared/utils';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
-import { Session } from 'next-auth';
 
 type TopbarProps = {
   session: Session | null;

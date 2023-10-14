@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { getServerSession } from 'next-auth';
 
-import { NEXT_AUTH_OPTIONS } from '../api/auth/[...nextauth]/route';
+import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
 import { Topbar } from './Topbar';
 
 type BaseLayoutProps = {
