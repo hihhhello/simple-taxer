@@ -199,7 +199,12 @@ export const HomePageTransactionsTab = ({
   );
 
   const handleSortTransactions = useCallback(
-    (field: 'amount', order: 'asc' | 'desc') => {},
+    (field: 'amount' | 'date', order: 'asc' | 'desc') => {
+      setTransactionsSort({
+        field,
+        order,
+      });
+    },
     [],
   );
 
@@ -290,6 +295,7 @@ export const HomePageTransactionsTab = ({
             transactionToDeleteId={transactionToDeleteId}
             handleSubmitEditTransaction={handleEditTransaction}
             sort={transactionsSort}
+            handleSortTransactions={handleSortTransactions}
           />
         </div>
       </div>

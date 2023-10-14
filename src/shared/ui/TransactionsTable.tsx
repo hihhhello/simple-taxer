@@ -54,6 +54,8 @@ export const TransactionTable = ({
   makeHandleDuplicateTransaction,
   handleDeleteAllTransactions: propsHandleDeleteAllTransactions,
   handleSubmitEditTransaction: propsHandleSubmitEditTransaction,
+  sort,
+  handleSortTransactions,
 }: TransactionTableProps) => {
   const [selectedTransactions, setSelectedTransactions] = useState<
     Transaction[]
@@ -236,7 +238,30 @@ export const TransactionTable = ({
               scope="col"
               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
             >
-              Date
+              <div
+                className="flex cursor-pointer items-center"
+                onClick={() => {
+                  if (!sort || !handleSortTransactions) {
+                    return;
+                  }
+
+                  handleSortTransactions(
+                    'date',
+                    sort.order === 'asc' ? 'desc' : 'asc',
+                  );
+                }}
+              >
+                Date{' '}
+                {sort?.field === 'date' ? (
+                  sort.order === 'desc' ? (
+                    <>&#x25BC;</>
+                  ) : (
+                    <>&#x25B2;</>
+                  )
+                ) : (
+                  <>&#x25BC;</>
+                )}
+              </div>
             </th>
 
             <th
