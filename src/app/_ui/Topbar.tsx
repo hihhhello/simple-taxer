@@ -2,15 +2,19 @@
 
 import { Fragment, useCallback } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 import { classNames } from '@/shared/utils';
+import { GoogleSignInButton } from '@/features/GoogleSignInButton';
+import { Session } from 'next-auth';
 
-export const Topbar = () => {
+type TopbarProps = {
+  session: Session | null;
+};
+
+export const Topbar = ({ session }: TopbarProps) => {
   const handleSignOut = useCallback(() => signOut(), []);
-
-  const session = useSession();
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -19,6 +23,8 @@ export const Topbar = () => {
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 justify-end">
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {!session?.user && <GoogleSignInButton />}
+
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -27,9 +33,9 @@ export const Topbar = () => {
 
                       <span className="sr-only">Open user menu</span>
 
-                      {session.data?.user?.image ? (
+                      {session?.user?.image ? (
                         <Image
-                          src={session.data?.user?.image}
+                          src={session.user.image}
                           alt="Profile image"
                           className="h-8 w-8 rounded-full"
                           height={32}
@@ -51,10 +57,10 @@ export const Topbar = () => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {session.data?.user?.name && (
+                      {session?.user && (
                         <Menu.Item>
                           <p className="border-b-2 px-4 py-2 text-center text-sm font-semibold">
-                            {session.data?.user?.name}
+                            {session.user.name}
                           </p>
                         </Menu.Item>
                       )}
