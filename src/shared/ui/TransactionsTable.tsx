@@ -268,7 +268,30 @@ export const TransactionTable = ({
               scope="col"
               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
             >
-              Amount
+              <div
+                className="flex cursor-pointer items-center"
+                onClick={() => {
+                  if (!sort || !handleSortTransactions) {
+                    return;
+                  }
+
+                  handleSortTransactions(
+                    'amount',
+                    sort.order === 'asc' ? 'desc' : 'asc',
+                  );
+                }}
+              >
+                Amount{' '}
+                {sort?.field === 'amount' ? (
+                  sort.order === 'desc' ? (
+                    <>&#x25BC;</>
+                  ) : (
+                    <>&#x25B2;</>
+                  )
+                ) : (
+                  <>&#x25BC;</>
+                )}
+              </div>
             </th>
 
             <th
