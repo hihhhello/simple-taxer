@@ -18,7 +18,7 @@ import {
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils';
 import { Transaction } from '@/shared/types';
-import { DollarInput } from './DollarInput';
+import { DollarInput } from '@/shared/ui/DollarInput';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
