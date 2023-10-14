@@ -194,6 +194,17 @@ export const TransactionTable = ({
       document.removeEventListener('keydown', transactionEditingEventListener);
   }, [handleCancelTransactionEdit, handleSubmitEditTransaction]);
 
+  const makeHandleSortTransaction = (field: 'amount' | 'date') => () => {
+    if (!sort || !handleSortTransactions) {
+      return;
+    }
+
+    const newSortOrder =
+      sort.field === field ? (sort.order === 'asc' ? 'desc' : 'asc') : 'asc';
+
+    handleSortTransactions(field, newSortOrder);
+  };
+
   return (
     <div className="relative">
       <table className="relative min-w-full divide-y divide-gray-300">
@@ -240,16 +251,7 @@ export const TransactionTable = ({
             >
               <div
                 className="flex cursor-pointer items-center"
-                onClick={() => {
-                  if (!sort || !handleSortTransactions) {
-                    return;
-                  }
-
-                  handleSortTransactions(
-                    'date',
-                    sort.order === 'asc' ? 'desc' : 'asc',
-                  );
-                }}
+                onClick={makeHandleSortTransaction('date')}
               >
                 Date{' '}
                 {sort?.field === 'date' ? (
@@ -270,16 +272,7 @@ export const TransactionTable = ({
             >
               <div
                 className="flex cursor-pointer items-center"
-                onClick={() => {
-                  if (!sort || !handleSortTransactions) {
-                    return;
-                  }
-
-                  handleSortTransactions(
-                    'amount',
-                    sort.order === 'asc' ? 'desc' : 'asc',
-                  );
-                }}
+                onClick={makeHandleSortTransaction('amount')}
               >
                 Amount{' '}
                 {sort?.field === 'amount' ? (
