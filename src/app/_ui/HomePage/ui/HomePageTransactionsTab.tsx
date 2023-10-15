@@ -10,6 +10,7 @@ import { TransactionTable, TransactionTableProps } from '@/shared/ui';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
+import { classNames } from '@/shared/utils';
 
 type HomePageTransactionsTabProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -244,7 +245,10 @@ export const HomePageTransactionsTab = ({
                 type="date"
                 name="transactionsStartDate"
                 id="transactionsStartDate"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
+                className={classNames(
+                  'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6',
+                  transactionsStartDate ? 'text-gray-900' : 'text-gray-400',
+                )}
                 placeholder="Start date"
                 value={
                   transactionsStartDate
@@ -268,7 +272,10 @@ export const HomePageTransactionsTab = ({
                 type="date"
                 name="transactionsSEndDate"
                 id="transactionsSEndDate"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
+                className={classNames(
+                  'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6',
+                  transactionsEndDate ? 'text-gray-900' : 'text-gray-400',
+                )}
                 placeholder="End date"
                 value={
                   transactionsEndDate
