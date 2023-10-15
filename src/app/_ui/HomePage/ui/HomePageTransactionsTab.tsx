@@ -41,7 +41,8 @@ export const HomePageTransactionsTab = ({
         sort: `${transactionsSort.field}:${transactionsSort.order}`,
       },
       {
-        initialData: initialTransactions,
+        placeholderData: initialTransactions,
+        keepPreviousData: true,
         queryKey: [
           'transactions.getAll',
           { startDate: transactionsStartDate, endDate: transactionsEndDate },
