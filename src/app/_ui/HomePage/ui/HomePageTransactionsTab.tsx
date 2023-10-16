@@ -193,6 +193,14 @@ export const HomePageTransactionsTab = ({
     [],
   );
 
+  const handleChangeTransactionsEndDate = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setTransactionsEndDate(
+        event.target.value ? parseISO(event.target.value) : undefined,
+      ),
+    [],
+  );
+
   const searchedTransactions = useMemo(
     () =>
       transactionSearchQuery
@@ -288,11 +296,7 @@ export const HomePageTransactionsTab = ({
                       })
                     : ''
                 }
-                onChange={(e) =>
-                  setTransactionsEndDate(
-                    e.target.value ? parseISO(e.target.value) : undefined,
-                  )
-                }
+                onChange={handleChangeTransactionsEndDate}
               />
             </div>
           </div>
