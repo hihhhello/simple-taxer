@@ -1,7 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Session, User } from 'next-auth';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { api } from '@/shared/api';
@@ -39,6 +40,10 @@ export const HomePageContent = ({
   tab: initialTab,
   session,
 }: HomePageContentProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const { data: transactions } = api.transactions.getAll.useQuery(
     {},
     {
@@ -64,6 +69,18 @@ export const HomePageContent = ({
     [transactions],
   );
 
+  const handleSelectTab = useCallback(
+    (selectedTab: HomePageTab) => {
+      setCurrentTab(selectedTab);
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('tab', selectedTab);
+
+      router.push(pathname + '?' + params.toString());
+    },
+    [pathname, router, searchParams],
+  );
+
   return (
     <div>
       {session?.user && (
@@ -84,7 +101,7 @@ export const HomePageContent = ({
 
       <HomePageTabBar
         currentTab={currentTab}
-        handleSelectTab={setCurrentTab}
+        handleSelectTab={handleSelectTab}
         className="mb-4"
       />
 
