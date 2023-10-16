@@ -1,13 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Session } from 'next-auth';
+import { Session, User } from 'next-auth';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { api } from '@/shared/api';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
 import { HomePageTabBar } from './ui/HomePageTabBar';
-import { HomePageTab } from './utils/homePageTypes';
+import { HomePageTab, HomePageTabKey } from './utils/homePageTypes';
 import { HomePageTransactionsTab } from './ui/HomePageTransactionsTab';
 import { HomePageAnalyticsTab } from './ui/HomePageAnalyticsTab';
 
@@ -15,11 +15,28 @@ type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
   sourceIncomes: ApiRouterOutputs['transactions']['getBySourceName'];
   session: Session | null;
+  tab?: HomePageTab;
+};
+
+const getCurrentTab = (
+  tab: HomePageTab | undefined,
+  me: User | undefined | null,
+) => {
+  if (!tab && !me) {
+    return HomePageTabKey.CALCULATOR;
+  }
+
+  if (!tab) {
+    return HomePageTabKey.TRANSACTIONS;
+  }
+
+  return tab;
 };
 
 export const HomePageContent = ({
   transactions: initialTransactions,
   sourceIncomes: initialSourceIncomes,
+  tab: initialTab,
   session,
 }: HomePageContentProps) => {
   const { data: transactions } = api.transactions.getAll.useQuery(
@@ -30,7 +47,7 @@ export const HomePageContent = ({
   );
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
-    session?.user ? HomePageTab.TRANSACTIONS : HomePageTab.CALCULATOR,
+    getCurrentTab(initialTab, session?.user),
   );
 
   const totalIncome = useMemo(
@@ -72,7 +89,7 @@ export const HomePageContent = ({
       />
 
       {(() => {
-        if (currentTab === HomePageTab.TRANSACTIONS) {
+        if (currentTab === HomePageTabKey.TRANSACTIONS) {
           return (
             <HomePageTransactionsTab
               me={session?.user}
@@ -81,7 +98,7 @@ export const HomePageContent = ({
           );
         }
 
-        if (currentTab === HomePageTab.ANALYTICS) {
+        if (currentTab === HomePageTabKey.ANALYTICS) {
           return (
             <HomePageAnalyticsTab
               me={session?.user}
@@ -90,7 +107,7 @@ export const HomePageContent = ({
           );
         }
 
-        if (currentTab === HomePageTab.CALCULATOR) {
+        if (currentTab === HomePageTabKey.CALCULATOR) {
           return (
             <IncomeTaxCalculator totalIncome={totalIncome} me={session?.user} />
           );
