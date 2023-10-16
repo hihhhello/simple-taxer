@@ -148,7 +148,7 @@ export const HomePageTransactionsTab = ({
   const handleEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
     useCallback(
       ({ newValues, transactionId }) => {
-        const toastId = toast.loading('Editing transaction...');
+        const toastId = loadingToast.showLoading('Editing transaction...');
 
         apiEditTransaction(
           {
@@ -160,27 +160,23 @@ export const HomePageTransactionsTab = ({
           },
           {
             onSuccess: () => {
-              toast.update(toastId, {
-                render: 'Transactions successfully changed.',
-                type: 'success',
-                autoClose: 2500,
-                isLoading: false,
+              loadingToast.handleSuccess({
+                toastId,
+                message: 'Transactions successfully changed.',
               });
 
               refetchTransactions();
             },
             onError: () => {
-              toast.update(toastId, {
-                render: 'Transaction editing error. Try again.',
-                type: 'error',
-                autoClose: 2500,
-                isLoading: false,
+              loadingToast.handleError({
+                toastId,
+                message: 'Transaction editing error. Try again.',
               });
             },
           },
         );
       },
-      [apiEditTransaction, refetchTransactions],
+      [apiEditTransaction, loadingToast, refetchTransactions],
     );
 
   const handleChangeTransactionSearchQuery = useCallback(
