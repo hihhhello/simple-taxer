@@ -4,10 +4,7 @@ import { Metadata } from 'next';
 import { createAuthorizedCaller } from '@/server';
 import { HomePageContent } from '@/app/_ui/HomePage/HomePage';
 import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
-import {
-  HomePageTab,
-  HomePageTabKey,
-} from './_ui/HomePage/utils/homePageTypes';
+import { HomePageTab } from './_ui/HomePage/utils/homePageTypes';
 import { upperFirst } from 'lodash';
 
 type HomeProps = {
@@ -23,8 +20,6 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const transactions = await caller.transactions.getAll({});
   const sourceIncomes = await caller.transactions.getBySourceName({});
-
-  console.log('searchParams', searchParams.tab);
 
   return (
     <>
