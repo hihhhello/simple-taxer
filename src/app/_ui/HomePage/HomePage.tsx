@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { Session, User } from 'next-auth';
+import { User } from 'next-auth';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import { formatToUSDCurrency } from '@/shared/utils';

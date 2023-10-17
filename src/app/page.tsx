@@ -26,14 +26,12 @@ export default async function Home({ searchParams }: HomeProps) {
   const sourceIncomes = await caller.transactions.getBySourceName({});
 
   return (
-    <>
-      <HomePageContent
-        transactions={transactions}
-        me={session?.user}
-        sourceIncomes={sourceIncomes}
-        tab={searchParams.tab}
-      />
-    </>
+    <HomePageContent
+      transactions={transactions}
+      me={session?.user}
+      sourceIncomes={sourceIncomes}
+      tab={searchParams.tab}
+    />
   );
 }
 
