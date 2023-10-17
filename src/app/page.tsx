@@ -8,6 +8,7 @@ import {
   HomePageTab,
   HomePageTabKey,
 } from './_ui/HomePage/utils/homePageTypes';
+import { upperFirst } from 'lodash';
 
 type HomeProps = {
   searchParams: {
@@ -37,6 +38,10 @@ export default async function Home({ searchParams }: HomeProps) {
   );
 }
 
-export const metadata: Metadata = {
-  title: 'Simple Taxer | Home',
-};
+export async function generateMetadata({
+  searchParams,
+}: HomeProps): Promise<Metadata> {
+  return {
+    title: `Simple Taxer | ${upperFirst(searchParams.tab) ?? 'Transactions'}`,
+  };
+}
