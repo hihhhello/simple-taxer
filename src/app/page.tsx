@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: HomeProps) {
     <>
       <HomePageContent
         transactions={transactions}
-        session={session}
+        me={session?.user}
         sourceIncomes={sourceIncomes}
         tab={searchParams.tab}
       />

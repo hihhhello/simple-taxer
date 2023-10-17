@@ -15,8 +15,8 @@ import { HomePageAnalyticsTab } from './ui/HomePageAnalyticsTab';
 type HomePageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
   sourceIncomes: ApiRouterOutputs['transactions']['getBySourceName'];
-  session: Session | null;
   tab?: HomePageTab;
+  me: User | undefined | null;
 };
 
 const getCurrentTab = (
@@ -38,7 +38,7 @@ export const HomePageContent = ({
   transactions: initialTransactions,
   sourceIncomes: initialSourceIncomes,
   tab: initialTab,
-  session,
+  me,
 }: HomePageContentProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -52,7 +52,7 @@ export const HomePageContent = ({
   );
 
   const [currentTab, setCurrentTab] = useState<HomePageTab>(
-    getCurrentTab(initialTab, session?.user),
+    getCurrentTab(initialTab, me),
   );
 
   const totalIncome = useMemo(
@@ -83,7 +83,7 @@ export const HomePageContent = ({
 
   return (
     <div>
-      {session?.user && (
+      {me && (
         <div className="mb-4">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
@@ -109,7 +109,7 @@ export const HomePageContent = ({
         if (currentTab === HomePageTabKey.TRANSACTIONS) {
           return (
             <HomePageTransactionsTab
-              me={session?.user}
+              me={me}
               transactions={initialTransactions}
             />
           );
@@ -118,16 +118,14 @@ export const HomePageContent = ({
         if (currentTab === HomePageTabKey.ANALYTICS) {
           return (
             <HomePageAnalyticsTab
-              me={session?.user}
+              me={me}
               sourceIncomes={initialSourceIncomes}
             />
           );
         }
 
         if (currentTab === HomePageTabKey.CALCULATOR) {
-          return (
-            <IncomeTaxCalculator totalIncome={totalIncome} me={session?.user} />
-          );
+          return <IncomeTaxCalculator totalIncome={totalIncome} me={me} />;
         }
 
         return null;
