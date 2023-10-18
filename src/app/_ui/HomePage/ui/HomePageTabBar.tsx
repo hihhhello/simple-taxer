@@ -1,13 +1,8 @@
 import { upperFirst } from 'lodash';
 
 import { classNames } from '@/shared/utils';
-import { HomePageTab, HomePageTabKey } from '../utils/homePageTypes';
-
-const TABS = [
-  HomePageTabKey.TRANSACTIONS,
-  HomePageTabKey.ANALYTICS,
-  HomePageTabKey.CALCULATOR,
-];
+import { HomePageTab } from '../utils/homePageTypes';
+import { HOME_PAGE_TABS } from '../utils/homePageConstants';
 
 type HomePageTabsProps = {
   handleSelectTab: (selectedTab: HomePageTab) => void;
@@ -33,7 +28,7 @@ export const HomePageTabBar = ({
         value={currentTab}
         onChange={(e) => handleSelectTab(e.target.value as HomePageTab)}
       >
-        {TABS.map((tab) => (
+        {HOME_PAGE_TABS.map((tab) => (
           <option value={tab} key={tab}>
             {upperFirst(tab)}
           </option>
@@ -43,7 +38,7 @@ export const HomePageTabBar = ({
 
     <div className="hidden sm:block">
       <nav className="flex space-x-4" aria-label="Tabs">
-        {TABS.map((tab) => (
+        {HOME_PAGE_TABS.map((tab) => (
           <span
             key={tab}
             className={classNames(

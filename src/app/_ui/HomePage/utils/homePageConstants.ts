@@ -8,3 +8,9 @@ export const HOME_PAGE_TAB_KEY_TO_OPEN_GRAPH_DESCRIPTION: Record<
   [HomePageTabKey.CALCULATOR]: 'Get your taxes calculated in seconds.',
   [HomePageTabKey.TRANSACTIONS]: 'Keep your income recorded.',
 };
+
+export const HOME_PAGE_TABS = [
+  HomePageTabKey.TRANSACTIONS,
+  HomePageTabKey.ANALYTICS,
+  HomePageTabKey.CALCULATOR,
+];
