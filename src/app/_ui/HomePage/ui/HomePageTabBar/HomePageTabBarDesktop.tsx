@@ -13,6 +13,8 @@ export const HomePageTabBarDesktop = ({
   currentTab,
   handleSelectTab,
 }: HomePageTabBarDesktopProps) => {
+  const makeHandleSelectTab = (tab: HomePageTab) => () => handleSelectTab(tab);
+
   return (
     <div className="hidden sm:block">
       <nav className="flex space-x-4" aria-label="Tabs">
@@ -25,7 +27,7 @@ export const HomePageTabBarDesktop = ({
                 : 'text-gray-500 hover:text-gray-700',
               'cursor-pointer rounded-md px-3 py-2 text-sm  font-medium',
             )}
-            onClick={() => handleSelectTab(tab)}
+            onClick={makeHandleSelectTab(tab)}
             aria-current={tab === currentTab ? 'page' : undefined}
           >
             {upperFirst(tab)}
