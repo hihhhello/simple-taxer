@@ -14,6 +14,10 @@ import {
   IncomeTaxCalculatorFilingStatusKey,
   IncomeTaxCalculatorUSState,
 } from './utils/incomeTaxCalculatorTypes';
+import {
+  INCOME_TAX_CALCULATOR_US_STATES_KEYS,
+  INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
+} from './utils/incomeTaxCalculatorConstants';
 
 type IncomeTaxCalculatorProps = {
   totalIncome: number | undefined;
@@ -142,13 +146,11 @@ export const IncomeTaxCalculator = ({
               >
                 <option value="">Select state</option>
 
-                {usIncomeTaxes2023.stateIncomeTaxesByStates.map(
-                  ({ key, name }) => (
-                    <option key={key} value={key}>
-                      {name}
-                    </option>
-                  ),
-                )}
+                {INCOME_TAX_CALCULATOR_US_STATES_KEYS.map((stateKey) => (
+                  <option key={stateKey} value={stateKey}>
+                    {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
