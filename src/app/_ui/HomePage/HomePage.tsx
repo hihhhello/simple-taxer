@@ -6,7 +6,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 import { formatToUSDCurrency } from '@/shared/utils';
 import { api } from '@/shared/api';
-import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator';
+import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator/IncomeTaxCalculator';
 import { HomePageTabBar } from './ui/HomePageTabBar/HomePageTabBar';
 import { HomePageTab, HomePageTabKey } from './utils/homePageTypes';
 import { HomePageTransactionsTab } from './ui/HomePageTransactionsTab';

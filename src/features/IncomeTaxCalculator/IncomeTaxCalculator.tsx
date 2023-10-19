@@ -5,6 +5,10 @@ import { User } from 'next-auth';
 import { DollarInput } from '@/shared/ui';
 import { formatToUSDCurrency } from '@/shared/utils';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
+import {
+  calculateFederalTax,
+  calculateStateTax,
+} from './utils/incomeTaxCalculatorHelpers';
 
 type IncomeTaxCalculatorProps = {
   totalIncome: number | undefined;
@@ -20,26 +24,6 @@ export const IncomeTaxCalculator = ({
   );
   const [householdIncome, setHouseholdIncome] = useState<number | null>(null);
   const [taxStateKey, setTaxStateKey] = useState<string | null>(null);
-
-  const calculateFederalTax = (income: number, brackets: any[]): number => {
-    const { tax } = brackets.reduce(
-      (acc, bracket) => {
-        if (acc.remainingIncome <= bracket.lower) return acc;
-
-        const taxableIncome =
-          Math.min(acc.remainingIncome, bracket.upper) - bracket.lower;
-
-        acc.tax += taxableIncome * bracket.rate;
-
-        if (acc.remainingIncome <= bracket.upper) acc.remainingIncome = 0;
-
-        return acc;
-      },
-      { tax: 0, remainingIncome: income },
-    );
-
-    return tax;
-  };
 
   const federalFilingBrackets =
     filingStatus === 'single'
@@ -63,17 +47,10 @@ export const IncomeTaxCalculator = ({
       return;
     }
 
-    const taxBracket = taxState.brackets[filingStatus].find(
-      ({ lower, upper }) =>
-        householdIncome > lower &&
-        householdIncome <= (upper ?? Number.POSITIVE_INFINITY),
-    );
-
-    if (!taxBracket) {
-      return;
-    }
-
-    return householdIncome * taxBracket.rate;
+    return calculateStateTax({
+      income: householdIncome,
+      taxStateBrackets: taxState.brackets[filingStatus],
+    });
   }, [filingStatus, householdIncome, taxStateKey]);
 
   const totalTax =
