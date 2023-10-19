@@ -18,6 +18,7 @@ import {
   INCOME_TAX_CALCULATOR_US_STATES_KEYS,
   INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
 } from './utils/incomeTaxCalculatorConstants';
+import { IncomeTaxCalculatorResults } from './ui/IncomeTaxCalculatorResults';
 
 type IncomeTaxCalculatorProps = {
   totalIncome: number | undefined;
@@ -63,9 +64,6 @@ export const IncomeTaxCalculator = ({
       taxStateBrackets: taxState.brackets[filingStatus],
     });
   }, [filingStatus, householdIncome, taxStateKey]);
-
-  const totalTax =
-    !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
   const handleUseTotalIncome = useCallback(() => {
     if (!totalIncome) {
@@ -175,43 +173,11 @@ export const IncomeTaxCalculator = ({
 
       {federalTax && householdIncome && (
         <>
-          <p>
-            <span>Federal tax: {formatToUSDCurrency(federalTax)}</span>{' '}
-            <span>{'='}</span>{' '}
-            <span>
-              {((federalTax * 100) / householdIncome).toFixed(2)}% from
-              household income
-            </span>
-          </p>
-
-          {!isNil(stateTax) && (
-            <p>
-              <span>State tax: {formatToUSDCurrency(stateTax)}</span>{' '}
-              <span>{'='}</span>{' '}
-              <span>
-                {((stateTax * 100) / householdIncome).toFixed(2)}% from
-                household income
-              </span>
-            </p>
-          )}
-
-          {totalTax && (
-            <>
-              <p>
-                <span>Total tax: {formatToUSDCurrency(totalTax)}</span>{' '}
-                <span>{'='}</span>{' '}
-                <span>
-                  {((totalTax * 100) / householdIncome).toFixed(2)}% from
-                  household income
-                </span>
-              </p>
-
-              <p>
-                <span>Take home pay</span> <span>{'='}</span>{' '}
-                <span>{formatToUSDCurrency(householdIncome - totalTax)}</span>
-              </p>
-            </>
-          )}
+          <IncomeTaxCalculatorResults
+            federalTax={federalTax}
+            householdIncome={householdIncome}
+            stateTax={stateTax}
+          />
 
           <div className="flex flex-wrap gap-4">
             {federalFilingBrackets.map(
