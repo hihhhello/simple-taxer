@@ -9,6 +9,11 @@ import {
   calculateFederalTax,
   calculateStateTax,
 } from './utils/incomeTaxCalculatorHelpers';
+import {
+  IncomeTaxCalculatorFilingStatus,
+  IncomeTaxCalculatorFilingStatusKey,
+  IncomeTaxCalculatorUSState,
+} from './utils/incomeTaxCalculatorTypes';
 
 type IncomeTaxCalculatorProps = {
   totalIncome: number | undefined;
@@ -19,14 +24,16 @@ export const IncomeTaxCalculator = ({
   totalIncome,
   me,
 }: IncomeTaxCalculatorProps) => {
-  const [filingStatus, setFilingStatus] = useState<'single' | 'married'>(
-    'single',
-  );
+  const [filingStatus, setFilingStatus] =
+    useState<IncomeTaxCalculatorFilingStatus>(
+      IncomeTaxCalculatorFilingStatusKey.SINGLE,
+    );
   const [householdIncome, setHouseholdIncome] = useState<number | null>(null);
-  const [taxStateKey, setTaxStateKey] = useState<string | null>(null);
+  const [taxStateKey, setTaxStateKey] =
+    useState<IncomeTaxCalculatorUSState | null>(null);
 
   const federalFilingBrackets =
-    filingStatus === 'single'
+    filingStatus === IncomeTaxCalculatorFilingStatusKey.SINGLE
       ? usIncomeTaxes2023.federalSingleFilersIncomeTaxBrackets
       : usIncomeTaxes2023.federalMarriedFilersIncomeTaxBrackets;
 
@@ -106,7 +113,9 @@ export const IncomeTaxCalculator = ({
                 className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 value={filingStatus}
                 onChange={(e) =>
-                  setFilingStatus(e.target.value as typeof filingStatus)
+                  setFilingStatus(
+                    e.target.value as IncomeTaxCalculatorFilingStatus,
+                  )
                 }
               >
                 <option value="single">Single</option>
@@ -128,7 +137,7 @@ export const IncomeTaxCalculator = ({
                 className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 value={taxStateKey ?? ''}
                 onChange={(e) =>
-                  setTaxStateKey(e.target.value as typeof taxStateKey)
+                  setTaxStateKey(e.target.value as IncomeTaxCalculatorUSState)
                 }
               >
                 <option value="">Select state</option>
