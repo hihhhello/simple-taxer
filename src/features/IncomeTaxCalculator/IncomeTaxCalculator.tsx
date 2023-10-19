@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
-import { isNil } from 'lodash';
 import { User } from 'next-auth';
 
 import { DollarInput } from '@/shared/ui';
