@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { isNil } from 'lodash';
 import { User } from 'next-auth';
 
@@ -67,6 +67,28 @@ export const IncomeTaxCalculator = ({
   const totalTax =
     !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
+  const handleUseTotalIncome = useCallback(() => {
+    if (!totalIncome) {
+      return;
+    }
+
+    setHouseholdIncome(totalIncome);
+  }, [totalIncome]);
+
+  const handleChangeFilingStatus = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setFilingStatus(event.target.value as IncomeTaxCalculatorFilingStatus);
+    },
+    [],
+  );
+
+  const handleChangeTaxState = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setTaxStateKey(event.target.value as IncomeTaxCalculatorUSState);
+    },
+    [],
+  );
+
   return (
     <div>
       <div className="mx-auto w-full max-w-md">
@@ -83,7 +105,7 @@ export const IncomeTaxCalculator = ({
               {me && totalIncome && (
                 <div className="text-sm">
                   <span
-                    onClick={() => setHouseholdIncome(totalIncome)}
+                    onClick={handleUseTotalIncome}
                     className="cursor-pointer text-indigo-600 hover:text-indigo-500"
                   >
                     Use total
@@ -116,11 +138,7 @@ export const IncomeTaxCalculator = ({
                 name="filingStatus"
                 className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 value={filingStatus}
-                onChange={(e) =>
-                  setFilingStatus(
-                    e.target.value as IncomeTaxCalculatorFilingStatus,
-                  )
-                }
+                onChange={handleChangeFilingStatus}
               >
                 <option value="single">Single</option>
                 <option value="married">Married</option>
@@ -140,9 +158,7 @@ export const IncomeTaxCalculator = ({
                 name="taxState"
                 className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 value={taxStateKey ?? ''}
-                onChange={(e) =>
-                  setTaxStateKey(e.target.value as IncomeTaxCalculatorUSState)
-                }
+                onChange={handleChangeTaxState}
               >
                 <option value="">Select state</option>
 
