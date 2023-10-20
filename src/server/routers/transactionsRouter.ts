@@ -18,6 +18,8 @@ const SortStringZod = z.union([
   z.literal('date:desc'),
 ]);
 
+const DEFAULT_TRANSACTIONS_LIMIT = 50;
+
 function typeSafeSplit<T extends `${SortField}:${SortOrder}`>(
   input: T,
 ): [SortField, SortOrder] {
@@ -33,6 +35,8 @@ export const transactionsRouter = router({
           sort: SortStringZod.optional(),
           startDate: z.date().optional(),
           endDate: z.date().optional(),
+          offset: z.number().optional(),
+          limit: z.number().optional(),
         })
         .optional(),
     )
@@ -58,6 +62,8 @@ export const transactionsRouter = router({
           : {
               date: 'desc',
             },
+        skip: input?.offset,
+        take: input?.limit ?? DEFAULT_TRANSACTIONS_LIMIT,
       });
     }),
   getOneById: publicProcedure
