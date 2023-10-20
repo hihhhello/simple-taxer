@@ -12,6 +12,8 @@ import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { classNames } from '@/shared/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { getQueryKey } from '@trpc/react-query';
 
 type HomePageTransactionsTabProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -22,6 +24,8 @@ export const HomePageTransactionsTab = ({
   transactions: initialTransactions,
   me,
 }: HomePageTransactionsTabProps) => {
+  const queryClient = useQueryClient();
+
   const loadingToast = useLoadingToast();
 
   const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
@@ -35,25 +39,22 @@ export const HomePageTransactionsTab = ({
     order: 'desc',
   });
 
-  const {
-    data: transactions,
-    refetch: refetchTransactions,
-    isFetching: isTransactionsFetching,
-  } = api.transactions.getAll.useQuery(
-    {
-      endDate: transactionsEndDate,
-      startDate: transactionsStartDate,
-      sort: `${transactionsSort.field}:${transactionsSort.order}`,
-    },
-    {
-      placeholderData: initialTransactions,
-      keepPreviousData: true,
-      queryKey: [
-        'transactions.getAll',
-        { startDate: transactionsStartDate, endDate: transactionsEndDate },
-      ],
-    },
-  );
+  const { data: transactions, isFetching: isTransactionsFetching } =
+    api.transactions.getAll.useQuery(
+      {
+        endDate: transactionsEndDate,
+        startDate: transactionsStartDate,
+        sort: `${transactionsSort.field}:${transactionsSort.order}`,
+      },
+      {
+        placeholderData: initialTransactions,
+        keepPreviousData: true,
+        queryKey: [
+          'transactions.getAll',
+          { startDate: transactionsStartDate, endDate: transactionsEndDate },
+        ],
+      },
+    );
 
   const { mutate: apiDeleteTransaction } =
     api.transactions.delete.useMutation();
@@ -66,6 +67,14 @@ export const HomePageTransactionsTab = ({
   const [transactionToDeleteId, setTransactionToDeleteId] = useState<number>();
 
   const [transactionSearchQuery, setTransactionSearchQuery] = useState('');
+
+  const handleRefetchTransactionsGetAllQueries = useCallback(
+    () =>
+      queryClient.refetchQueries({
+        queryKey: getQueryKey(api.transactions.getAll),
+      }),
+    [queryClient],
+  );
 
   const makeHandleDeleteTransaction = (transactionId: number) => () => {
     setTransactionToDeleteId(transactionId);
@@ -80,7 +89,7 @@ export const HomePageTransactionsTab = ({
             type: 'success',
           });
 
-          refetchTransactions();
+          handleRefetchTransactionsGetAllQueries();
         },
       },
     );
@@ -103,7 +112,7 @@ export const HomePageTransactionsTab = ({
               });
               setSelectedTransactions([]);
 
-              refetchTransactions();
+              handleRefetchTransactionsGetAllQueries();
             },
             onError: () => {
               loadingToast.handleError({
@@ -114,7 +123,11 @@ export const HomePageTransactionsTab = ({
           },
         );
       },
-      [apiDeleteManyTransactions, loadingToast, refetchTransactions],
+      [
+        apiDeleteManyTransactions,
+        loadingToast,
+        handleRefetchTransactionsGetAllQueries,
+      ],
     );
 
   const makeHandleDuplicateTransaction = (transactionId: number) => () => {
@@ -131,7 +144,7 @@ export const HomePageTransactionsTab = ({
             toastId,
           });
 
-          refetchTransactions();
+          handleRefetchTransactionsGetAllQueries();
         },
 
         onError: () => {
@@ -165,7 +178,7 @@ export const HomePageTransactionsTab = ({
                 message: 'Transactions successfully changed.',
               });
 
-              refetchTransactions();
+              handleRefetchTransactionsGetAllQueries();
             },
             onError: () => {
               loadingToast.handleError({
@@ -176,7 +189,11 @@ export const HomePageTransactionsTab = ({
           },
         );
       },
-      [apiEditTransaction, loadingToast, refetchTransactions],
+      [
+        apiEditTransaction,
+        handleRefetchTransactionsGetAllQueries,
+        loadingToast,
+      ],
     );
 
   const handleChangeTransactionSearchQuery = useCallback(
@@ -232,7 +249,9 @@ export const HomePageTransactionsTab = ({
 
   return (
     <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
-      <AddNewTransactionForm handleSuccessSubmit={refetchTransactions} />
+      <AddNewTransactionForm
+        handleSuccessSubmit={handleRefetchTransactionsGetAllQueries}
+      />
 
       <div className="col-span-2">
         <div className="mb-4 sm:flex-auto">
