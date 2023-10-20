@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { publicProcedure, router } from '../trpc';
-import { ZOD_SORTING_ENUM } from '../utils/serverConstants';
 import { Prisma } from '@prisma/client';
 
 type SortField = 'amount' | 'bankName' | 'sourceName' | 'date';
