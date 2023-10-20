@@ -85,7 +85,7 @@ export const HomePageTransactionsTab = ({
       },
       {
         onSuccess: () => {
-          toast('Transaction has been deleted', {
+          toast('Transaction has been deleted.', {
             type: 'success',
           });
 
