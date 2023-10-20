@@ -18,8 +18,6 @@ const SortStringZod = z.union([
   z.literal('date:desc'),
 ]);
 
-const DEFAULT_TRANSACTIONS_LIMIT = 50;
-
 function typeSafeSplit<T extends `${SortField}:${SortOrder}`>(
   input: T,
 ): [SortField, SortOrder] {
@@ -40,14 +38,14 @@ export const transactionsRouter = router({
         })
         .optional(),
     )
-    .query(({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       if (!ctx.user) {
         return;
       }
 
       const sortBy = input?.sort ? typeSafeSplit(input?.sort) : undefined;
 
-      return ctx.prisma.transaction.findMany({
+      const transactions = await ctx.prisma.transaction.findMany({
         where: {
           userId: ctx.user.id,
           date: {
@@ -63,8 +61,26 @@ export const transactionsRouter = router({
               date: 'desc',
             },
         skip: input?.offset,
-        take: input?.limit ?? DEFAULT_TRANSACTIONS_LIMIT,
+        take: input?.limit,
       });
+
+      /**
+       * TODO: Remove when an official solution is released.
+       *
+       * @See https://github.com/prisma/prisma/issues/7550.
+       */
+      const transactionsCount = await ctx.prisma.transaction.count({
+        where: {
+          userId: ctx.user.id,
+        },
+      });
+
+      return {
+        data: transactions,
+        offset: input?.offset,
+        limit: input?.limit,
+        total: transactionsCount,
+      };
     }),
   getOneById: publicProcedure
     .input(

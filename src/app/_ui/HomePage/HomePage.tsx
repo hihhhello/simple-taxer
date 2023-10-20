@@ -57,8 +57,8 @@ export const HomePageContent = ({
 
   const totalIncome = useMemo(
     () =>
-      transactions
-        ? transactions.reduce((totalIncomeAccumulator, transaction) => {
+      transactions?.data
+        ? transactions.data?.reduce((totalIncomeAccumulator, transaction) => {
             if (transaction.amount > 0) {
               return totalIncomeAccumulator + transaction.amount;
             }

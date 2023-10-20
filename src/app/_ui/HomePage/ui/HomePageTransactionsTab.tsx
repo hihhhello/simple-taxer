@@ -204,7 +204,7 @@ export const HomePageTransactionsTab = ({
   const searchedTransactions = useMemo(
     () =>
       transactionSearchQuery
-        ? transactions?.filter(({ bankName, sourceName }) => {
+        ? transactions?.data.filter(({ bankName, sourceName }) => {
             const searchQueryRegExp = new RegExp(transactionSearchQuery, 'ig');
 
             return (
@@ -212,7 +212,7 @@ export const HomePageTransactionsTab = ({
               sourceName?.match(searchQueryRegExp)
             );
           })
-        : transactions,
+        : transactions?.data,
     [transactionSearchQuery, transactions],
   );
 
