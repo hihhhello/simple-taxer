@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 
 import { router } from '@/server/trpc';
-import { transactionsRouter } from './transactionsRouter';
+import { transactionsRouter } from './transactionsRouter/transactionsRouter';
 import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/server';
 
