@@ -14,6 +14,8 @@ import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { classNames } from '@/shared/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
+import { TransactionSortField } from '@/shared/types';
+import { SortOrder } from '@/shared/types/types';
 
 type HomePageTransactionsTabProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -32,8 +34,8 @@ export const HomePageTransactionsTab = ({
   const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
 
   const [transactionsSort, setTransactionsSort] = useState<{
-    field: 'amount' | 'date';
-    order: 'asc' | 'desc';
+    field: TransactionSortField;
+    order: SortOrder;
   }>({
     field: 'date',
     order: 'desc',
@@ -234,7 +236,7 @@ export const HomePageTransactionsTab = ({
   );
 
   const handleSortTransactions = useCallback(
-    (field: 'amount' | 'date', order: 'asc' | 'desc') => {
+    (field: TransactionSortField, order: SortOrder) => {
       setTransactionsSort({
         field,
         order,

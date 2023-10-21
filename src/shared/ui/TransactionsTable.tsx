@@ -17,8 +17,9 @@ import {
 } from '@heroicons/react/24/outline';
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils';
-import { Transaction } from '@/shared/types';
+import { Transaction, TransactionSortField } from '@/shared/types';
 import { DollarInput } from '@/shared/ui/DollarInput';
+import { SortOrder } from '../types/types';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
@@ -38,12 +39,12 @@ export type TransactionTableProps = {
     newValues: EditTransactionValues;
   }) => void;
   handleSortTransactions?: (
-    field: 'amount' | 'date',
-    order: 'asc' | 'desc',
+    field: TransactionSortField,
+    order: SortOrder,
   ) => void;
   sort?: {
-    field: 'amount' | 'date';
-    order: 'asc' | 'desc';
+    field: TransactionSortField;
+    order: SortOrder;
   };
 };
 
