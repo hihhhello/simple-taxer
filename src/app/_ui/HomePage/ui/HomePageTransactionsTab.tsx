@@ -7,7 +7,10 @@ import { User } from 'next-auth';
 import { twMerge } from 'tailwind-merge';
 
 import { AddNewTransactionForm } from '@/features/AddNewTransactionForm';
-import { TransactionTable, TransactionTableProps } from '@/shared/ui';
+import {
+  TransactionTable,
+  TransactionTableProps,
+} from '@/shared/ui/TransactionsTable';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils/addNewTransactionFormTypes';
 import { api } from '@/shared/api';
-import { DollarInput } from '@/shared/ui';
+import { DollarInput } from '@/shared/ui/DollarInput';
 
 type AddNewTransactionFormProps = {
   handleSuccessSubmit?: () => void;
