@@ -39,7 +39,9 @@ export async function generateMetadata({
   searchParams,
 }: HomeProps): Promise<Metadata> {
   return {
-    title: `Simple Taxer | ${upperFirst(searchParams.tab) ?? 'Transactions'}`,
+    title: `Simple Taxer | ${
+      searchParams.tab ? upperFirst(searchParams.tab) : 'Transactions'
+    }`,
     openGraph: {
       description:
         HOME_PAGE_TAB_KEY_TO_OPEN_GRAPH_DESCRIPTION[
