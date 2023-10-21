@@ -17,7 +17,10 @@ import {
 } from '@heroicons/react/24/outline';
 
 import { classNames, formatToUSDCurrency } from '@/shared/utils';
-import { Transaction, TransactionSortField } from '@/shared/types';
+import {
+  Transaction,
+  TransactionSortField,
+} from '@/shared/types/transactionTypes';
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { SortOrder } from '../types/types';
 

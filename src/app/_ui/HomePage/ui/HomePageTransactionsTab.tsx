@@ -14,7 +14,7 @@ import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { classNames } from '@/shared/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
-import { TransactionSortField } from '@/shared/types';
+import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
 
 type HomePageTransactionsTabProps = {

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { publicProcedure, router } from '../trpc';
 import { Prisma } from '@prisma/client';
-import { TransactionSortField } from '@/shared/types';
+import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
 
 const SortString = z.union([
