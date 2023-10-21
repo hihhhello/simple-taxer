@@ -81,17 +81,21 @@ export const transactionsRouter = router({
         id: z.number(),
       }),
     )
-    .query(({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       if (!ctx.user) {
         return;
       }
 
-      return ctx.prisma.transaction.findFirst({
+      const transaction = await ctx.prisma.transaction.findFirst({
         where: {
           userId: ctx.user.id,
           id: input.id,
         },
       });
+
+      return {
+        data: transaction,
+      };
     }),
   create: publicProcedure
     .input(
@@ -114,7 +118,9 @@ export const transactionsRouter = router({
         },
       });
 
-      return newTransaction;
+      return {
+        data: newTransaction,
+      };
     }),
   createMany: publicProcedure
     .input(
@@ -142,7 +148,9 @@ export const transactionsRouter = router({
         data: transactionsWithUser,
       });
 
-      return newTransactions;
+      return {
+        data: newTransactions,
+      };
     }),
   delete: publicProcedure
     .input(
@@ -151,11 +159,15 @@ export const transactionsRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.transaction.delete({
+      const deletedTransaction = await ctx.prisma.transaction.delete({
         where: {
           id: input.transactionId,
         },
       });
+
+      return {
+        data: deletedTransaction,
+      };
     }),
   deleteMany: publicProcedure
     .input(
@@ -164,13 +176,17 @@ export const transactionsRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.prisma.transaction.deleteMany({
+      const deletedTransactions = await ctx.prisma.transaction.deleteMany({
         where: {
           id: {
             in: input.transactionIds,
           },
         },
       });
+
+      return {
+        data: deletedTransactions,
+      };
     }),
   edit: publicProcedure
     .input(
@@ -191,12 +207,16 @@ export const transactionsRouter = router({
         return;
       }
 
-      return ctx.prisma.transaction.update({
+      const editedTransactions = await ctx.prisma.transaction.update({
         where: {
           id: input.transactionId,
         },
         data: input.newValues,
       });
+
+      return {
+        data: editedTransactions,
+      };
     }),
   duplicate: publicProcedure
     .input(
@@ -231,7 +251,9 @@ export const transactionsRouter = router({
         },
       });
 
-      return duplicatedTransaction;
+      return {
+        data: duplicatedTransaction,
+      };
     }),
   getBySourceName: publicProcedure
     .input(z.object({}))
@@ -240,7 +262,7 @@ export const transactionsRouter = router({
         return;
       }
 
-      return ctx.prisma.transaction.groupBy({
+      const transactionsBySourceName = await ctx.prisma.transaction.groupBy({
         by: ['sourceName'],
         where: {
           userId: ctx.user.id,
@@ -249,5 +271,9 @@ export const transactionsRouter = router({
           amount: true,
         },
       });
+
+      return {
+        data: transactionsBySourceName,
+      };
     }),
 });

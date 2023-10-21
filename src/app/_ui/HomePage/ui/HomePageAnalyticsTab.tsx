@@ -9,7 +9,11 @@ import { api } from '@/shared/api';
 
 type HomePageAnalyticsTabProps = {
   me: User | undefined | null;
-  sourceIncomes: AnalyticsSourceIncome[] | undefined;
+  sourceIncomes:
+    | {
+        data: AnalyticsSourceIncome[];
+      }
+    | undefined;
 };
 
 export const HomePageAnalyticsTab = ({
@@ -39,7 +43,7 @@ export const HomePageAnalyticsTab = ({
       </div>
 
       <IncomeBySourcePieChart
-        transactionsBySourceName={transactionsBySourceName}
+        transactionsBySourceName={transactionsBySourceName.data}
       />
     </div>
   );
