@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { publicProcedure, router } from '../../trpc';
+import { publicProcedure, router } from '../trpc';
 import { Prisma } from '@prisma/client';
-import { TransactionsSortField } from './utils/transactionsRouterTypes';
-import { SortOrder } from '@/server/utils/serverTypes';
+import { TransactionSortField } from '@/shared/types';
+import { SortOrder } from '@/shared/types/types';
 
 const SortString = z.union([
   z.literal('amount:asc'),
@@ -35,7 +35,7 @@ export const transactionsRouter = router({
       }
 
       const sortBy = input?.sort
-        ? (input?.sort?.split(':') as [TransactionsSortField, SortOrder])
+        ? (input?.sort?.split(':') as [TransactionSortField, SortOrder])
         : undefined;
 
       const transactions = await ctx.prisma.transaction.findMany({

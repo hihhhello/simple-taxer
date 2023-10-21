@@ -5,3 +5,9 @@ export type Transaction = {
   sourceName: string | null;
   date: Date;
 };
+
+export type TransactionSortField =
+  | 'amount'
+  | 'bankName'
+  | 'sourceName'
+  | 'date';
