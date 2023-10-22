@@ -242,13 +242,7 @@ export const transactionsRouter = router({
       }
 
       const duplicatedTransaction = await ctx.prisma.transaction.create({
-        data: {
-          amount: transactionToDuplicate.amount,
-          date: new Date(),
-          bankName: transactionToDuplicate.bankName,
-          sourceName: transactionToDuplicate.sourceName,
-          userId: transactionToDuplicate.userId,
-        },
+        data: transactionToDuplicate,
       });
 
       return {
