@@ -1,7 +1,20 @@
 import type { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
 
-const CalculatorPage = () => {
-  return <>Calculator</>;
+import { CalculatorPageContent } from './_ui/CalculatorPageContent';
+import { createAuthorizedCaller } from '@/server';
+import { NEXT_AUTH_OPTIONS } from '../api/auth/[...nextauth]/route';
+
+const CalculatorPage = async () => {
+  const caller = await createAuthorizedCaller();
+
+  const session = await getServerSession(NEXT_AUTH_OPTIONS);
+
+  const transactions = await caller.transactions.getAll({});
+
+  return (
+    <CalculatorPageContent me={session?.user} transactions={transactions} />
+  );
 };
 
 export const metadata: Metadata = {
