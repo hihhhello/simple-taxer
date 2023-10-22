@@ -1,7 +1,7 @@
 'use client';
 
-import React, { ChangeEvent, useMemo, useState } from 'react';
-import { formatToUSDCurrency } from '../utils';
+import React, { ChangeEvent, useMemo } from 'react';
+import { formatToUSDCurrency } from '../utils/helpers';
 
 type DollarInputProps = Omit<
   JSX.IntrinsicElements['input'],

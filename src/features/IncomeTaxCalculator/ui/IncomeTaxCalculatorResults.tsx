@@ -1,4 +1,4 @@
-import { formatToUSDCurrency } from '@/shared/utils';
+import { formatToUSDCurrency } from '@/shared/utils/helpers';
 import { isNil } from 'lodash';
 
 type IncomeTaxCalculatorResultsProps = {

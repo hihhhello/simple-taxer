@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { User } from 'next-auth';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-import { formatToUSDCurrency } from '@/shared/utils';
+import { formatToUSDCurrency } from '@/shared/utils/helpers';
 import { api } from '@/shared/api';
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator/IncomeTaxCalculator';
 import { HomePageTabBar } from './ui/HomePageTabBar/HomePageTabBar';

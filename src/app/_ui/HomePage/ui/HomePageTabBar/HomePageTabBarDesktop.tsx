@@ -1,6 +1,6 @@
 import { upperFirst } from 'lodash';
 
-import { classNames } from '@/shared/utils';
+import { classNames } from '@/shared/utils/helpers';
 import { HOME_PAGE_TABS } from '../../utils/homePageConstants';
 import { HomePageTab } from '../../utils/homePageTypes';
 

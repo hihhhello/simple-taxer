@@ -16,7 +16,7 @@ import {
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
 
-import { classNames, formatToUSDCurrency } from '@/shared/utils';
+import { classNames, formatToUSDCurrency } from '@/shared/utils/helpers';
 import {
   Transaction,
   TransactionSortField,

@@ -3,7 +3,7 @@
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-import { formatToUSDCurrency } from '@/shared/utils';
+import { formatToUSDCurrency } from '@/shared/utils/helpers';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 
 type IncomeBySourcePieChartProps = {

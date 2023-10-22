@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { User } from 'next-auth';
 
 import { DollarInput } from '@/shared/ui/DollarInput';
-import { formatToUSDCurrency } from '@/shared/utils';
+import { formatToUSDCurrency } from '@/shared/utils/helpers';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 import {
   calculateFederalTax,

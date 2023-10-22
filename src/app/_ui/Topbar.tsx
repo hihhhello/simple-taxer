@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { Session } from 'next-auth';
 
-import { classNames } from '@/shared/utils';
+import { classNames } from '@/shared/utils/helpers';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 
 type TopbarProps = {
