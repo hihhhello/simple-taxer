@@ -5,6 +5,7 @@ import { User } from 'next-auth';
 
 import { IncomeTaxCalculator } from '@/features/IncomeTaxCalculator/IncomeTaxCalculator';
 import { api } from '@/shared/api';
+import { calculateTotalIncome } from '@/shared/utils/helpers';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -23,16 +24,7 @@ export const CalculatorPageContent = ({
   );
 
   const totalIncome = useMemo(
-    () =>
-      transactions?.data
-        ? transactions.data?.reduce((totalIncomeAccumulator, transaction) => {
-            if (transaction.amount > 0) {
-              return totalIncomeAccumulator + transaction.amount;
-            }
-
-            return totalIncomeAccumulator;
-          }, 0)
-        : 0,
+    () => calculateTotalIncome(transactions?.data),
     [transactions],
   );
 
