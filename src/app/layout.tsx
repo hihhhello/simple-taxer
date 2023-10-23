@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className="h-full" lang="en">
+    <html className="h-full bg-[#F6F6F6]" lang="en">
       <body className="h-full">
         <QueryClientProvider>
           <ToastContainer />
