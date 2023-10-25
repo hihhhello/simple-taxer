@@ -66,7 +66,7 @@ export const IncomeTaxCalculatorForm = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="mb-4">
         <div className="relative rounded-2xl bg-white px-4 py-2">
           <div className="mb-1">
@@ -89,8 +89,8 @@ export const IncomeTaxCalculatorForm = ({
         </div>
       </div>
 
-      <div className="flex items-end justify-between">
-        <div className="flex items-end gap-6">
+      <div className="flex items-end justify-between gap-8">
+        <div className="flex flex-1 items-end gap-6">
           <div>
             <div className="mb-1">
               <label
@@ -104,7 +104,7 @@ export const IncomeTaxCalculatorForm = ({
             <select
               id="filingStatus"
               name="filingStatus"
-              className="w-60 rounded-xl border-none bg-white"
+              className="min-w-[200px] max-w-[250px] rounded-xl border-none bg-white"
               value={filingStatus}
               onChange={handleChangeFilingStatus}
             >
@@ -113,7 +113,7 @@ export const IncomeTaxCalculatorForm = ({
             </select>
           </div>
 
-          <div className="">
+          <div>
             <div className="mb-1">
               <label
                 htmlFor="taxState"
@@ -126,7 +126,7 @@ export const IncomeTaxCalculatorForm = ({
             <select
               id="taxState"
               name="taxState"
-              className="w-60 rounded-xl border-none bg-white"
+              className="min-w-[200px] max-w-[250px] rounded-xl border-none bg-white"
               value={taxStateKey ?? ''}
               onChange={handleChangeTaxState}
             >
