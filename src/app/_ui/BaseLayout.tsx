@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { getServerSession } from 'next-auth';
 
 import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
-import { Topbar } from './Navbar';
+import { Navbar } from './Navbar';
 
 type BaseLayoutProps = {
   children: ReactNode;
@@ -15,7 +15,7 @@ export const BaseLayout = async ({ children }: BaseLayoutProps) => {
     <div className="min-h-full px-4  pt-1 sm:px-[220px]">
       <div className="container mx-auto">
         <div>
-          <Topbar session={session} />
+          <Navbar me={session?.user} />
 
           <main>{children}</main>
         </div>
