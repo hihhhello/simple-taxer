@@ -67,7 +67,7 @@ export const IncomeTaxCalculatorForm = ({
 
   return (
     <div>
-      <div>
+      <div className="mb-4">
         <div className="relative rounded-2xl bg-white px-4 py-2">
           <div className="mb-1">
             <label
@@ -89,7 +89,58 @@ export const IncomeTaxCalculatorForm = ({
         </div>
       </div>
 
-      <div></div>
+      <div>
+        <div className="flex items-end gap-6">
+          <div>
+            <div className="mb-1">
+              <label
+                htmlFor="filingStatus"
+                className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+              >
+                Filing Status
+              </label>
+            </div>
+
+            <select
+              id="filingStatus"
+              name="filingStatus"
+              className="w-60 rounded-xl border-none bg-white"
+              value={filingStatus}
+              onChange={handleChangeFilingStatus}
+            >
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+            </select>
+          </div>
+
+          <div className="">
+            <div className="mb-1">
+              <label
+                htmlFor="taxState"
+                className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+              >
+                State
+              </label>
+            </div>
+
+            <select
+              id="taxState"
+              name="taxState"
+              className="w-60 rounded-xl border-none bg-white"
+              value={taxStateKey ?? ''}
+              onChange={handleChangeTaxState}
+            >
+              <option value="">Select state</option>
+
+              {INCOME_TAX_CALCULATOR_US_STATES_KEYS.map((stateKey) => (
+                <option key={stateKey} value={stateKey}>
+                  {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
