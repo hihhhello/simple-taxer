@@ -7,6 +7,13 @@ import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider } from '@/features/QueryClientProvider';
 import { BaseLayout } from '@/app/_ui/BaseLayout';
 import { NextAuthProvider } from '@/app/_ui/NextAuthProvider';
+import { Outfit } from 'next/font/google';
+import { classNames } from '@/shared/utils/helpers';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +40,10 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className="h-full bg-[#F6F6F6]" lang="en">
+    <html
+      className={classNames('h-full bg-[#F6F6F6]', outfit.className)}
+      lang="en"
+    >
       <body className="h-full">
         <QueryClientProvider>
           <ToastContainer />
