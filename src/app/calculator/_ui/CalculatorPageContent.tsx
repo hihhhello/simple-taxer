@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 import { User } from 'next-auth';
+import { isNil } from 'lodash';
 
 import {
   IncomeTaxCalculatorForm,
@@ -22,7 +23,6 @@ import {
   calculateFederalTax,
   calculateStateTax,
 } from '@/features/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
-import { IncomeTaxCalculatorResults } from '@/features/IncomeTaxCalculator/ui/IncomeTaxCalculatorResults';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -88,6 +88,9 @@ export const CalculatorPageContent = ({
     [transactions],
   );
 
+  const totalTax =
+    !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
+
   return (
     <>
       <IncomeTaxCalculatorForm
@@ -98,11 +101,45 @@ export const CalculatorPageContent = ({
 
       {federalTax && householdIncome && (
         <>
-          <IncomeTaxCalculatorResults
-            federalTax={federalTax}
-            householdIncome={householdIncome}
-            stateTax={stateTax}
-          />
+          <div>
+            <p>
+              <span>Federal tax: {formatToUSDCurrency(federalTax)}</span>{' '}
+              <span>{'='}</span>{' '}
+              <span>
+                {((federalTax * 100) / householdIncome).toFixed(2)}% from
+                household income
+              </span>
+            </p>
+
+            {!isNil(stateTax) && (
+              <p>
+                <span>State tax: {formatToUSDCurrency(stateTax)}</span>{' '}
+                <span>{'='}</span>{' '}
+                <span>
+                  {((stateTax * 100) / householdIncome).toFixed(2)}% from
+                  household income
+                </span>
+              </p>
+            )}
+
+            {totalTax && (
+              <>
+                <p>
+                  <span>Total tax: {formatToUSDCurrency(totalTax)}</span>{' '}
+                  <span>{'='}</span>{' '}
+                  <span>
+                    {((totalTax * 100) / householdIncome).toFixed(2)}% from
+                    household income
+                  </span>
+                </p>
+
+                <p>
+                  <span>Take home pay</span> <span>{'='}</span>{' '}
+                  <span>{formatToUSDCurrency(householdIncome - totalTax)}</span>
+                </p>
+              </>
+            )}
+          </div>
 
           <div className="flex flex-wrap gap-4">
             {federalFilingBrackets.map(
