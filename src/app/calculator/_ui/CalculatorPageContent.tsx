@@ -7,7 +7,7 @@ import { isNil } from 'lodash';
 import {
   IncomeTaxCalculatorForm,
   IncomeTaxCalculatorFormProps,
-} from '@/features/IncomeTaxCalculator/IncomeTaxCalculatorForm';
+} from '@/app/calculator/_ui/IncomeTaxCalculator/IncomeTaxCalculatorForm';
 import { api } from '@/shared/api';
 import {
   calculateTotalIncome,
@@ -17,12 +17,12 @@ import {
   IncomeTaxCalculatorFilingStatus,
   IncomeTaxCalculatorFilingStatusKey,
   IncomeTaxCalculatorUSState,
-} from '@/features/IncomeTaxCalculator/utils/incomeTaxCalculatorTypes';
+} from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorTypes';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 import {
   calculateFederalTax,
   calculateStateTax,
-} from '@/features/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
+} from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
