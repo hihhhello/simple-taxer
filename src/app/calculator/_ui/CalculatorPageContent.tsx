@@ -3,7 +3,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { User } from 'next-auth';
 
-import { IncomeTaxCalculatorForm } from '@/features/IncomeTaxCalculator/IncomeTaxCalculatorForm';
+import {
+  IncomeTaxCalculatorForm,
+  IncomeTaxCalculatorFormProps,
+} from '@/features/IncomeTaxCalculator/IncomeTaxCalculatorForm';
 import { api } from '@/shared/api';
 import {
   calculateTotalIncome,
@@ -45,18 +48,12 @@ export const CalculatorPageContent = ({
     },
   );
 
-  const handleCalculateTaxes = useCallback(
-    (values: {
-      householdIncome: number;
-      filingStatus: IncomeTaxCalculatorFilingStatus;
-      taxStateKey: IncomeTaxCalculatorUSState;
-    }) => {
+  const handleCalculateTaxes: IncomeTaxCalculatorFormProps['handleCalculateTaxes'] =
+    useCallback((values) => {
       setFilingStatus(values.filingStatus);
       setHouseholdIncome(values.householdIncome);
       setTaxStateKey(values.taxStateKey);
-    },
-    [],
-  );
+    }, []);
 
   const federalFilingBrackets =
     filingStatus === IncomeTaxCalculatorFilingStatusKey.SINGLE

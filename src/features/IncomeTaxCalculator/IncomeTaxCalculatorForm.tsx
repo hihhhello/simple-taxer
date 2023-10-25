@@ -12,7 +12,7 @@ import {
   INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
 } from './utils/incomeTaxCalculatorConstants';
 
-type IncomeTaxCalculatorFormProps = {
+export type IncomeTaxCalculatorFormProps = {
   totalIncome: number | undefined;
   me: User | undefined | null;
   handleCalculateTaxes: (params: {
