@@ -23,6 +23,7 @@ import {
   calculateFederalTax,
   calculateStateTax,
 } from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
+import { CalculatorIllustration } from '@/shared/illustartions/CalculatorIllustration';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -92,12 +93,30 @@ export const CalculatorPageContent = ({
     !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
   return (
-    <>
-      <IncomeTaxCalculatorForm
-        handleCalculateTaxes={handleCalculateTaxes}
-        totalIncome={totalIncome}
-        me={me}
-      />
+    <div className="pt-8">
+      <div className="flex gap-6">
+        <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
+          <div>
+            <p className="text-primary-blue text-5xl font-semibold leading-tight">
+              Calculate
+            </p>
+            <p className="text-primary-light-blue text-5xl font-semibold leading-tight">
+              Save
+            </p>
+            <p className="text-primary-blue text-5xl font-semibold leading-tight">
+              Prosper
+            </p>
+          </div>
+
+          <CalculatorIllustration />
+        </div>
+
+        <IncomeTaxCalculatorForm
+          handleCalculateTaxes={handleCalculateTaxes}
+          totalIncome={totalIncome}
+          me={me}
+        />
+      </div>
 
       {federalTax && householdIncome && (
         <>
@@ -187,7 +206,7 @@ export const CalculatorPageContent = ({
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
