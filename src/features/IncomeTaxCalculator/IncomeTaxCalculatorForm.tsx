@@ -89,7 +89,7 @@ export const IncomeTaxCalculatorForm = ({
         </div>
       </div>
 
-      <div>
+      <div className="flex items-end justify-between">
         <div className="flex items-end gap-6">
           <div>
             <div className="mb-1">
@@ -140,95 +140,16 @@ export const IncomeTaxCalculatorForm = ({
             </select>
           </div>
         </div>
-      </div>
-    </div>
-  );
 
-  return (
-    <div>
-      <div className="mx-auto w-full max-w-md">
-        <div className="isolate -space-y-px rounded-md shadow-sm">
-          <div className="relative rounded-md rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-            <div className="flex w-full items-center justify-between">
-              <label
-                htmlFor="name"
-                className="block text-xs font-medium text-gray-900"
-              >
-                Household Income
-              </label>
-
-              {me && totalIncome && (
-                <div className="text-sm">
-                  <span
-                    onClick={handleUseTotalIncome}
-                    className="cursor-pointer text-indigo-600 hover:text-indigo-500"
-                  >
-                    Use total
-                  </span>
-                </div>
-              )}
-            </div>
-
-            <DollarInput
-              name="householdIncome"
-              id="householdIncome"
-              placeholder="Household Income"
-              className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-              handleValueChange={setHouseholdIncome}
-              value={householdIncome}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="relative flex-1 rounded-md rounded-r-none rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-              <label
-                htmlFor="job-title"
-                className="block text-xs font-medium text-gray-900"
-              >
-                Filing Status
-              </label>
-
-              <select
-                id="filingStatus"
-                name="filingStatus"
-                className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                value={filingStatus}
-                onChange={handleChangeFilingStatus}
-              >
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-              </select>
-            </div>
-
-            <div className="relative flex-1 rounded-md rounded-l-none rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
-              <label
-                htmlFor="job-title"
-                className="block text-xs font-medium text-gray-900"
-              >
-                State
-              </label>
-
-              <select
-                id="taxState"
-                name="taxState"
-                className="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                value={taxStateKey ?? ''}
-                onChange={handleChangeTaxState}
-              >
-                <option value="">Select state</option>
-
-                {INCOME_TAX_CALCULATOR_US_STATES_KEYS.map((stateKey) => (
-                  <option key={stateKey} value={stateKey}>
-                    {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+        <div>
+          <button
+            className="bg-primary-blue rounded-full px-8 py-4 text-white"
+            onClick={handleCalculate}
+          >
+            Calculate
+          </button>
         </div>
       </div>
-
-      <button onClick={handleCalculate}>Calculate</button>
     </div>
   );
 };
