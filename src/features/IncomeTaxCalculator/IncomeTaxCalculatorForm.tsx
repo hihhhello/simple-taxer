@@ -67,6 +67,34 @@ export const IncomeTaxCalculatorForm = ({
 
   return (
     <div>
+      <div>
+        <div className="relative rounded-2xl bg-white px-4 py-2">
+          <div className="mb-1">
+            <label
+              htmlFor="name"
+              className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+            >
+              Household Income
+            </label>
+          </div>
+
+          <DollarInput
+            name="householdIncome"
+            id="householdIncome"
+            placeholder="$00.00"
+            className="w-full border-none text-6xl font-light"
+            handleValueChange={setHouseholdIncome}
+            value={householdIncome}
+          />
+        </div>
+      </div>
+
+      <div></div>
+    </div>
+  );
+
+  return (
+    <div>
       <div className="mx-auto w-full max-w-md">
         <div className="isolate -space-y-px rounded-md shadow-sm">
           <div className="relative rounded-md rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
