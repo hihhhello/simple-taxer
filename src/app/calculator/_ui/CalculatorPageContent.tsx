@@ -94,7 +94,7 @@ export const CalculatorPageContent = ({
 
   return (
     <div className="pt-8">
-      <div className="flex gap-6">
+      <div className="mb-12 flex gap-6">
         <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
           <div>
             <p className="text-5xl font-semibold leading-tight text-primary-blue">
@@ -120,128 +120,24 @@ export const CalculatorPageContent = ({
 
       {totalTax && federalTax && !isNil(stateTax) && householdIncome && (
         <>
-          <div>
-            <div className="rounded-2xl bg-white p-4">
-              <div className="mb-4 flex items-start justify-between">
-                <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
-                  <span className="text-primary-blue">Federal Tax</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                    <span className="text-white">
-                      {formatToUSDCurrency(federalTax)}
-                    </span>
-                  </div>
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                    <span className="text-2xs leading-none text-white">
-                      {((federalTax * 100) / householdIncome).toFixed(2)}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-primary-blue">
-                <span className="text-sm font-semibold text-primary-light-blue">
-                  Exp.
-                </span>
-                :Federal tax, in the context of your household income, is the
-                portion of your earnings that is required to be paid to the
-                federal government. This tax serves as a source of revenue for
-                the government to fund various programs and services, such as
-                national defense, infrastructure, and social services.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-white p-4">
-              <div className="mb-4 flex items-start justify-between">
-                <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
-                  <span className="text-primary-blue">State Tax</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                    <span className="text-white">
-                      {formatToUSDCurrency(stateTax)}
-                    </span>
-                  </div>
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                    <span className="text-2xs leading-none text-white">
-                      {((stateTax * 100) / householdIncome).toFixed(2)}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-primary-blue">
-                <span className="text-sm font-semibold text-primary-light-blue">
-                  Exp.
-                </span>
-                :State tax, within the context of your household income, is the
-                portion of your earnings that is mandated to be paid to the
-                state government where you reside. This tax revenue is utilized
-                by the state to support various public services and initiatives,
-                including education, healthcare, and infrastructure development.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-white p-4">
-              <div className="mb-4 flex items-start justify-between">
-                <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
-                  <span className="text-primary-blue">Total Tax</span>
-                </div>
-
-                <div className="flex gap-2">
-                  <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                    <span className="text-white">
-                      {formatToUSDCurrency(totalTax)}
-                    </span>
-                  </div>
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                    <span className="text-2xs leading-none text-white">
-                      {((totalTax * 100) / householdIncome).toFixed(2)}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-primary-blue">
-                <span className="text-sm font-semibold text-primary-light-blue">
-                  Exp.
-                </span>
-                :Total tax, in the context of your household income, is the
-                cumulative amount of taxes you are required to pay, which
-                includes both federal and state taxes. These taxes are essential
-                sources of revenue for the government, enabling it to fund
-                various public services and programs at both the federal and
-                state levels.
-              </p>
-            </div>
-
-            <div className="flex gap-12 rounded-2xl bg-white p-4">
-              <div>
+          <div className="grid grid-cols-4 gap-4">
+            <div className="col-span-2">
+              <div className="h-full rounded-2xl bg-white p-4">
                 <div className="mb-4 flex items-start justify-between">
                   <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
-                    <span className="text-primary-blue">Take home pay</span>
+                    <span className="text-primary-blue">Federal Tax</span>
                   </div>
 
                   <div className="flex gap-2">
                     <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
                       <span className="text-white">
-                        {formatToUSDCurrency(householdIncome - totalTax)}
+                        {formatToUSDCurrency(federalTax)}
                       </span>
                     </div>
 
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
                       <span className="text-2xs leading-none text-white">
-                        {(
-                          ((householdIncome - totalTax) * 100) /
-                          householdIncome
-                        ).toFixed(2)}
-                        %
+                        {((federalTax * 100) / householdIncome).toFixed(2)}%
                       </span>
                     </div>
                   </div>
@@ -251,16 +147,118 @@ export const CalculatorPageContent = ({
                   <span className="text-sm font-semibold text-primary-light-blue">
                     Exp.
                   </span>
-                  :Take-home pay, in the context of your household income,
-                  represents the amount of money you receive after all
-                  applicable taxes and deductions have been subtracted from your
-                  gross income. It is the income that you can actually use for
-                  your everyday expenses, savings, and discretionary spending.
+                  :Federal tax, in the context of your household income, is the
+                  portion of your earnings that is required to be paid to the
+                  federal government. This tax serves as a source of revenue for
+                  the government to fund various programs and services, such as
+                  national defense, infrastructure, and social services.
                 </p>
               </div>
+            </div>
 
-              <div>
-                <div className="h-[300px] w-[300px] bg-gray-200"></div>
+            <div className="col-span-1 row-start-2">
+              <div className="h-full rounded-2xl bg-white p-4">
+                <div className="mb-4 flex items-start justify-between">
+                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                    <span className="text-primary-blue">State Tax</span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
+                      <span className="text-white">
+                        {formatToUSDCurrency(stateTax)}
+                      </span>
+                    </div>
+
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
+                      <span className="text-2xs leading-none text-white">
+                        {((stateTax * 100) / householdIncome).toFixed(2)}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-primary-blue">
+                  <span className="text-sm font-semibold text-primary-light-blue">
+                    Exp.
+                  </span>
+                  :State tax, within the context of your household income, is
+                  the portion of your earnings that is mandated to be paid to
+                  the state government where you reside. This tax revenue is
+                  utilized by the state to support various public services and
+                  initiatives, including education, healthcare, and
+                  infrastructure development.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-1 row-start-2">
+              <div className="h-full rounded-2xl bg-white p-4">
+                <div className="mb-4 flex items-start justify-between">
+                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                    <span className="text-primary-blue">Total Tax</span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
+                      <span className="text-white">
+                        {formatToUSDCurrency(totalTax)}
+                      </span>
+                    </div>
+
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
+                      <span className="text-2xs leading-none text-white">
+                        {((totalTax * 100) / householdIncome).toFixed(2)}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-primary-blue">
+                  <span className="text-sm font-semibold text-primary-light-blue">
+                    Exp.
+                  </span>
+                  :Total tax, in the context of your household income, is the
+                  cumulative amount of taxes you are required to pay, which
+                  includes both federal and state taxes. These taxes are
+                  essential sources of revenue for the government, enabling it
+                  to fund various public services and programs at both the
+                  federal and state levels.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-2 row-span-2">
+              <div className="flex h-full gap-12 rounded-2xl bg-white p-4">
+                <div>
+                  <div className="mb-4 flex items-start justify-between">
+                    <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                      <span className="text-primary-blue">Take home pay</span>
+                    </div>
+
+                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
+                      <span className="text-white">
+                        {formatToUSDCurrency(householdIncome - totalTax)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-primary-blue">
+                    <span className="text-sm font-semibold text-primary-light-blue">
+                      Exp.
+                    </span>
+                    :Take-home pay, in the context of your household income,
+                    represents the amount of money you receive after all
+                    applicable taxes and deductions have been subtracted from
+                    your gross income. It is the income that you can actually
+                    use for your everyday expenses, savings, and discretionary
+                    spending.
+                  </p>
+                </div>
+
+                <div>
+                  <div className="h-[300px] w-[300px] bg-gray-200"></div>
+                </div>
               </div>
             </div>
           </div>
