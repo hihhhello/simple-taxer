@@ -220,6 +220,49 @@ export const CalculatorPageContent = ({
                 state levels.
               </p>
             </div>
+
+            <div className="flex gap-12 rounded-2xl bg-white p-4">
+              <div>
+                <div className="mb-4 flex items-start justify-between">
+                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                    <span className="text-primary-blue">Take home pay</span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
+                      <span className="text-white">
+                        {formatToUSDCurrency(householdIncome - totalTax)}
+                      </span>
+                    </div>
+
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
+                      <span className="text-2xs leading-none text-white">
+                        {(
+                          ((householdIncome - totalTax) * 100) /
+                          householdIncome
+                        ).toFixed(2)}
+                        %
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-primary-blue">
+                  <span className="text-sm font-semibold text-primary-light-blue">
+                    Exp.
+                  </span>
+                  :Take-home pay, in the context of your household income,
+                  represents the amount of money you receive after all
+                  applicable taxes and deductions have been subtracted from your
+                  gross income. It is the income that you can actually use for
+                  your everyday expenses, savings, and discretionary spending.
+                </p>
+              </div>
+
+              <div>
+                <div className="h-[300px] w-[300px] bg-gray-200"></div>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-4">
