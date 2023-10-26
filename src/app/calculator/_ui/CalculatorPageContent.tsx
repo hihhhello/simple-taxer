@@ -120,9 +120,11 @@ export const CalculatorPageContent = ({
 
       {totalTax && federalTax && !isNil(stateTax) && householdIncome && (
         <>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-6">
             <div className="col-span-2">
-              <div className="h-full rounded-2xl bg-white p-4">
+              <div className="relative h-full rounded-2xl bg-white p-4">
+                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
+
                 <div className="mb-4 flex items-start justify-between">
                   <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
                     <span className="text-primary-blue">Federal Tax</span>
@@ -157,7 +159,9 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-1 row-start-2">
-              <div className="h-full rounded-2xl bg-white p-4">
+              <div className="relative h-full rounded-2xl bg-white p-4">
+                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
+
                 <div className="mb-4 flex items-start justify-between">
                   <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
                     <span className="text-primary-blue">State Tax</span>
@@ -193,7 +197,9 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-1 row-start-2">
-              <div className="h-full rounded-2xl bg-white p-4">
+              <div className="relative h-full rounded-2xl bg-white p-4">
+                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
+
                 <div className="mb-4 flex items-start justify-between">
                   <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
                     <span className="text-primary-blue">Total Tax</span>
@@ -229,7 +235,9 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-2 row-span-2">
-              <div className="flex h-full gap-12 rounded-2xl bg-white p-4">
+              <div className="relative flex h-full gap-12 rounded-2xl bg-white p-4">
+                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-green"></div>
+
                 <div>
                   <div className="mb-4 flex items-start justify-between">
                     <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
