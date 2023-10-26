@@ -34,17 +34,17 @@ export const Navbar = ({ me }: NavbarProps) => {
   }, [providers?.google.id]);
 
   return (
-    <div className="flex items-center justify-between rounded-[100px] bg-white py-4 pl-10 pr-6">
+    <div className="flex items-center justify-between rounded-full bg-white py-4 pl-10 pr-6">
       <div className="flex items-center gap-36">
         <div>
-          <span className="text-primary-light-blue text-xl">SimpleTax</span>
+          <span className="text-xl text-primary-light-blue">SimpleTax</span>
         </div>
 
         <div>
           <Link href="/transactions">
             <span
               className={twMerge(
-                'text-primary-blue rounded-3xl px-4 py-2 leading-tight',
+                'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
                 pathname === '/transactions' && 'bg-primary-blue text-white',
               )}
             >
@@ -55,7 +55,7 @@ export const Navbar = ({ me }: NavbarProps) => {
           <Link href="/analytics">
             <span
               className={twMerge(
-                'text-primary-blue rounded-3xl px-4 py-2 leading-tight',
+                'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
                 pathname === '/analytics' && 'bg-primary-blue text-white',
               )}
             >
@@ -66,7 +66,7 @@ export const Navbar = ({ me }: NavbarProps) => {
           <Link href="/calculator">
             <span
               className={twMerge(
-                'text-primary-blue rounded-3xl px-4 py-2 leading-tight',
+                'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
                 pathname === '/calculator' && 'bg-primary-blue text-white',
               )}
             >
@@ -77,7 +77,7 @@ export const Navbar = ({ me }: NavbarProps) => {
       </div>
 
       {me ? (
-        <div className="text-primary-blue flex items-center">
+        <div className="flex items-center text-primary-blue">
           {me.name && <p>{me.name}</p>}
 
           <Menu as="div" className="relative ml-3">
@@ -131,7 +131,7 @@ export const Navbar = ({ me }: NavbarProps) => {
       ) : (
         <button
           onClick={handleSignIn}
-          className="bg-primary-blue rounded-3xl px-8 py-2  text-white"
+          className="rounded-3xl bg-primary-blue px-8 py-2  text-white"
         >
           Log In
         </button>
