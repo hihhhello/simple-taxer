@@ -21,6 +21,9 @@ module.exports = {
           yellow: '#F8D35D',
         },
       },
+      fontSize: {
+        '2xs': '0.625rem',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
