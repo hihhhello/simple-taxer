@@ -13,6 +13,7 @@ import {
   calculateTotalIncome,
   classNames,
   formatUSDDecimal,
+  formatUSDInteger,
 } from '@/shared/utils/helpers';
 import {
   IncomeTaxCalculatorFilingStatus,
@@ -322,8 +323,16 @@ export const CalculatorPageContent = ({
                           </div>
                         </div>
 
-                        <p className="absolute bottom-0 right-0 translate-y-full text-right text-sm">
-                          {formatUSDDecimal(upper)}
+                        {index === 0 && (
+                          <p className="absolute bottom-0 left-0 translate-y-full text-right text-sm">
+                            $0
+                          </p>
+                        )}
+
+                        <p className="absolute bottom-0 right-0 translate-x-3/4 translate-y-full text-right text-sm">
+                          {upper === Infinity
+                            ? `>${formatUSDInteger(lower)}`
+                            : formatUSDInteger(upper)}
                         </p>
                       </div>
                     );
