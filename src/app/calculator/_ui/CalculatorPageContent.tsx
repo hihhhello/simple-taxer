@@ -11,6 +11,7 @@ import {
 import { api } from '@/shared/api';
 import {
   calculateTotalIncome,
+  classNames,
   formatToUSDCurrency,
 } from '@/shared/utils/helpers';
 import {
@@ -120,9 +121,9 @@ export const CalculatorPageContent = ({
 
       {totalTax && federalTax && !isNil(stateTax) && householdIncome && (
         <>
-          <div className="grid grid-cols-4 gap-6">
+          <div className="mb-12 grid grid-cols-4 gap-6">
             <div className="col-span-2">
-              <div className="relative h-full rounded-2xl bg-white p-4">
+              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
@@ -159,7 +160,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-1 row-start-2">
-              <div className="relative h-full rounded-2xl bg-white p-4">
+              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
@@ -197,7 +198,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-1 row-start-2">
-              <div className="relative h-full rounded-2xl bg-white p-4">
+              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
@@ -235,7 +236,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="col-span-2 row-span-2">
-              <div className="relative flex h-full gap-12 rounded-2xl bg-white p-4">
+              <div className="relative ml-2 flex h-full gap-12 rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-green"></div>
 
                 <div>
@@ -271,49 +272,77 @@ export const CalculatorPageContent = ({
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            {federalFilingBrackets.map(
-              ({ rate, upper: bracketUpper, lower }, index) => {
-                const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
+          <div>
+            <div className="mb-2 px-4 py-2">
+              <span className="text-3xl font-bold text-primary-blue">
+                Federal Income Tax Brackets
+              </span>
+            </div>
 
-                return (
-                  <div key={rate}>
-                    <span>{rate * 100}%</span>
+            <div className="rounded-2xl bg-white p-6">
+              <div className="mb-10 flex flex-wrap gap-4">
+                {federalFilingBrackets.map(
+                  ({ rate, upper: bracketUpper, lower }, index) => {
+                    const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
 
-                    <div
-                      style={{
-                        width: BASE_BRACKET_WIDTH * (index + 1),
-                      }}
-                      className="relative h-[90px] ring-1"
-                    >
-                      <div
-                        style={{
-                          width:
-                            householdIncome > upper ||
-                            (householdIncome <= upper &&
-                              householdIncome > lower)
-                              ? `${Math.min(
-                                  100,
-                                  (householdIncome / upper) * 100,
-                                )}%`
-                              : 0,
-                        }}
-                        className={`absolute left-0 top-0 h-full bg-red-500`}
-                      >
-                        {householdIncome <= upper &&
-                          householdIncome > lower && (
-                            <span className="absolute -right-1/2 top-1/2 -translate-y-1/2">
-                              {formatToUSDCurrency(householdIncome)}
-                            </span>
-                          )}
+                    const bracketFillingPercent =
+                      householdIncome > upper ||
+                      (householdIncome <= upper && householdIncome > lower)
+                        ? Math.min(100, (householdIncome / upper) * 100)
+                        : 0;
+
+                    return (
+                      <div key={rate}>
+                        <span className="text-primary-light-blue">
+                          {rate * 100}%
+                        </span>
+
+                        <div
+                          style={{
+                            width: BASE_BRACKET_WIDTH * (index + 1),
+                          }}
+                          className="relative h-[90px] rounded-lg border-2 border-primary-light-blue"
+                        >
+                          <div
+                            style={{
+                              width: `${bracketFillingPercent}%`,
+                            }}
+                            className={classNames(
+                              'absolute left-0 top-0 h-full bg-primary-light-blue',
+                              bracketFillingPercent < 100 && 'rounded-r-2xl',
+                            )}
+                          >
+                            {/* {householdIncome <= upper &&
+                              householdIncome > lower && (
+                                <span className="absolute -right-1/2 top-1/2 -translate-y-1/2">
+                                  {formatToUSDCurrency(householdIncome)}
+                                </span>
+                              )} */}
+                          </div>
+                        </div>
+
+                        <p className="text-right text-sm">
+                          {formatToUSDCurrency(upper)}
+                        </p>
                       </div>
-                    </div>
+                    );
+                  },
+                )}
+              </div>
 
-                    <p className="text-right">{formatToUSDCurrency(upper)}</p>
-                  </div>
-                );
-              },
-            )}
+              <div className="bg-primary-yellow rounded-xl p-6">
+                <p className="text-xs text-primary-blue">
+                  <span className="text-sm font-semibold text-primary-light-blue">
+                    Exp.
+                  </span>
+                  :Take-home pay, in the context of your household income,
+                  represents the amount of money you receive after all
+                  applicable taxes and deductions have been subtracted from your
+                  gross income. It is the income that you can actually use for
+                  your everyday expenses, savings, and discretionary spending.
+                </p>
+              </div>
+            </div>
           </div>
         </>
       )}
