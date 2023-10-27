@@ -297,7 +297,9 @@ export const CalculatorPageContent = ({
                         key={rate}
                         className="relative flex flex-col items-center"
                         style={{
-                          width: BASE_BRACKET_WIDTH * (index + 1),
+                          width:
+                            BASE_BRACKET_WIDTH *
+                            (1 + index * BRACKET_WIDTH_GROWTH_RATE),
                         }}
                       >
                         <span className="text-primary-light-blue">
@@ -368,3 +370,4 @@ export const CalculatorPageContent = ({
 };
 
 const BASE_BRACKET_WIDTH = 60;
+const BRACKET_WIDTH_GROWTH_RATE = 0.4;
