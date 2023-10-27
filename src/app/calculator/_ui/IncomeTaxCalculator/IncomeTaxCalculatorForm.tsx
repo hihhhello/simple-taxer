@@ -72,7 +72,7 @@ export const IncomeTaxCalculatorForm = ({
           <div className="mb-1">
             <label
               htmlFor="name"
-              className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+              className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
             >
               Household Income
             </label>
@@ -95,7 +95,7 @@ export const IncomeTaxCalculatorForm = ({
             <div className="mb-1">
               <label
                 htmlFor="filingStatus"
-                className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+                className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
               >
                 Filing Status
               </label>
@@ -117,7 +117,7 @@ export const IncomeTaxCalculatorForm = ({
             <div className="mb-1">
               <label
                 htmlFor="taxState"
-                className="bg-primary-green rounded-lg px-4 py-1 text-sm font-medium text-white"
+                className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
               >
                 State
               </label>
@@ -143,7 +143,7 @@ export const IncomeTaxCalculatorForm = ({
 
         <div>
           <button
-            className="bg-primary-blue rounded-full px-8 py-4 text-white"
+            className="rounded-full bg-primary-blue px-8 py-4 leading-none text-white"
             onClick={handleCalculate}
           >
             Calculate
