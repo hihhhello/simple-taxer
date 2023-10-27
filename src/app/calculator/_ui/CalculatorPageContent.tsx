@@ -355,10 +355,11 @@ export const CalculatorPageContent = ({
                   :Federal Income Tax Brackets are a way the U.S. government
                   calculates how much tax you owe based on your income. The more
                   you earn, the higher the percentage of your income you pay in
-                  taxes. There are different income ranges or "brackets," each
-                  with its own tax rate. Lower incomes are taxed at lower rates,
-                  and higher incomes are taxed at higher rates to ensure a fair
-                  system where higher earners pay more in taxes.
+                  taxes. There are different income ranges or
+                  &quot;brackets&quot; each with its own tax rate. Lower incomes
+                  are taxed at lower rates, and higher incomes are taxed at
+                  higher rates to ensure a fair system where higher earners pay
+                  more in taxes.
                 </p>
               </div>
             </div>
