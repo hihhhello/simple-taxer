@@ -1,15 +1,28 @@
 import { Transaction } from '../types/transactionTypes';
 
-const formatterUSDCurrency = new Intl.NumberFormat('en-US', {
+const usdDecimalFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 });
 
-export const formatToUSDCurrency = (value: number | undefined) => {
+export const formatUSDDecimal = (value: number | undefined) => {
   if (value === undefined) {
     return '';
   }
-  return formatterUSDCurrency.format(value);
+  return usdDecimalFormatter.format(value);
+};
+
+const usdIntegerFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+});
+
+export const formatUSDInteger = (value: number | undefined) => {
+  if (value === undefined) {
+    return '';
+  }
+  return usdIntegerFormatter.format(value);
 };
 
 export const classNames = (...classes: (string | boolean | undefined)[]) => {

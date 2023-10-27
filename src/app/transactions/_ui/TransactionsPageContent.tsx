@@ -17,7 +17,7 @@ import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import {
   calculateTotalIncome,
   classNames,
-  formatToUSDCurrency,
+  formatUSDDecimal,
 } from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
@@ -271,7 +271,7 @@ export const TransactionsPageContent = ({
             </dt>
 
             <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-              {formatToUSDCurrency(totalIncome)}
+              {formatUSDDecimal(totalIncome)}
             </dd>
           </div>
         </dl>

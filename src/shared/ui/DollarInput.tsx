@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useMemo } from 'react';
-import { formatToUSDCurrency } from '../utils/helpers';
+import { formatUSDDecimal } from '../utils/helpers';
 
 type DollarInputProps = Omit<
   JSX.IntrinsicElements['input'],
@@ -31,7 +31,7 @@ export const DollarInput = ({
       return '';
     }
 
-    return formatToUSDCurrency(value);
+    return formatUSDDecimal(value);
   }, [value]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

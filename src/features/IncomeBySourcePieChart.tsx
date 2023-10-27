@@ -3,7 +3,7 @@
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-import { formatToUSDCurrency } from '@/shared/utils/helpers';
+import { formatUSDDecimal } from '@/shared/utils/helpers';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 
 type IncomeBySourcePieChartProps = {
@@ -93,9 +93,7 @@ export const IncomeBySourcePieChart = ({
       // Specify text node for the <title>
       .text(
         (d) =>
-          `${d.data.sourceName}: ${formatToUSDCurrency(
-            d.data._sum.amount ?? 0,
-          )}`,
+          `${d.data.sourceName}: ${formatUSDDecimal(d.data._sum.amount ?? 0)}`,
       );
 
     // Add sector labels
@@ -121,7 +119,7 @@ export const IncomeBySourcePieChart = ({
           .attr('x', 0)
           .attr('y', '0.7em')
           .attr('class', 'fill-gray-700')
-          .text(({ data }) => formatToUSDCurrency(data._sum.amount ?? 0)),
+          .text(({ data }) => formatUSDDecimal(data._sum.amount ?? 0)),
       );
   }, [transactionsBySourceName]);
 

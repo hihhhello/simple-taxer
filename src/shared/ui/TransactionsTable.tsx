@@ -16,7 +16,7 @@ import {
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
 
-import { classNames, formatToUSDCurrency } from '@/shared/utils/helpers';
+import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
 import {
   Transaction,
   TransactionSortField,
@@ -415,7 +415,7 @@ export const TransactionTable = ({
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {formatToUSDCurrency(transaction.amount)}
+                      {formatUSDDecimal(transaction.amount)}
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">

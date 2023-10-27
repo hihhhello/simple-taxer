@@ -12,7 +12,7 @@ import { api } from '@/shared/api';
 import {
   calculateTotalIncome,
   classNames,
-  formatToUSDCurrency,
+  formatUSDDecimal,
 } from '@/shared/utils/helpers';
 import {
   IncomeTaxCalculatorFilingStatus,
@@ -134,7 +134,7 @@ export const CalculatorPageContent = ({
                   <div className="flex gap-2">
                     <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
                       <span className="text-white">
-                        {formatToUSDCurrency(federalTax)}
+                        {formatUSDDecimal(federalTax)}
                       </span>
                     </div>
 
@@ -171,7 +171,7 @@ export const CalculatorPageContent = ({
                   <div className="flex gap-2">
                     <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
                       <span className="text-white">
-                        {formatToUSDCurrency(stateTax)}
+                        {formatUSDDecimal(stateTax)}
                       </span>
                     </div>
 
@@ -209,7 +209,7 @@ export const CalculatorPageContent = ({
                   <div className="flex gap-2">
                     <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
                       <span className="text-white">
-                        {formatToUSDCurrency(totalTax)}
+                        {formatUSDDecimal(totalTax)}
                       </span>
                     </div>
 
@@ -247,7 +247,7 @@ export const CalculatorPageContent = ({
 
                     <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
                       <span className="text-white">
-                        {formatToUSDCurrency(householdIncome - totalTax)}
+                        {formatUSDDecimal(householdIncome - totalTax)}
                       </span>
                     </div>
                   </div>
@@ -292,17 +292,18 @@ export const CalculatorPageContent = ({
                         : 0;
 
                     return (
-                      <div key={rate}>
+                      <div
+                        key={rate}
+                        className="relative"
+                        style={{
+                          width: BASE_BRACKET_WIDTH * (index + 1),
+                        }}
+                      >
                         <span className="text-primary-light-blue">
                           {rate * 100}%
                         </span>
 
-                        <div
-                          style={{
-                            width: BASE_BRACKET_WIDTH * (index + 1),
-                          }}
-                          className="relative h-[90px] rounded-lg border-2 border-primary-light-blue"
-                        >
+                        <div className="relative h-[90px] rounded-lg border-2 border-primary-light-blue">
                           <div
                             style={{
                               width: `${bracketFillingPercent}%`,
@@ -321,8 +322,8 @@ export const CalculatorPageContent = ({
                           </div>
                         </div>
 
-                        <p className="text-right text-sm">
-                          {formatToUSDCurrency(upper)}
+                        <p className="absolute bottom-0 right-0 translate-y-full text-right text-sm">
+                          {formatUSDDecimal(upper)}
                         </p>
                       </div>
                     );
@@ -350,4 +351,4 @@ export const CalculatorPageContent = ({
   );
 };
 
-const BASE_BRACKET_WIDTH = 50;
+const BASE_BRACKET_WIDTH = 60;
