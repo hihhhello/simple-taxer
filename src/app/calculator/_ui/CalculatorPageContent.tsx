@@ -352,11 +352,13 @@ export const CalculatorPageContent = ({
                   <span className="text-sm font-semibold text-primary-light-blue">
                     Exp.
                   </span>
-                  :Take-home pay, in the context of your household income,
-                  represents the amount of money you receive after all
-                  applicable taxes and deductions have been subtracted from your
-                  gross income. It is the income that you can actually use for
-                  your everyday expenses, savings, and discretionary spending.
+                  :Federal Income Tax Brackets are a way the U.S. government
+                  calculates how much tax you owe based on your income. The more
+                  you earn, the higher the percentage of your income you pay in
+                  taxes. There are different income ranges or "brackets," each
+                  with its own tax rate. Lower incomes are taxed at lower rates,
+                  and higher incomes are taxed at higher rates to ensure a fair
+                  system where higher earners pay more in taxes.
                 </p>
               </div>
             </div>
