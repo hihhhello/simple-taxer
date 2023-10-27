@@ -281,7 +281,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="rounded-2xl bg-white p-6">
-              <div className="mb-10 flex flex-wrap gap-4">
+              <div className="mb-10 flex gap-4">
                 {federalFilingBrackets.map(
                   ({ rate, upper: bracketUpper, lower }, index) => {
                     const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
@@ -295,7 +295,7 @@ export const CalculatorPageContent = ({
                     return (
                       <div
                         key={rate}
-                        className="relative"
+                        className="relative flex flex-col items-center"
                         style={{
                           width: BASE_BRACKET_WIDTH * (index + 1),
                         }}
@@ -304,7 +304,7 @@ export const CalculatorPageContent = ({
                           {rate * 100}%
                         </span>
 
-                        <div className="relative h-[90px] rounded-lg border-2 border-primary-light-blue">
+                        <div className="relative mb-2 h-[90px] w-full rounded-lg border-2 border-primary-light-blue">
                           <div
                             style={{
                               width: `${bracketFillingPercent}%`,
@@ -323,13 +323,20 @@ export const CalculatorPageContent = ({
                           </div>
                         </div>
 
+                        <div className="mb-2 h-3 w-full border-x border-b border-primary-light-blue"></div>
+
                         {index === 0 && (
                           <p className="absolute bottom-0 left-0 translate-y-full text-right text-sm">
                             $0
                           </p>
                         )}
 
-                        <p className="absolute bottom-0 right-0 translate-x-3/4 translate-y-full text-right text-sm">
+                        <p
+                          className={classNames(
+                            'absolute bottom-0 right-0 translate-y-full text-right text-sm',
+                            upper !== Infinity && 'translate-x-3/4',
+                          )}
+                        >
                           {upper === Infinity
                             ? `>${formatUSDInteger(lower)}`
                             : formatUSDInteger(upper)}
