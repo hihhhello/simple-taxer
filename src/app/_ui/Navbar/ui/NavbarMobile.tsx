@@ -51,7 +51,11 @@ export const NavbarMobile = ({
         <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-white">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <button
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+
+                document.body.style.overflow = 'unset';
+              }}
               className="absolute right-4 top-4 h-12 w-12"
             >
               <XMarkIcon />
