@@ -45,7 +45,13 @@ export const Navbar = ({ me }: NavbarProps) => {
         pathname={pathname}
       />
 
-      <NavbarMobile />
+      <NavbarMobile
+        handleSignIn={handleSignIn}
+        handleSignOut={handleSignOut}
+        isAuthenticating={status === 'loading'}
+        me={me}
+        pathname={pathname}
+      />
     </>
   );
 };
