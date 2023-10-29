@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { getServerSession } from 'next-auth';
 
 import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
-import { Navbar } from './Navbar';
+import { Navbar } from './Navbar/Navbar';
 import { createAuthorizedCaller } from '@/server/routers/_app';
 import { calculateTotalIncome, formatUSDInteger } from '@/shared/utils/helpers';
 
