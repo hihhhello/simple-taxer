@@ -13,6 +13,7 @@ import { getProviders, signIn } from 'next-auth/react';
 
 import { classNames } from '@/shared/utils/helpers';
 import { NavbarDesktop } from './ui/NavbarDesktop';
+import { NavbarMobile } from './ui/NavbarMobile';
 
 type NavbarProps = {
   me: User | undefined | null;
@@ -35,12 +36,16 @@ export const Navbar = ({ me }: NavbarProps) => {
   }, [providers?.google.id]);
 
   return (
-    <NavbarDesktop
-      handleSignIn={handleSignIn}
-      handleSignOut={handleSignOut}
-      isAuthenticating={status === 'loading'}
-      me={me}
-      pathname={pathname}
-    />
+    <>
+      <NavbarDesktop
+        handleSignIn={handleSignIn}
+        handleSignOut={handleSignOut}
+        isAuthenticating={status === 'loading'}
+        me={me}
+        pathname={pathname}
+      />
+
+      <NavbarMobile />
+    </>
   );
 };

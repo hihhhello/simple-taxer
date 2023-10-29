@@ -20,7 +20,7 @@ export const BaseLayout = async ({ children }: BaseLayoutProps) => {
   const totalIncome = calculateTotalIncome(transactions?.data);
 
   return (
-    <div className="relative min-h-full px-4 pt-1 sm:px-[220px]">
+    <div className="relative min-h-full px-4 pt-4 sm:px-[220px] sm:pt-1">
       <div className="fixed right-0 top-[116px] flex flex-col rounded-l-2xl bg-primary-light-blue py-4 pl-6 pr-9 font-semibold text-white">
         <span>Total Income</span>
 
