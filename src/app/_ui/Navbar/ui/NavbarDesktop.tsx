@@ -27,7 +27,7 @@ export const NavbarDesktop = ({
   isAuthenticating,
 }: NavbarDesktopProps) => {
   return (
-    <div className="flex items-center justify-between rounded-full bg-white py-4 pl-10 pr-6">
+    <div className="hidden items-center justify-between rounded-full bg-white py-4 pl-10 pr-6 sm:flex">
       <div className="flex items-center gap-36">
         <div>
           <span className="text-xl text-primary-light-blue">SimpleTax</span>
