@@ -26,36 +26,34 @@ export const NavbarMobile = ({
 }: NavbarMobileProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+
+    document.body.style.overflow = 'unset';
+  };
+
+  const handleOpenMenu = () => {
+    setIsMenuOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
   return (
     <div className="flex items-center justify-between sm:hidden">
       <span className="text-xl text-primary-light-blue">SimpleTax</span>
 
-      <button
-        onClick={() => {
-          setIsMenuOpen(true);
-          document.body.style.overflow = 'hidden';
-        }}
-      >
+      <button onClick={handleOpenMenu}>
         <BurgerMenuIcon className="text-primary-blue" />
       </button>
 
       <Dialog
         open={isMenuOpen}
-        onClose={() => {
-          setIsMenuOpen(false);
-
-          document.body.style.overflow = 'unset';
-        }}
+        onClose={handleCloseMenu}
         className="relative z-50"
       >
         <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-white">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <button
-              onClick={() => {
-                setIsMenuOpen(false);
-
-                document.body.style.overflow = 'unset';
-              }}
+              onClick={handleCloseMenu}
               className="absolute right-4 top-4 h-12 w-12"
             >
               <XMarkIcon />
