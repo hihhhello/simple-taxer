@@ -25,7 +25,8 @@ import {
   calculateFederalTax,
   calculateStateTax,
 } from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
-import { CalculatorIllustration } from '@/shared/illustartions/CalculatorIllustration';
+import { CalculatorIllustrationDesktop } from '@/shared/illustartions/CalculatorIllustrationDesktop';
+import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -96,21 +97,27 @@ export const CalculatorPageContent = ({
 
   return (
     <div className="pt-8">
-      <div className="mb-12 flex gap-6">
+      <div className="mb-12 flex gap-6 sm:flex-row">
         <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
           <div>
-            <p className="text-5xl font-semibold leading-tight text-primary-blue">
+            <p className="text-3xl font-semibold leading-tight text-primary-blue sm:text-5xl">
               Calculate
             </p>
-            <p className="text-5xl font-semibold leading-tight text-primary-light-blue">
+            <p className="text-3xl font-semibold leading-tight text-primary-light-blue sm:text-5xl">
               Save
             </p>
-            <p className="text-5xl font-semibold leading-tight text-primary-blue">
+            <p className="text-3xl font-semibold leading-tight text-primary-blue sm:text-5xl">
               Prosper
             </p>
           </div>
 
-          <CalculatorIllustration />
+          <div className="hidden sm:block">
+            <CalculatorIllustrationDesktop />
+          </div>
+
+          <div className="sm:hidden">
+            <CalculatorIllustrationMobile />
+          </div>
         </div>
 
         <IncomeTaxCalculatorForm
