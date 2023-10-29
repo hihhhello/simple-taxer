@@ -72,7 +72,7 @@ export const IncomeTaxCalculatorForm = ({
           <div className="mb-1">
             <label
               htmlFor="name"
-              className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
+              className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
             >
               Household Income
             </label>
@@ -82,20 +82,20 @@ export const IncomeTaxCalculatorForm = ({
             name="householdIncome"
             id="householdIncome"
             placeholder="$00.00"
-            className="w-full border-none text-6xl font-light"
+            className="w-full border-none text-3xl font-light sm:text-6xl"
             handleValueChange={setHouseholdIncome}
             value={householdIncome}
           />
         </div>
       </div>
 
-      <div className="flex items-end justify-between gap-8">
+      <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
         <div className="flex flex-1 items-end gap-6">
-          <div>
+          <div className="flex-1">
             <div className="mb-1">
               <label
                 htmlFor="filingStatus"
-                className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
+                className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
               >
                 Filing Status
               </label>
@@ -104,7 +104,7 @@ export const IncomeTaxCalculatorForm = ({
             <select
               id="filingStatus"
               name="filingStatus"
-              className="min-w-[200px] max-w-[250px] rounded-xl border-none bg-white"
+              className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
               value={filingStatus}
               onChange={handleChangeFilingStatus}
             >
@@ -113,11 +113,11 @@ export const IncomeTaxCalculatorForm = ({
             </select>
           </div>
 
-          <div>
+          <div className="flex-1">
             <div className="mb-1">
               <label
                 htmlFor="taxState"
-                className="rounded-lg bg-primary-green px-4 py-1 text-sm font-medium text-white"
+                className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
               >
                 State
               </label>
@@ -126,7 +126,7 @@ export const IncomeTaxCalculatorForm = ({
             <select
               id="taxState"
               name="taxState"
-              className="min-w-[200px] max-w-[250px] rounded-xl border-none bg-white"
+              className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
               value={taxStateKey ?? ''}
               onChange={handleChangeTaxState}
             >
@@ -141,9 +141,9 @@ export const IncomeTaxCalculatorForm = ({
           </div>
         </div>
 
-        <div>
+        <div className="w-full sm:w-auto">
           <button
-            className="rounded-full bg-primary-blue px-8 py-4 leading-none text-white"
+            className="w-full rounded-full bg-primary-blue px-8 py-4 leading-none text-white sm:w-auto"
             onClick={handleCalculate}
           >
             Calculate

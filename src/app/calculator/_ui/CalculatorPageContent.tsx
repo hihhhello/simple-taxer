@@ -97,7 +97,7 @@ export const CalculatorPageContent = ({
 
   return (
     <div className="pt-8">
-      <div className="mb-12 flex gap-6 sm:flex-row">
+      <div className="mb-12 flex flex-col gap-6 sm:flex-row">
         <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
           <div>
             <p className="text-3xl font-semibold leading-tight text-primary-blue sm:text-5xl">
