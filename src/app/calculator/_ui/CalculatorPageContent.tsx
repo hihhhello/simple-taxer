@@ -27,6 +27,7 @@ import {
 } from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
 import { CalculatorIllustrationDesktop } from '@/shared/illustartions/CalculatorIllustrationDesktop';
 import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
+import { TaxExplanationCard } from './TaxExplanationCard/TaxExplanationCard';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -131,152 +132,59 @@ export const CalculatorPageContent = ({
         <>
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-4">
             <div className="sm:col-span-2">
-              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
-                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
-
-                <div className="mb-4 flex items-start justify-between">
-                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
-                    <span className="text-primary-blue">Federal Tax</span>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                      <span className="text-white">
-                        {formatUSDDecimal(federalTax)}
-                      </span>
-                    </div>
-
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                      <span className="text-2xs leading-none text-white">
-                        {((federalTax * 100) / householdIncome).toFixed(2)}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-xs text-primary-blue">
-                  <span className="text-sm font-semibold text-primary-light-blue">
-                    Exp.
-                  </span>
-                  :Federal tax, in the context of your household income, is the
-                  portion of your earnings that is required to be paid to the
-                  federal government. This tax serves as a source of revenue for
-                  the government to fund various programs and services, such as
-                  national defense, infrastructure, and social services.
-                </p>
-              </div>
+              <TaxExplanationCard
+                amount={federalTax}
+                title="Federal Tax"
+                percent={(federalTax * 100) / householdIncome}
+                description="Federal tax, in the context of your household income, is the
+                portion of your earnings that is required to be paid to the
+                federal government. This tax serves as a source of revenue for
+                the government to fund various programs and services, such as
+                national defense, infrastructure, and social services."
+              />
             </div>
 
             <div className="sm:col-span-1 sm:row-start-2">
-              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
-                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
-
-                <div className="mb-4 flex items-start justify-between">
-                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
-                    <span className="text-primary-blue">State Tax</span>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                      <span className="text-white">
-                        {formatUSDDecimal(stateTax)}
-                      </span>
-                    </div>
-
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                      <span className="text-2xs leading-none text-white">
-                        {((stateTax * 100) / householdIncome).toFixed(2)}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-xs text-primary-blue">
-                  <span className="text-sm font-semibold text-primary-light-blue">
-                    Exp.
-                  </span>
-                  :State tax, within the context of your household income, is
-                  the portion of your earnings that is mandated to be paid to
-                  the state government where you reside. This tax revenue is
-                  utilized by the state to support various public services and
-                  initiatives, including education, healthcare, and
-                  infrastructure development.
-                </p>
-              </div>
+              <TaxExplanationCard
+                amount={stateTax}
+                title="State Tax"
+                percent={(stateTax * 100) / householdIncome}
+                description="State tax, within the context of your household income, is
+                the portion of your earnings that is mandated to be paid to
+                the state government where you reside. This tax revenue is
+                utilized by the state to support various public services and
+                initiatives, including education, healthcare, and
+                infrastructure development."
+              />
             </div>
 
             <div className="sm:col-span-1 sm:row-start-2">
-              <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
-                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
-
-                <div className="mb-4 flex items-start justify-between">
-                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
-                    <span className="text-primary-blue">Total Tax</span>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                      <span className="text-white">
-                        {formatUSDDecimal(totalTax)}
-                      </span>
-                    </div>
-
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-blue">
-                      <span className="text-2xs leading-none text-white">
-                        {((totalTax * 100) / householdIncome).toFixed(2)}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-xs text-primary-blue">
-                  <span className="text-sm font-semibold text-primary-light-blue">
-                    Exp.
-                  </span>
-                  :Total tax, in the context of your household income, is the
-                  cumulative amount of taxes you are required to pay, which
-                  includes both federal and state taxes. These taxes are
-                  essential sources of revenue for the government, enabling it
-                  to fund various public services and programs at both the
-                  federal and state levels.
-                </p>
-              </div>
+              <TaxExplanationCard
+                amount={totalTax}
+                title="Total Tax"
+                percent={(totalTax * 100) / householdIncome}
+                description="Total tax, in the context of your household income, is the
+                cumulative amount of taxes you are required to pay, which
+                includes both federal and state taxes. These taxes are
+                essential sources of revenue for the government, enabling it
+                to fund various public services and programs at both the
+                federal and state levels."
+              />
             </div>
 
             <div className="sm:col-span-2 sm:row-span-2">
-              <div className="relative ml-2 flex h-full gap-12 rounded-2xl bg-white p-4">
-                <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-green"></div>
-
-                <div>
-                  <div className="mb-4 flex items-start justify-between">
-                    <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
-                      <span className="text-primary-blue">Take home pay</span>
-                    </div>
-
-                    <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-2">
-                      <span className="text-white">
-                        {formatUSDDecimal(householdIncome - totalTax)}
-                      </span>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-primary-blue">
-                    <span className="text-sm font-semibold text-primary-light-blue">
-                      Exp.
-                    </span>
-                    :Take-home pay, in the context of your household income,
-                    represents the amount of money you receive after all
-                    applicable taxes and deductions have been subtracted from
-                    your gross income. It is the income that you can actually
-                    use for your everyday expenses, savings, and discretionary
-                    spending.
-                  </p>
-                </div>
-
-                <div>
-                  <div className="h-[300px] w-[300px] bg-gray-200"></div>
-                </div>
-              </div>
+              <TaxExplanationCard
+                amount={totalTax}
+                title="Take home pay"
+                percent={(totalTax * 100) / householdIncome}
+                description="Take-home pay, in the context of your household income,
+                represents the amount of money you receive after all
+                applicable taxes and deductions have been subtracted from
+                your gross income. It is the income that you can actually
+                use for your everyday expenses, savings, and discretionary
+                spending."
+                shadowBgClassName="bg-primary-green"
+              />
             </div>
           </div>
 
