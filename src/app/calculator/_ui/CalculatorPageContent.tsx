@@ -129,13 +129,13 @@ export const CalculatorPageContent = ({
 
       {totalTax && federalTax && !isNil(stateTax) && householdIncome && (
         <>
-          <div className="mb-12 grid grid-cols-4 gap-6">
-            <div className="col-span-2">
+          <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-4">
+            <div className="sm:col-span-2">
               <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
-                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
                     <span className="text-primary-blue">Federal Tax</span>
                   </div>
 
@@ -167,12 +167,12 @@ export const CalculatorPageContent = ({
               </div>
             </div>
 
-            <div className="col-span-1 row-start-2">
+            <div className="sm:col-span-1 sm:row-start-2">
               <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
-                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
                     <span className="text-primary-blue">State Tax</span>
                   </div>
 
@@ -205,12 +205,12 @@ export const CalculatorPageContent = ({
               </div>
             </div>
 
-            <div className="col-span-1 row-start-2">
+            <div className="sm:col-span-1 sm:row-start-2">
               <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-light-blue"></div>
 
                 <div className="mb-4 flex items-start justify-between">
-                  <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                  <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
                     <span className="text-primary-blue">Total Tax</span>
                   </div>
 
@@ -243,13 +243,13 @@ export const CalculatorPageContent = ({
               </div>
             </div>
 
-            <div className="col-span-2 row-span-2">
+            <div className="sm:col-span-2 sm:row-span-2">
               <div className="relative ml-2 flex h-full gap-12 rounded-2xl bg-white p-4">
                 <div className="absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl bg-primary-green"></div>
 
                 <div>
                   <div className="mb-4 flex items-start justify-between">
-                    <div className="bg-primary-yellow flex items-center justify-center rounded-full px-4 py-2">
+                    <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
                       <span className="text-primary-blue">Take home pay</span>
                     </div>
 
@@ -354,7 +354,7 @@ export const CalculatorPageContent = ({
                 )}
               </div>
 
-              <div className="bg-primary-yellow rounded-xl p-6">
+              <div className="rounded-xl bg-primary-yellow p-6">
                 <p className="text-xs text-primary-blue">
                   <span className="text-sm font-semibold text-primary-light-blue">
                     Exp.
