@@ -51,7 +51,7 @@ export const NavbarMobile = ({
         onClose={handleCloseMenu}
         className="relative z-50"
       >
-        <div className="bg-primary-background fixed inset-0 flex h-screen w-screen items-center justify-center">
+        <div className="bg-primary-background fixed inset-0 flex h-screen w-screen items-center justify-center px-4">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <button
               onClick={handleCloseMenu}
@@ -92,7 +92,7 @@ export const NavbarMobile = ({
               </Link>
             </div>
 
-            <div className="bg- absolute bottom-8">
+            <div className="absolute bottom-8">
               {me ? (
                 <div className="flex items-center text-primary-blue">
                   {me.name && <p>{me.name}</p>}
