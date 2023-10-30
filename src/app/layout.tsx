@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={classNames('h-full bg-[#F6F6F6]', outfit.className)}
+      className={classNames('bg-primary-background h-full', outfit.className)}
       lang="en"
     >
       <body className="h-full">

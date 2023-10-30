@@ -8,6 +8,7 @@ import { BurgerMenuIcon } from '@/shared/icons/BurgerMenuIcon';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { twMerge } from 'tailwind-merge';
 import { classNames } from '@/shared/utils/helpers';
+import { SignOutIcon } from '@/shared/icons/SignOutIcon';
 
 type NavbarMobileProps = {
   handleSignIn: () => void;
@@ -50,7 +51,7 @@ export const NavbarMobile = ({
         onClose={handleCloseMenu}
         className="relative z-50"
       >
-        <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-white">
+        <div className="bg-primary-background fixed inset-0 flex h-screen w-screen items-center justify-center">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <button
               onClick={handleCloseMenu}
@@ -59,92 +60,59 @@ export const NavbarMobile = ({
               <XMarkIcon />
             </button>
 
-            <div className="flex flex-col items-center justify-center gap-8">
-              <Link href="/transactions">
-                <span
-                  className={twMerge(
-                    'rounded-full px-4 py-2 text-4xl leading-tight text-primary-blue',
-                    pathname === '/transactions' &&
-                      'bg-primary-blue text-white',
-                  )}
-                >
-                  Transactions
-                </span>
+            <div className="flex w-60 flex-col items-center justify-center gap-8">
+              <Link
+                href="/transactions"
+                className={twMerge(
+                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
+                  pathname === '/transactions' && 'bg-primary-blue text-white',
+                )}
+              >
+                <span className="text-xl leading-tight">Transactions</span>
               </Link>
 
-              <Link href="/analytics">
-                <span
-                  className={twMerge(
-                    'rounded-full px-4 py-2 text-4xl leading-tight text-primary-blue',
-                    pathname === '/analytics' && 'bg-primary-blue text-white',
-                  )}
-                >
-                  Analytics
-                </span>
+              <Link
+                href="/analytics"
+                className={twMerge(
+                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
+                  pathname === '/analytics' && 'bg-primary-blue text-white',
+                )}
+              >
+                <span className="text-xl leading-tight">Analytics</span>
               </Link>
 
-              <Link href="/calculator">
-                <span
-                  className={twMerge(
-                    'rounded-full px-4 py-2 text-4xl leading-tight text-primary-blue',
-                    pathname === '/calculator' && 'bg-primary-blue text-white',
-                  )}
-                >
-                  Calculator
-                </span>
+              <Link
+                href="/calculator"
+                className={twMerge(
+                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
+                  pathname === '/calculator' && 'bg-primary-blue text-white',
+                )}
+              >
+                <span className="text-xl leading-tight">Calculator</span>
               </Link>
             </div>
 
-            <div className="absolute bottom-8">
+            <div className="bg- absolute bottom-8">
               {me ? (
                 <div className="flex items-center text-primary-blue">
                   {me.name && <p>{me.name}</p>}
 
-                  <Menu as="div" className="relative ml-3">
-                    <div>
-                      <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        <span className="absolute -inset-1.5" />
+                  {me.image && (
+                    <Image
+                      src={me.image}
+                      alt="Profile image"
+                      className="ml-1 h-12 w-12 rounded-full"
+                      height={48}
+                      width={48}
+                    />
+                  )}
 
-                        <span className="sr-only">Open user menu</span>
-
-                        {me.image && (
-                          <Image
-                            src={me.image}
-                            alt="Profile image"
-                            className="h-12 w-12 rounded-full"
-                            height={48}
-                            width={48}
-                          />
-                        )}
-                      </Menu.Button>
-                    </div>
-
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute bottom-full right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              onClick={handleSignOut}
-                              className={classNames(
-                                active && 'bg-gray-100',
-                                'block w-full px-4 py-2 text-left text-sm text-gray-700',
-                              )}
-                            >
-                              Sign out
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
+                  <button
+                    onClick={handleSignOut}
+                    className="ml-6 rounded-lg bg-primary-blue p-2"
+                  >
+                    <SignOutIcon className="text-white" />
+                  </button>
                 </div>
               ) : !me && isAuthenticating ? (
                 <div className="h-10 w-[108px] animate-pulse rounded-3xl bg-slate-200"></div>
