@@ -1,5 +1,4 @@
 import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
-import { ReactNode } from 'react';
 
 type TaxExplanationCardProps = {
   title: string;
