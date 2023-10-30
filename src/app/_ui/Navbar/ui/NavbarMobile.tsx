@@ -55,7 +55,7 @@ export const NavbarMobile = ({
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <button
               onClick={handleCloseMenu}
-              className="absolute right-4 top-4 h-12 w-12"
+              className="absolute right-4 top-4 h-6 w-6"
             >
               <XMarkIcon />
             </button>
