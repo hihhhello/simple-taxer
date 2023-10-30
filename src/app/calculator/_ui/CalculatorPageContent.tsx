@@ -28,6 +28,7 @@ import {
 import { CalculatorIllustrationDesktop } from '@/shared/illustartions/CalculatorIllustrationDesktop';
 import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
 import { TaxExplanationCard } from './TaxExplanationCard/TaxExplanationCard';
+import { CheckOnDesktopIllustration } from '@/shared/illustartions/CheckOnDesktopIllustration';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -189,13 +190,24 @@ export const CalculatorPageContent = ({
           </div>
 
           <div>
-            <div className="mb-2 px-4 py-2">
-              <span className="text-3xl font-bold text-primary-blue">
+            <div className="mb-2 py-2 sm:px-4">
+              <span className="text-xl font-bold text-primary-blue sm:text-3xl">
                 Federal Income Tax Brackets
               </span>
             </div>
 
-            <div className="rounded-2xl bg-white p-6">
+            <div className="relative rounded-2xl bg-white py-5 pl-4 pr-36 sm:hidden">
+              <p className="text-sm leading-tight text-primary-blue">
+                Hey there! This bit&apos;s a little shy on mobile. Give it a
+                peek on a tablet or desktop for the full view!
+              </p>
+
+              <div className="absolute bottom-1 right-0 z-50">
+                <CheckOnDesktopIllustration />
+              </div>
+            </div>
+
+            <div className="hidden rounded-2xl bg-white p-6 sm:block">
               <div className="mb-10 flex gap-4">
                 {federalFilingBrackets.map(
                   ({ rate, upper: bracketUpper, lower }, index) => {
