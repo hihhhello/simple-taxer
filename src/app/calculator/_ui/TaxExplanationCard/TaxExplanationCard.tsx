@@ -16,15 +16,15 @@ export const TaxExplanationCard = ({
   description,
 }: TaxExplanationCardProps) => {
   return (
-    <div className="relative ml-2 h-full rounded-2xl bg-white p-4">
+    <div className="relative ml-2 h-full rounded-lg bg-white p-2 sm:rounded-2xl sm:p-4">
       <div
         className={classNames(
-          'absolute -left-2 -top-2 -z-10 h-full w-full rounded-3xl',
+          'absolute -bottom-3 -left-1 -z-10 h-[115%] w-full rounded-lg sm:-left-2 sm:-top-2 sm:h-full sm:rounded-3xl',
           shadowBgClassName,
         )}
       ></div>
 
-      <div className="mb-4 flex items-start justify-between">
+      <div className="flex items-start justify-between sm:mb-4">
         <div className="flex items-center justify-center rounded-full bg-primary-yellow px-4 py-2">
           <span className="text-primary-blue">{title}</span>
         </div>
@@ -44,7 +44,7 @@ export const TaxExplanationCard = ({
         </div>
       </div>
 
-      <p className="text-xs text-primary-blue">
+      <p className="hidden text-xs text-primary-blue sm:block">
         <span className="text-sm font-semibold text-primary-light-blue">
           Exp.:
         </span>
