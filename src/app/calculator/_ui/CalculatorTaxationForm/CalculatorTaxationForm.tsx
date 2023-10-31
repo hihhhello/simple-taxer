@@ -6,13 +6,13 @@ import {
   IncomeTaxCalculatorFilingStatus,
   IncomeTaxCalculatorFilingStatusKey,
   IncomeTaxCalculatorUSState,
-} from './utils/incomeTaxCalculatorTypes';
+} from './utils/calculatorTaxationFormTypes';
 import {
   INCOME_TAX_CALCULATOR_US_STATES_KEYS,
   INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
-} from './utils/incomeTaxCalculatorConstants';
+} from './utils/calculatorTaxationFormConstants';
 
-export type IncomeTaxCalculatorFormProps = {
+export type CalculatorTaxationFormProps = {
   totalIncome: number | undefined;
   me: User | undefined | null;
   handleCalculateTaxes: (params: {
@@ -22,11 +22,11 @@ export type IncomeTaxCalculatorFormProps = {
   }) => void;
 };
 
-export const IncomeTaxCalculatorForm = ({
+export const CalculatorTaxationForm = ({
   totalIncome,
   me,
   handleCalculateTaxes,
-}: IncomeTaxCalculatorFormProps) => {
+}: CalculatorTaxationFormProps) => {
   const [filingStatus, setFilingStatus] =
     useState<IncomeTaxCalculatorFilingStatus>(
       IncomeTaxCalculatorFilingStatusKey.SINGLE,

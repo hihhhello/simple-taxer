@@ -5,9 +5,9 @@ import { User } from 'next-auth';
 import { isNil } from 'lodash';
 
 import {
-  IncomeTaxCalculatorForm,
-  IncomeTaxCalculatorFormProps,
-} from '@/app/calculator/_ui/IncomeTaxCalculator/IncomeTaxCalculatorForm';
+  CalculatorTaxationForm,
+  CalculatorTaxationFormProps,
+} from '@/app/calculator/_ui/CalculatorTaxationForm/CalculatorTaxationForm';
 import { api } from '@/shared/api';
 import {
   calculateTotalIncome,
@@ -19,12 +19,12 @@ import {
   IncomeTaxCalculatorFilingStatus,
   IncomeTaxCalculatorFilingStatusKey,
   IncomeTaxCalculatorUSState,
-} from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorTypes';
+} from '@/app/calculator/_ui/CalculatorTaxationForm/utils/calculatorTaxationFormTypes';
 import usIncomeTaxes2023 from '@/shared/data/usIncomeTaxes2023.json';
 import {
   calculateFederalTax,
   calculateStateTax,
-} from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
+} from '@/app/calculator/_ui/CalculatorTaxationForm/utils/calculatorTaxationFormHelpers';
 import { CalculatorIllustrationDesktop } from '@/shared/illustartions/CalculatorIllustrationDesktop';
 import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
 import { CalculatorTaxExplanationCard } from './CalculatorTaxExplanationCard/CalculatorTaxExplanationCard';
@@ -57,7 +57,7 @@ export const CalculatorPageContent = ({
     },
   );
 
-  const handleCalculateTaxes: IncomeTaxCalculatorFormProps['handleCalculateTaxes'] =
+  const handleCalculateTaxes: CalculatorTaxationFormProps['handleCalculateTaxes'] =
     useCallback((values) => {
       setFilingStatus(values.filingStatus);
       setHouseholdIncome(values.householdIncome);
@@ -125,7 +125,7 @@ export const CalculatorPageContent = ({
           </div>
         </div>
 
-        <IncomeTaxCalculatorForm
+        <CalculatorTaxationForm
           handleCalculateTaxes={handleCalculateTaxes}
           totalIncome={totalIncome}
           me={me}

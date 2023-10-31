@@ -1,7 +1,7 @@
 import {
   IncomeTaxCalculatorUSStateKey,
   IncomeTaxCalculatorUSState,
-} from './incomeTaxCalculatorTypes';
+} from './calculatorTaxationFormTypes';
 
 export const INCOME_TAX_CALCULATOR_US_STATES_KEYS = Object.keys(
   IncomeTaxCalculatorUSStateKey,
