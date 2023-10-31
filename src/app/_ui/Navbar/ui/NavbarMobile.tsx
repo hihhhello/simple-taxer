@@ -53,6 +53,40 @@ export const NavbarMobile = ({
       >
         <div className="bg-primary-background fixed inset-0 flex h-screen w-screen items-center justify-center px-4">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
+            <div className="absolute top-1">
+              {me ? (
+                <div className="flex items-center text-primary-blue">
+                  {me.name && <p>{me.name}</p>}
+
+                  {me.image && (
+                    <Image
+                      src={me.image}
+                      alt="Profile image"
+                      className="ml-1 h-12 w-12 rounded-full"
+                      height={48}
+                      width={48}
+                    />
+                  )}
+
+                  <button
+                    onClick={handleSignOut}
+                    className="ml-6 rounded-lg bg-primary-blue p-2"
+                  >
+                    <SignOutIcon className="text-white" />
+                  </button>
+                </div>
+              ) : !me && isAuthenticating ? (
+                <div className="h-10 w-[108px] animate-pulse rounded-3xl bg-slate-200"></div>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="rounded-3xl bg-primary-blue px-8 py-2 text-white"
+                >
+                  Log In
+                </button>
+              )}
+            </div>
+
             <button
               onClick={handleCloseMenu}
               className="absolute right-4 top-4 h-6 w-6"
@@ -90,40 +124,6 @@ export const NavbarMobile = ({
               >
                 <span className="text-xl leading-tight">Calculator</span>
               </Link>
-            </div>
-
-            <div className="absolute bottom-8">
-              {me ? (
-                <div className="flex items-center text-primary-blue">
-                  {me.name && <p>{me.name}</p>}
-
-                  {me.image && (
-                    <Image
-                      src={me.image}
-                      alt="Profile image"
-                      className="ml-1 h-12 w-12 rounded-full"
-                      height={48}
-                      width={48}
-                    />
-                  )}
-
-                  <button
-                    onClick={handleSignOut}
-                    className="ml-6 rounded-lg bg-primary-blue p-2"
-                  >
-                    <SignOutIcon className="text-white" />
-                  </button>
-                </div>
-              ) : !me && isAuthenticating ? (
-                <div className="h-10 w-[108px] animate-pulse rounded-3xl bg-slate-200"></div>
-              ) : (
-                <button
-                  onClick={handleSignIn}
-                  className="rounded-3xl bg-primary-blue px-8 py-2 text-white"
-                >
-                  Log In
-                </button>
-              )}
             </div>
           </Dialog.Panel>
         </div>
