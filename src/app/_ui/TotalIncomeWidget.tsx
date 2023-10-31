@@ -1,6 +1,9 @@
 'use client';
 
-import { formatUSDInteger } from '@/shared/utils/helpers';
+import { useState } from 'react';
+
+import { ChevronLeftIcon } from '@/shared/icons/ChevronLeftIcon';
+import { classNames, formatUSDInteger } from '@/shared/utils/helpers';
 import { useIsDesktop } from '@/shared/utils/hooks';
 
 type TotalIncomeWidgetProps = {
@@ -9,6 +12,8 @@ type TotalIncomeWidgetProps = {
 
 export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
   const isDesktop = useIsDesktop();
+
+  const [isWidgetOpen, setIsWidgetOpen] = useState(true);
 
   if (isDesktop) {
     return (
@@ -21,12 +26,21 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
   }
 
   return (
-    <div className="fixed bottom-2 left-0 flex items-center gap-1 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white">
+    <div
+      className={classNames(
+        'fixed bottom-2 left-0 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white transition duration-300 ease-in-out',
+        isWidgetOpen && '-translate-x-[85%]',
+      )}
+    >
       <div className="flex items-center gap-1">
         <span className="text-sm">Total Income:</span>
 
         <span className="text-xl">{formatUSDInteger(totalIncome)}</span>
       </div>
+
+      <button onClick={() => setIsWidgetOpen((prev) => !prev)}>
+        <ChevronLeftIcon />
+      </button>
     </div>
   );
 };
