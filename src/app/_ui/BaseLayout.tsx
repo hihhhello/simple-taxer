@@ -4,7 +4,8 @@ import { getServerSession } from 'next-auth';
 import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
 import { Navbar } from './Navbar/Navbar';
 import { createAuthorizedCaller } from '@/server/routers/_app';
-import { calculateTotalIncome, formatUSDInteger } from '@/shared/utils/helpers';
+import { calculateTotalIncome } from '@/shared/utils/helpers';
+import { TotalIncomeWidget } from './TotalIncomeWidget';
 
 type BaseLayoutProps = {
   children: ReactNode;
@@ -21,11 +22,7 @@ export const BaseLayout = async ({ children }: BaseLayoutProps) => {
 
   return (
     <div className="relative min-h-full px-4 pt-4 sm:px-[220px] sm:pt-1">
-      <div className="fixed right-0 top-[116px] hidden flex-col rounded-l-2xl bg-primary-light-blue py-4 pl-6 pr-9 font-semibold text-white sm:flex">
-        <span>Total Income</span>
-
-        <span className="text-3xl">{formatUSDInteger(totalIncome)}</span>
-      </div>
+      <TotalIncomeWidget totalIncome={totalIncome} />
 
       <div className="container mx-auto">
         <div>

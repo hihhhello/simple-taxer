@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { debounce } from 'lodash';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Id, toast } from 'react-toastify';
 
 export const useLoadingToast = () => {
@@ -40,4 +41,23 @@ export const useLoadingToast = () => {
     }),
     [handleError, handleSuccess, showLoading],
   );
+};
+
+export const useIsDesktop = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleWindowSizeChange = debounce(() => {
+    setWidth(window.innerWidth);
+  }, 150);
+
+  useEffect(() => {
+    handleWindowSizeChange();
+
+    window.addEventListener('resize', handleWindowSizeChange);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, [handleWindowSizeChange]);
+
+  return width > 640;
 };
