@@ -1,6 +1,6 @@
 import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
 
-type TaxExplanationCardProps = {
+type CalculatorTaxExplanationCardProps = {
   title: string;
   amount: number;
   percent?: number;
@@ -8,13 +8,13 @@ type TaxExplanationCardProps = {
   description: string;
 };
 
-export const TaxExplanationCard = ({
+export const CalculatorTaxExplanationCard = ({
   amount,
   percent,
   title,
   shadowBgClassName = 'bg-primary-light-blue',
   description,
-}: TaxExplanationCardProps) => {
+}: CalculatorTaxExplanationCardProps) => {
   return (
     <div className="relative ml-2 h-full rounded-lg bg-white p-2 sm:rounded-2xl sm:p-4">
       <div

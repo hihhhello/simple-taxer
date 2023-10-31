@@ -27,8 +27,9 @@ import {
 } from '@/app/calculator/_ui/IncomeTaxCalculator/utils/incomeTaxCalculatorHelpers';
 import { CalculatorIllustrationDesktop } from '@/shared/illustartions/CalculatorIllustrationDesktop';
 import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
-import { TaxExplanationCard } from './TaxExplanationCard/TaxExplanationCard';
+import { CalculatorTaxExplanationCard } from './CalculatorTaxExplanationCard/CalculatorTaxExplanationCard';
 import { CheckOnDesktopIllustration } from '@/shared/illustartions/CheckOnDesktopIllustration';
+import { useIsDesktop } from '@/shared/utils/hooks';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -39,6 +40,8 @@ export const CalculatorPageContent = ({
   transactions: initialTransactions,
   me,
 }: CalculatorPageContentProps) => {
+  const isDesktop = useIsDesktop();
+
   const [filingStatus, setFilingStatus] =
     useState<IncomeTaxCalculatorFilingStatus>(
       IncomeTaxCalculatorFilingStatusKey.SINGLE,
@@ -133,7 +136,7 @@ export const CalculatorPageContent = ({
         <>
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-4">
             <div className="sm:col-span-2">
-              <TaxExplanationCard
+              <CalculatorTaxExplanationCard
                 amount={federalTax}
                 title="Federal Tax"
                 percent={(federalTax * 100) / householdIncome}
@@ -146,7 +149,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="sm:col-span-1 sm:row-start-2">
-              <TaxExplanationCard
+              <CalculatorTaxExplanationCard
                 amount={stateTax}
                 title="State Tax"
                 percent={(stateTax * 100) / householdIncome}
@@ -160,7 +163,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="sm:col-span-1 sm:row-start-2">
-              <TaxExplanationCard
+              <CalculatorTaxExplanationCard
                 amount={totalTax}
                 title="Total Tax"
                 percent={(totalTax * 100) / householdIncome}
@@ -174,7 +177,7 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="sm:col-span-2 sm:row-span-2">
-              <TaxExplanationCard
+              <CalculatorTaxExplanationCard
                 amount={totalTax}
                 title="Take home pay"
                 percent={(totalTax * 100) / householdIncome}
@@ -240,14 +243,7 @@ export const CalculatorPageContent = ({
                               'absolute left-0 top-0 h-full bg-primary-light-blue',
                               bracketFillingPercent < 100 && 'rounded-r-2xl',
                             )}
-                          >
-                            {/* {householdIncome <= upper &&
-                              householdIncome > lower && (
-                                <span className="absolute -right-1/2 top-1/2 -translate-y-1/2">
-                                  {formatToUSDCurrency(householdIncome)}
-                                </span>
-                              )} */}
-                          </div>
+                          />
                         </div>
 
                         <div className="mb-2 h-3 w-full border-x border-b border-primary-light-blue"></div>
