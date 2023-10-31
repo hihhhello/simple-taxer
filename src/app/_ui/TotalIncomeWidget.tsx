@@ -17,7 +17,7 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
 
   if (isDesktop) {
     return (
-      <div className="fixed right-0 top-[116px] flex flex-col rounded-l-2xl bg-primary-light-blue py-4 pl-6 pr-9 font-semibold text-white">
+      <div className="fixed right-0 top-[116px] z-50 flex flex-col rounded-l-2xl bg-primary-light-blue py-4 pl-6 pr-9 font-semibold text-white">
         <span>Total Income</span>
 
         <span className="text-3xl">{formatUSDInteger(totalIncome)}</span>
@@ -28,7 +28,7 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
   return (
     <div
       className={classNames(
-        'fixed bottom-2 left-0 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white transition duration-300 ease-in-out',
+        'fixed bottom-2 left-0 z-50 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white transition duration-300 ease-in-out',
         isWidgetOpen && '-translate-x-[85%]',
       )}
     >
