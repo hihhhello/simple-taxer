@@ -101,7 +101,7 @@ export const CalculatorPageContent = ({
     !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
   return (
-    <div className="pt-8">
+    <div className="pb-10 pt-8">
       <div className="mb-12 flex flex-col gap-6 sm:flex-row">
         <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
           <div>
@@ -199,93 +199,97 @@ export const CalculatorPageContent = ({
               </span>
             </div>
 
-            <div className="relative rounded-2xl bg-white py-5 pl-4 pr-36 sm:hidden">
-              <p className="text-sm leading-tight text-primary-blue">
-                Hey there! This bit&apos;s a little shy on mobile. Give it a
-                peek on a tablet or desktop for the full view!
-              </p>
-
-              <div className="absolute bottom-1 right-0 z-50">
-                <CheckOnDesktopIllustration />
-              </div>
-            </div>
-
-            <div className="hidden rounded-2xl bg-white p-6 sm:block">
-              <div className="mb-10 flex gap-4">
-                {federalFilingBrackets.map(
-                  ({ rate, upper: bracketUpper, lower }, index) => {
-                    const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
-
-                    const bracketFillingPercent =
-                      householdIncome > upper ||
-                      (householdIncome <= upper && householdIncome > lower)
-                        ? Math.min(100, (householdIncome / upper) * 100)
-                        : 0;
-
-                    return (
-                      <div
-                        key={rate}
-                        className="relative flex flex-col items-center"
-                        style={{
-                          width: BASE_BRACKET_WIDTH * (index + 1),
-                        }}
-                      >
-                        <span className="text-primary-light-blue">
-                          {rate * 100}%
-                        </span>
-
-                        <div className="relative mb-2 h-[90px] w-full rounded-lg border-2 border-primary-light-blue">
-                          <div
-                            style={{
-                              width: `${bracketFillingPercent}%`,
-                            }}
-                            className={classNames(
-                              'absolute left-0 top-0 h-full bg-primary-light-blue',
-                              bracketFillingPercent < 100 && 'rounded-r-2xl',
-                            )}
-                          />
-                        </div>
-
-                        <div className="mb-2 h-3 w-full border-x border-b border-primary-light-blue"></div>
-
-                        {index === 0 && (
-                          <p className="absolute bottom-0 left-0 translate-y-full text-right text-sm">
-                            $0
-                          </p>
-                        )}
-
-                        <p
-                          className={classNames(
-                            'absolute bottom-0 right-0 translate-y-full text-right text-sm',
-                            upper !== Infinity && 'translate-x-3/4',
-                          )}
-                        >
-                          {upper === Infinity
-                            ? `>${formatUSDInteger(lower)}`
-                            : formatUSDInteger(upper)}
-                        </p>
-                      </div>
-                    );
-                  },
-                )}
-              </div>
-
-              <div className="rounded-xl bg-primary-yellow p-6">
-                <p className="text-xs text-primary-blue">
-                  <span className="text-sm font-semibold text-primary-light-blue">
-                    Exp.
-                  </span>
-                  :Federal Income Tax Brackets are a way the U.S. government
-                  calculates how much tax you owe based on your income. The more
-                  you earn, the higher the percentage of your income you pay in
-                  taxes. There are different income ranges or
-                  &quot;brackets&quot; each with its own tax rate. Lower incomes
-                  are taxed at lower rates, and higher incomes are taxed at
-                  higher rates to ensure a fair system where higher earners pay
-                  more in taxes.
+            {!isDesktop && (
+              <div className="relative rounded-2xl bg-white py-5 pl-4 pr-36">
+                <p className="text-sm leading-tight text-primary-blue">
+                  Hey there! This bit&apos;s a little shy on mobile. Give it a
+                  peek on a tablet or desktop for the full view!
                 </p>
+
+                <div className="absolute bottom-1 right-0 z-50">
+                  <CheckOnDesktopIllustration />
+                </div>
               </div>
-            </div>
+            )}
+
+            {isDesktop && (
+              <div className="hidden rounded-2xl bg-white p-6 sm:block">
+                <div className="mb-10 flex gap-4">
+                  {federalFilingBrackets.map(
+                    ({ rate, upper: bracketUpper, lower }, index) => {
+                      const upper = bracketUpper ?? Number.POSITIVE_INFINITY;
+
+                      const bracketFillingPercent =
+                        householdIncome > upper ||
+                        (householdIncome <= upper && householdIncome > lower)
+                          ? Math.min(100, (householdIncome / upper) * 100)
+                          : 0;
+
+                      return (
+                        <div
+                          key={rate}
+                          className="relative flex flex-col items-center"
+                          style={{
+                            width: BASE_BRACKET_WIDTH * (index + 1),
+                          }}
+                        >
+                          <span className="text-primary-light-blue">
+                            {rate * 100}%
+                          </span>
+
+                          <div className="relative mb-2 h-[90px] w-full rounded-lg border-2 border-primary-light-blue">
+                            <div
+                              style={{
+                                width: `${bracketFillingPercent}%`,
+                              }}
+                              className={classNames(
+                                'absolute left-0 top-0 h-full bg-primary-light-blue',
+                                bracketFillingPercent < 100 && 'rounded-r-2xl',
+                              )}
+                            />
+                          </div>
+
+                          <div className="mb-2 h-3 w-full border-x border-b border-primary-light-blue"></div>
+
+                          {index === 0 && (
+                            <p className="absolute bottom-0 left-0 translate-y-full text-right text-sm">
+                              $0
+                            </p>
+                          )}
+
+                          <p
+                            className={classNames(
+                              'absolute bottom-0 right-0 translate-y-full text-right text-sm',
+                              upper !== Infinity && 'translate-x-3/4',
+                            )}
+                          >
+                            {upper === Infinity
+                              ? `>${formatUSDInteger(lower)}`
+                              : formatUSDInteger(upper)}
+                          </p>
+                        </div>
+                      );
+                    },
+                  )}
+                </div>
+
+                <div className="rounded-xl bg-primary-yellow p-6">
+                  <p className="text-xs text-primary-blue">
+                    <span className="text-sm font-semibold text-primary-light-blue">
+                      Exp.
+                    </span>
+                    :Federal Income Tax Brackets are a way the U.S. government
+                    calculates how much tax you owe based on your income. The
+                    more you earn, the higher the percentage of your income you
+                    pay in taxes. There are different income ranges or
+                    &quot;brackets&quot; each with its own tax rate. Lower
+                    incomes are taxed at lower rates, and higher incomes are
+                    taxed at higher rates to ensure a fair system where higher
+                    earners pay more in taxes.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </>
       )}
