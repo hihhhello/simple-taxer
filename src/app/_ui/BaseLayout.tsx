@@ -22,7 +22,7 @@ export const BaseLayout = async ({ children }: BaseLayoutProps) => {
 
   return (
     <div className="relative min-h-full px-4 pt-4 sm:px-[220px] sm:pt-1">
-      <TotalIncomeWidget totalIncome={totalIncome} />
+      {session?.user && <TotalIncomeWidget totalIncome={totalIncome} />}
 
       <div className="container mx-auto">
         <div>
