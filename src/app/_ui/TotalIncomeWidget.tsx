@@ -28,7 +28,7 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
   return (
     <div
       className={classNames(
-        'fixed bottom-2 left-0 z-50 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white transition duration-300 ease-in-out',
+        'fixed bottom-2 left-0 z-50 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue py-2 pl-4 pr-1 font-semibold text-white transition duration-300 ease-in-out',
         !isWidgetOpen && '-translate-x-[85%]',
       )}
     >
@@ -39,7 +39,9 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
       </div>
 
       <button onClick={() => setIsWidgetOpen((prev) => !prev)}>
-        <ChevronLeftIcon />
+        <ChevronLeftIcon
+          className={classNames(!isWidgetOpen && 'rotate-180')}
+        />
       </button>
     </div>
   );
