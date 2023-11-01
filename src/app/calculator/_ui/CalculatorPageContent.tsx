@@ -178,9 +178,9 @@ export const CalculatorPageContent = ({
 
             <div className="sm:col-span-2 sm:row-span-2">
               <CalculatorTaxExplanationCard
-                amount={totalTax}
+                amount={householdIncome - totalTax}
                 title="Take home pay"
-                percent={(totalTax * 100) / householdIncome}
+                percent={((householdIncome - totalTax) * 100) / householdIncome}
                 description="Take-home pay, in the context of your household income,
                 represents the amount of money you receive after all
                 applicable taxes and deductions have been subtracted from
