@@ -29,7 +29,7 @@ export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
     <div
       className={classNames(
         'fixed bottom-2 left-0 z-50 flex transform items-center gap-2 rounded-r-lg bg-primary-light-blue p-2 pl-4 font-semibold text-white transition duration-300 ease-in-out',
-        isWidgetOpen && '-translate-x-[85%]',
+        !isWidgetOpen && '-translate-x-[85%]',
       )}
     >
       <div className="flex items-center gap-1">
