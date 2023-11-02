@@ -14,11 +14,7 @@ import {
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
-import {
-  calculateTotalIncome,
-  classNames,
-  formatUSDDecimal,
-} from '@/shared/utils/helpers';
+import { classNames } from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
 import { TransactionSortField } from '@/shared/types/transactionTypes';
@@ -252,31 +248,12 @@ export const TransactionsPageContent = ({
     [],
   );
 
-  const totalIncome = useMemo(
-    () => calculateTotalIncome(transactions?.data),
-    [transactions],
-  );
-
   if (!me) {
     return <GoogleSignInButton />;
   }
 
   return (
     <>
-      <div className="mb-4">
-        <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:col-start-2 sm:p-6">
-            <dt className="truncate text-sm font-medium text-gray-500">
-              Total Income
-            </dt>
-
-            <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-              {formatUSDDecimal(totalIncome)}
-            </dd>
-          </div>
-        </dl>
-      </div>
-
       <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
         <AddNewTransactionForm
           handleSuccessSubmit={handleRefetchTransactionsGetAllQueries}
