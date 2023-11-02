@@ -9,6 +9,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { twMerge } from 'tailwind-merge';
 import { classNames } from '@/shared/utils/helpers';
 import { SignOutIcon } from '@/shared/icons/SignOutIcon';
+import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
 
 type NavbarMobileProps = {
   handleSignIn: () => void;
@@ -40,7 +41,7 @@ export const NavbarMobile = ({
 
   return (
     <div className="flex items-center justify-between sm:hidden">
-      <span className="text-xl text-primary-light-blue">SimpleTax</span>
+      <SimpleTaxLogoIllustration />
 
       <button onClick={handleOpenMenu}>
         <BurgerMenuIcon className="text-primary-blue" />
