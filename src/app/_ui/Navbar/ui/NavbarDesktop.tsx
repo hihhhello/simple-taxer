@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProviders, signIn } from 'next-auth/react';
 
 import { classNames } from '@/shared/utils/helpers';
+import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
 
 type NavbarDesktopProps = {
   handleSignIn: () => void;
@@ -30,7 +31,7 @@ export const NavbarDesktop = ({
     <div className="hidden items-center justify-between rounded-full bg-white py-4 pl-10 pr-6 sm:flex">
       <div className="flex items-center gap-36">
         <div>
-          <span className="text-xl text-primary-light-blue">SimpleTax</span>
+          <SimpleTaxLogoIllustration />
         </div>
 
         <div>
