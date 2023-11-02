@@ -1,6 +1,6 @@
 import { User } from 'next-auth';
 import { Dialog } from '@headlessui/react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -27,16 +27,16 @@ export const NavbarMobile = ({
 }: NavbarMobileProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = useCallback(() => {
     setIsMenuOpen(false);
 
     document.body.style.overflow = 'unset';
-  };
+  }, []);
 
-  const handleOpenMenu = () => {
+  const handleOpenMenu = useCallback(() => {
     setIsMenuOpen(true);
     document.body.style.overflow = 'hidden';
-  };
+  }, []);
 
   return (
     <div className="flex items-center justify-between">

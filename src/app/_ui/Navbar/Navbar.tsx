@@ -33,12 +33,14 @@ export const Navbar = ({ me }: NavbarProps) => {
     signIn(providers?.google.id);
   }, [providers?.google.id]);
 
+  const isAuthenticating = status === 'loading';
+
   if (isDesktop) {
     return (
       <NavbarDesktop
         handleSignIn={handleSignIn}
         handleSignOut={handleSignOut}
-        isAuthenticating={status === 'loading'}
+        isAuthenticating={isAuthenticating}
         me={me}
         pathname={pathname}
       />
@@ -49,7 +51,7 @@ export const Navbar = ({ me }: NavbarProps) => {
     <NavbarMobile
       handleSignIn={handleSignIn}
       handleSignOut={handleSignOut}
-      isAuthenticating={status === 'loading'}
+      isAuthenticating={isAuthenticating}
       me={me}
       pathname={pathname}
     />
