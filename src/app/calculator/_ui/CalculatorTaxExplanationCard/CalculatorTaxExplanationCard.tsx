@@ -31,8 +31,8 @@ export const CalculatorTaxExplanationCard = ({
         </div>
 
         <div className="flex gap-2">
-          <div className="rounded-full bg-primary-blue px-4 py-1 text-sm sm:py-2 sm:text-base">
-            <span className="leading-tight text-white">
+          <div className="flex items-center justify-center rounded-full bg-primary-blue px-4 py-1 sm:h-9 sm:py-2">
+            <span className="text-sm leading-tight text-white sm:text-base">
               {formatUSDDecimal(amount)}
             </span>
           </div>
