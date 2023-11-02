@@ -1,17 +1,12 @@
 'use client';
 
-import { Fragment, useCallback } from 'react';
+import { useCallback } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { User } from 'next-auth';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
-import Image from 'next/image';
-import { Menu, Transition } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
 import { getProviders, signIn } from 'next-auth/react';
 
-import { classNames } from '@/shared/utils/helpers';
 import { NavbarDesktop } from './ui/NavbarDesktop';
 import { NavbarMobile } from './ui/NavbarMobile';
 import { useIsDesktop } from '@/shared/utils/hooks';

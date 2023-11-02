@@ -1,13 +1,12 @@
 import { User } from 'next-auth';
-import { Dialog, Menu, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { BurgerMenuIcon } from '@/shared/icons/BurgerMenuIcon';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { twMerge } from 'tailwind-merge';
-import { classNames } from '@/shared/utils/helpers';
 import { SignOutIcon } from '@/shared/icons/SignOutIcon';
 import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
 
