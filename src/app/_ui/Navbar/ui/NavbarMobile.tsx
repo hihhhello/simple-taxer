@@ -40,7 +40,7 @@ export const NavbarMobile = ({
   };
 
   return (
-    <div className="flex items-center justify-between sm:hidden">
+    <div className="flex items-center justify-between">
       <SimpleTaxLogoIllustration />
 
       <button onClick={handleOpenMenu}>

@@ -14,12 +14,15 @@ import { getProviders, signIn } from 'next-auth/react';
 import { classNames } from '@/shared/utils/helpers';
 import { NavbarDesktop } from './ui/NavbarDesktop';
 import { NavbarMobile } from './ui/NavbarMobile';
+import { useIsDesktop } from '@/shared/utils/hooks';
 
 type NavbarProps = {
   me: User | undefined | null;
 };
 
 export const Navbar = ({ me }: NavbarProps) => {
+  const isDesktop = useIsDesktop();
+
   const handleSignOut = useCallback(() => signOut(), []);
 
   const { status } = useSession();
@@ -35,8 +38,8 @@ export const Navbar = ({ me }: NavbarProps) => {
     signIn(providers?.google.id);
   }, [providers?.google.id]);
 
-  return (
-    <>
+  if (isDesktop) {
+    return (
       <NavbarDesktop
         handleSignIn={handleSignIn}
         handleSignOut={handleSignOut}
@@ -44,14 +47,16 @@ export const Navbar = ({ me }: NavbarProps) => {
         me={me}
         pathname={pathname}
       />
+    );
+  }
 
-      <NavbarMobile
-        handleSignIn={handleSignIn}
-        handleSignOut={handleSignOut}
-        isAuthenticating={status === 'loading'}
-        me={me}
-        pathname={pathname}
-      />
-    </>
+  return (
+    <NavbarMobile
+      handleSignIn={handleSignIn}
+      handleSignOut={handleSignOut}
+      isAuthenticating={status === 'loading'}
+      me={me}
+      pathname={pathname}
+    />
   );
 };
