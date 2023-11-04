@@ -178,18 +178,18 @@ export const AddNewTransactionForm = ({
 
         <button
           type="submit"
-          className="w-full rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="w-full rounded-full bg-primary-blue py-3 leading-tight text-white"
         >
           {isCreateNewTransactionLoading ? 'Loading...' : 'Add'}
         </button>
       </form>
 
-      <p className="mb-4 text-center">OR</p>
+      <p className="mb-4 text-center text-primary-blue">or</p>
 
       <div className="w-full">
         <label
           htmlFor="uploadTransactionsCSV"
-          className="text-md block w-full cursor-pointer rounded-md bg-white px-2 py-1 text-center font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          className="block w-full rounded-full border border-primary-blue bg-white py-3 text-center leading-tight text-primary-blue"
         >
           Upload CSV
         </label>
