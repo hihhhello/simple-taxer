@@ -2,6 +2,7 @@
 
 import React, { ChangeEvent, useMemo } from 'react';
 import { formatUSDDecimal } from '../utils/helpers';
+import { Input } from './Input';
 
 type DollarInputProps = Omit<
   JSX.IntrinsicElements['input'],
@@ -47,7 +48,7 @@ export const DollarInput = ({
   };
 
   return (
-    <input
+    <Input
       type="text"
       value={formattedValue}
       onChange={handleInputChange}

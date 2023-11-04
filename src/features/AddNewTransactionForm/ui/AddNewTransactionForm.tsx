@@ -6,6 +6,7 @@ import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils
 import { api } from '@/shared/api';
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
+import { Input } from '@/shared/ui/Input';
 
 type AddNewTransactionFormProps = {
   handleSuccessSubmit?: () => void;
@@ -125,12 +126,11 @@ export const AddNewTransactionForm = ({
 
         <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <InputWrapper label="Date" htmlFor="date">
-            <input
+            <Input
               required
               type="date"
               name="date"
               id="date"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Date"
               value={newTransactionFormValues.date}
               onChange={makeHandleChangeNewTransactionFormValues('date')}
@@ -143,7 +143,6 @@ export const AddNewTransactionForm = ({
               name="amount"
               id="amount"
               min={0}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Amount"
               value={newTransactionFormValues.amount}
               handleValueChange={handleChangeTransactionAmount}
@@ -151,11 +150,10 @@ export const AddNewTransactionForm = ({
           </InputWrapper>
 
           <InputWrapper label="Bank Name" htmlFor="bankName">
-            <input
+            <Input
               type="text"
               name="bankName"
               id="bankName"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Bank Name"
               value={newTransactionFormValues.bankName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('bankName')}
@@ -163,11 +161,10 @@ export const AddNewTransactionForm = ({
           </InputWrapper>
 
           <InputWrapper label="Source Name" htmlFor="sourceName">
-            <input
+            <Input
               type="text"
               name="sourceName"
               id="sourceName"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Source Name"
               value={newTransactionFormValues.sourceName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('sourceName')}
