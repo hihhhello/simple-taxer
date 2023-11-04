@@ -72,7 +72,7 @@ export const CalculatorTaxationForm = ({
           <div className="mb-1">
             <label
               htmlFor="name"
-              className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+              className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
             >
               Household Income
             </label>
@@ -95,7 +95,7 @@ export const CalculatorTaxationForm = ({
             <div className="mb-1">
               <label
                 htmlFor="filingStatus"
-                className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
               >
                 Filing Status
               </label>
@@ -117,7 +117,7 @@ export const CalculatorTaxationForm = ({
             <div className="mb-1">
               <label
                 htmlFor="taxState"
-                className="rounded-lg bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
               >
                 State
               </label>
