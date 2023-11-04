@@ -432,35 +432,37 @@ export const TransactionTable = ({
                 <td className="whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm text-gray-500">
                   <div className="flex justify-end gap-2">
                     {transactionToEditId === transaction.id && (
-                      <XCircleIcon
-                        className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900"
-                        onClick={handleCancelTransactionEdit}
-                      />
+                      <button onClick={handleCancelTransactionEdit}>
+                        <XCircleIcon className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900" />
+                      </button>
                     )}
 
                     {transactionToEditId === transaction.id ? (
-                      <CheckCircleIcon
-                        className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900"
-                        onClick={handleSubmitEditTransaction}
-                      />
+                      <button onClick={handleSubmitEditTransaction}>
+                        <CheckCircleIcon className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900" />
+                      </button>
                     ) : (
-                      <PencilIcon
-                        className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900"
+                      <button
                         onClick={makeHandleSelectTransactionToEdit(
                           transaction.id,
                         )}
-                      />
+                      >
+                        <PencilIcon className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900" />
+                      </button>
                     )}
 
-                    <DocumentDuplicateIcon
-                      onClick={makeHandleDuplicateTransaction(transaction.id)}
-                      className="h-5 w-5 cursor-pointer hover:text-gray-600"
-                    />
+                    <button>
+                      <DocumentDuplicateIcon className="h-5 w-5 cursor-pointer hover:text-gray-600" />
+                    </button>
 
-                    <TrashIcon
-                      onClick={makeHandleDeleteTransaction(transaction.id)}
-                      className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900"
-                    />
+                    <button
+                      onClick={makeHandleDuplicateTransaction(transaction.id)}
+                    >
+                      <TrashIcon
+                        onClick={makeHandleDeleteTransaction(transaction.id)}
+                        className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900"
+                      />
+                    </button>
                   </div>
                 </td>
               </tr>
