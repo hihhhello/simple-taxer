@@ -11,6 +11,7 @@ import {
   INCOME_TAX_CALCULATOR_US_STATES_KEYS,
   INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
 } from './utils/calculatorTaxationFormConstants';
+import { InputWrapper } from '@/shared/ui/InputWrapper';
 
 export type CalculatorTaxationFormProps = {
   totalIncome: number | undefined;
@@ -69,75 +70,54 @@ export const CalculatorTaxationForm = ({
     <div className="w-full">
       <div className="mb-4">
         <div className="relative rounded-2xl bg-white px-4 py-2">
-          <div className="mb-1">
-            <label
-              htmlFor="name"
-              className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-            >
-              Household Income
-            </label>
-          </div>
-
-          <DollarInput
-            name="householdIncome"
-            id="householdIncome"
-            placeholder="$00.00"
-            className="w-full border-none text-3xl font-light sm:text-6xl"
-            handleValueChange={setHouseholdIncome}
-            value={householdIncome}
-          />
+          <InputWrapper label="Household Income" htmlFor="householdIncome">
+            <DollarInput
+              name="householdIncome"
+              id="householdIncome"
+              placeholder="$00.00"
+              className="w-full border-none text-3xl font-light sm:text-6xl"
+              handleValueChange={setHouseholdIncome}
+              value={householdIncome}
+            />
+          </InputWrapper>
         </div>
       </div>
 
       <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
         <div className="flex flex-1 items-end gap-6">
           <div className="flex-1">
-            <div className="mb-1">
-              <label
-                htmlFor="filingStatus"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+            <InputWrapper label="Filing Status" htmlFor="filingStatus">
+              <select
+                id="filingStatus"
+                name="filingStatus"
+                className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
+                value={filingStatus}
+                onChange={handleChangeFilingStatus}
               >
-                Filing Status
-              </label>
-            </div>
-
-            <select
-              id="filingStatus"
-              name="filingStatus"
-              className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
-              value={filingStatus}
-              onChange={handleChangeFilingStatus}
-            >
-              <option value="single">Single</option>
-              <option value="married">Married</option>
-            </select>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+              </select>
+            </InputWrapper>
           </div>
 
           <div className="flex-1">
-            <div className="mb-1">
-              <label
-                htmlFor="taxState"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+            <InputWrapper label="State" htmlFor="taxState">
+              <select
+                id="taxState"
+                name="taxState"
+                className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
+                value={taxStateKey ?? ''}
+                onChange={handleChangeTaxState}
               >
-                State
-              </label>
-            </div>
+                <option value="">Select state</option>
 
-            <select
-              id="taxState"
-              name="taxState"
-              className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
-              value={taxStateKey ?? ''}
-              onChange={handleChangeTaxState}
-            >
-              <option value="">Select state</option>
-
-              {INCOME_TAX_CALCULATOR_US_STATES_KEYS.map((stateKey) => (
-                <option key={stateKey} value={stateKey}>
-                  {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
-                </option>
-              ))}
-            </select>
+                {INCOME_TAX_CALCULATOR_US_STATES_KEYS.map((stateKey) => (
+                  <option key={stateKey} value={stateKey}>
+                    {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
+                  </option>
+                ))}
+              </select>
+            </InputWrapper>
           </div>
         </div>
 
