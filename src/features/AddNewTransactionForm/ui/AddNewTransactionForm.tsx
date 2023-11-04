@@ -124,12 +124,14 @@ export const AddNewTransactionForm = ({
 
         <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="date"
-              className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-            >
-              Date
-            </label>
+            <div className="mb-1">
+              <label
+                htmlFor="date"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+              >
+                Date
+              </label>
+            </div>
 
             <input
               required
