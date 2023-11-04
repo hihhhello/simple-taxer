@@ -256,12 +256,14 @@ export const TransactionsPageContent = ({
 
   return (
     <div className="pt-8">
-      <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
-        <AddNewTransactionForm
-          handleSuccessSubmit={handleRefetchTransactionsGetAllQueries}
-        />
+      <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-12 sm:gap-x-16">
+        <div className="col-span-4">
+          <AddNewTransactionForm
+            handleSuccessSubmit={handleRefetchTransactionsGetAllQueries}
+          />
+        </div>
 
-        <div className="col-span-2">
+        <div className="col-span-8">
           <div className="mb-4 grid grid-cols-1 items-end gap-x-10 gap-y-4 sm:grid-cols-2">
             <div>
               <Input
