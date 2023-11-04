@@ -186,6 +186,7 @@ export const AddNewTransactionForm = ({
         <label
           htmlFor="uploadTransactionsCSV"
           className="block w-full rounded-full border border-primary-blue bg-white py-3 text-center leading-tight text-primary-blue"
+          tabIndex={0}
         >
           Upload CSV
         </label>
