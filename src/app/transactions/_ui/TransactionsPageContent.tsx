@@ -20,6 +20,7 @@ import { getQueryKey } from '@trpc/react-query';
 import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
+import { Input } from '@/shared/ui/Input';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -263,10 +264,9 @@ export const TransactionsPageContent = ({
         <div className="col-span-2">
           <div className="mb-4 grid grid-cols-1 items-end gap-x-2 gap-y-4 sm:grid-cols-3">
             <div>
-              <input
+              <Input
                 name="transactionSearchQuery"
                 id="transactionSearchQuery"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6"
                 placeholder="Search source or bank name"
                 value={transactionSearchQuery}
                 onChange={handleChangeTransactionSearchQuery}
@@ -275,14 +275,13 @@ export const TransactionsPageContent = ({
 
             <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
               <InputWrapper label="Start date" htmlFor="transactionsStartDate">
-                <input
+                <Input
                   type="date"
                   name="transactionsStartDate"
                   id="transactionsStartDate"
-                  className={classNames(
-                    'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6',
-                    transactionsStartDate ? 'text-gray-900' : 'text-gray-400',
-                  )}
+                  className={
+                    transactionsStartDate ? 'text-gray-900' : 'text-gray-400'
+                  }
                   placeholder="Start date"
                   value={
                     transactionsStartDate
@@ -296,14 +295,13 @@ export const TransactionsPageContent = ({
               </InputWrapper>
 
               <InputWrapper label="End date" htmlFor="transactionsEndDate">
-                <input
+                <Input
                   type="date"
                   name="transactionsEndDate"
                   id="transactionsEndDate"
-                  className={classNames(
-                    'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6',
-                    transactionsEndDate ? 'text-gray-900' : 'text-gray-400',
-                  )}
+                  className={
+                    transactionsEndDate ? 'text-gray-900' : 'text-gray-400'
+                  }
                   placeholder="End date"
                   value={
                     transactionsEndDate
