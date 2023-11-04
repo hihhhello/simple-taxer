@@ -260,12 +260,6 @@ export const TransactionsPageContent = ({
         />
 
         <div className="col-span-2">
-          <div className="mb-4 sm:flex-auto">
-            <h1 className="text-lg font-bold leading-6 text-gray-900">
-              Transactions
-            </h1>
-          </div>
-
           <div className="mb-4 grid grid-cols-1 items-end gap-x-2 gap-y-4 sm:grid-cols-3">
             <div>
               <input
