@@ -253,7 +253,7 @@ export const TransactionsPageContent = ({
   }
 
   return (
-    <>
+    <div className="pt-8">
       <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-3 sm:gap-x-16">
         <AddNewTransactionForm
           handleSuccessSubmit={handleRefetchTransactionsGetAllQueries}
@@ -370,6 +370,6 @@ export const TransactionsPageContent = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
