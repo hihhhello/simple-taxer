@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { NewTransactionFormValues } from '@/features/AddNewTransactionForm/utils/addNewTransactionFormTypes';
 import { api } from '@/shared/api';
 import { DollarInput } from '@/shared/ui/DollarInput';
+import { InputWrapper } from '@/shared/ui/InputWrapper';
 
 type AddNewTransactionFormProps = {
   handleSuccessSubmit?: () => void;
@@ -123,16 +124,7 @@ export const AddNewTransactionForm = ({
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <div className="mb-1">
-              <label
-                htmlFor="date"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-              >
-                Date
-              </label>
-            </div>
-
+          <InputWrapper label="Date" htmlFor="date">
             <input
               required
               type="date"
@@ -143,18 +135,9 @@ export const AddNewTransactionForm = ({
               value={newTransactionFormValues.date}
               onChange={makeHandleChangeNewTransactionFormValues('date')}
             />
-          </div>
+          </InputWrapper>
 
-          <div>
-            <div className="mb-1">
-              <label
-                htmlFor="amount"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-              >
-                Amount
-              </label>
-            </div>
-
+          <InputWrapper label="Amount" htmlFor="amount">
             <DollarInput
               required
               name="amount"
@@ -165,18 +148,9 @@ export const AddNewTransactionForm = ({
               value={newTransactionFormValues.amount}
               handleValueChange={handleChangeTransactionAmount}
             />
-          </div>
+          </InputWrapper>
 
-          <div>
-            <div className="mb-1">
-              <label
-                htmlFor="bankName"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-              >
-                Bank Name
-              </label>
-            </div>
-
+          <InputWrapper label="Bank Name" htmlFor="bankName">
             <input
               type="text"
               name="bankName"
@@ -186,18 +160,9 @@ export const AddNewTransactionForm = ({
               value={newTransactionFormValues.bankName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('bankName')}
             />
-          </div>
+          </InputWrapper>
 
-          <div>
-            <div className="mb-1">
-              <label
-                htmlFor="sourceName"
-                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
-              >
-                Source Name
-              </label>
-            </div>
-
+          <InputWrapper label="Source Name" htmlFor="sourceName">
             <input
               type="text"
               name="sourceName"
@@ -207,7 +172,7 @@ export const AddNewTransactionForm = ({
               value={newTransactionFormValues.sourceName ?? ''}
               onChange={makeHandleChangeNewTransactionFormValues('sourceName')}
             />
-          </div>
+          </InputWrapper>
         </div>
 
         <button
