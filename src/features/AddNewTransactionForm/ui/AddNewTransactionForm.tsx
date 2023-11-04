@@ -116,8 +116,10 @@ export const AddNewTransactionForm = ({
   return (
     <div>
       <form onSubmit={handleSubmit} className="mb-4">
-        <div className="mb-4">
-          <span className="text-lg font-bold">Add New Transaction</span>
+        <div className="mb-4 rounded-lg bg-white p-4">
+          <span className="text-2xl font-bold text-primary-blue">
+            Add New Transaction
+          </span>
         </div>
 
         <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
