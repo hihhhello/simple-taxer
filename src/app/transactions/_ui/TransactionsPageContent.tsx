@@ -19,6 +19,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
 import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
+import { InputWrapper } from '@/shared/ui/InputWrapper';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -273,9 +274,7 @@ export const TransactionsPageContent = ({
             </div>
 
             <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
-              <div>
-                <label htmlFor="transactionSearchQuery">Start date</label>
-
+              <InputWrapper label="Start date" htmlFor="transactionsStartDate">
                 <input
                   type="date"
                   name="transactionsStartDate"
@@ -294,15 +293,13 @@ export const TransactionsPageContent = ({
                   }
                   onChange={handleChangeTransactionsStartDate}
                 />
-              </div>
+              </InputWrapper>
 
-              <div>
-                <label htmlFor="transactionSearchQuery">End date</label>
-
+              <InputWrapper label="End date" htmlFor="transactionsEndDate">
                 <input
                   type="date"
-                  name="transactionsSEndDate"
-                  id="transactionsSEndDate"
+                  name="transactionsEndDate"
+                  id="transactionsEndDate"
                   className={classNames(
                     'block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:w-auto sm:text-sm sm:leading-6',
                     transactionsEndDate ? 'text-gray-900' : 'text-gray-400',
@@ -317,7 +314,7 @@ export const TransactionsPageContent = ({
                   }
                   onChange={handleChangeTransactionsEndDate}
                 />
-              </div>
+              </InputWrapper>
             </div>
           </div>
 
