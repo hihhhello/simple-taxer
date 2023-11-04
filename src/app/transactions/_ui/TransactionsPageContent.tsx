@@ -262,7 +262,7 @@ export const TransactionsPageContent = ({
         />
 
         <div className="col-span-2">
-          <div className="mb-4 grid grid-cols-1 items-end gap-x-2 gap-y-4 sm:grid-cols-3">
+          <div className="mb-4 grid grid-cols-1 items-end gap-x-10 gap-y-4 sm:grid-cols-2">
             <div>
               <Input
                 name="transactionSearchQuery"
@@ -274,45 +274,52 @@ export const TransactionsPageContent = ({
             </div>
 
             <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
-              <InputWrapper label="Start date" htmlFor="transactionsStartDate">
-                <Input
-                  type="date"
-                  name="transactionsStartDate"
-                  id="transactionsStartDate"
-                  className={
-                    transactionsStartDate ? 'text-gray-900' : 'text-gray-400'
-                  }
-                  placeholder="Start date"
-                  value={
-                    transactionsStartDate
-                      ? formatISO(transactionsStartDate, {
-                          representation: 'date',
-                        })
-                      : ''
-                  }
-                  onChange={handleChangeTransactionsStartDate}
-                />
-              </InputWrapper>
+              <div className="flex-1">
+                <InputWrapper
+                  label="Start date"
+                  htmlFor="transactionsStartDate"
+                >
+                  <Input
+                    type="date"
+                    name="transactionsStartDate"
+                    id="transactionsStartDate"
+                    className={
+                      transactionsStartDate ? 'text-gray-900' : 'text-gray-400'
+                    }
+                    placeholder="Start date"
+                    value={
+                      transactionsStartDate
+                        ? formatISO(transactionsStartDate, {
+                            representation: 'date',
+                          })
+                        : ''
+                    }
+                    onChange={handleChangeTransactionsStartDate}
+                  />
+                </InputWrapper>
+              </div>
 
-              <InputWrapper label="End date" htmlFor="transactionsEndDate">
-                <Input
-                  type="date"
-                  name="transactionsEndDate"
-                  id="transactionsEndDate"
-                  className={
-                    transactionsEndDate ? 'text-gray-900' : 'text-gray-400'
-                  }
-                  placeholder="End date"
-                  value={
-                    transactionsEndDate
-                      ? formatISO(transactionsEndDate, {
-                          representation: 'date',
-                        })
-                      : ''
-                  }
-                  onChange={handleChangeTransactionsEndDate}
-                />
-              </InputWrapper>
+              <div className="flex-1">
+                <InputWrapper label="End date" htmlFor="transactionsEndDate">
+                  <Input
+                    type="date"
+                    name="transactionsEndDate"
+                    id="transactionsEndDate"
+                    className={
+                      transactionsEndDate ? 'text-gray-900' : 'text-gray-400'
+                    }
+                    placeholder="End date"
+                    value={
+                      transactionsEndDate
+                        ? formatISO(transactionsEndDate, {
+                            representation: 'date',
+                          })
+                        : ''
+                    }
+                    onChange={handleChangeTransactionsEndDate}
+                  />
+                </InputWrapper>
+              </div>
             </div>
           </div>
 
