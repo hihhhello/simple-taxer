@@ -122,7 +122,13 @@ export const AddNewTransactionForm = ({
 
         <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="date">Date</label>
+            <label
+              htmlFor="date"
+              className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+            >
+              Date
+            </label>
+
             <input
               required
               type="date"
@@ -136,7 +142,15 @@ export const AddNewTransactionForm = ({
           </div>
 
           <div>
-            <label htmlFor="amount">Amount</label>
+            <div className="mb-1">
+              <label
+                htmlFor="amount"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+              >
+                Amount
+              </label>
+            </div>
+
             <DollarInput
               required
               name="amount"
@@ -150,7 +164,15 @@ export const AddNewTransactionForm = ({
           </div>
 
           <div>
-            <label htmlFor="bankName">Bank Name</label>
+            <div className="mb-1">
+              <label
+                htmlFor="bankName"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+              >
+                Bank Name
+              </label>
+            </div>
+
             <input
               type="text"
               name="bankName"
@@ -163,7 +185,15 @@ export const AddNewTransactionForm = ({
           </div>
 
           <div>
-            <label htmlFor="sourceName">Source Name</label>
+            <div className="mb-1">
+              <label
+                htmlFor="sourceName"
+                className="rounded-md bg-primary-green px-4 py-1 text-xs font-medium text-white sm:text-sm"
+              >
+                Source Name
+              </label>
+            </div>
+
             <input
               type="text"
               name="sourceName"
