@@ -3,17 +3,33 @@
 import { useState } from 'react';
 
 import { ChevronLeftIcon } from '@/shared/icons/ChevronLeftIcon';
-import { classNames, formatUSDInteger } from '@/shared/utils/helpers';
+import {
+  calculateTotalIncome,
+  classNames,
+  formatUSDInteger,
+} from '@/shared/utils/helpers';
 import { useIsDesktop } from '@/shared/utils/hooks';
+import { api } from '@/shared/api';
 
 type TotalIncomeWidgetProps = {
-  totalIncome: number;
+  transactions: ApiRouterOutputs['transactions']['getAll'];
 };
 
-export const TotalIncomeWidget = ({ totalIncome }: TotalIncomeWidgetProps) => {
+export const TotalIncomeWidget = ({
+  transactions: initialTransactions,
+}: TotalIncomeWidgetProps) => {
   const isDesktop = useIsDesktop();
 
+  const { data: transactions } = api.transactions.getAll.useQuery(
+    {},
+    {
+      initialData: initialTransactions,
+    },
+  );
+
   const [isWidgetOpen, setIsWidgetOpen] = useState(true);
+
+  const totalIncome = calculateTotalIncome(transactions?.data);
 
   if (isDesktop) {
     return (
