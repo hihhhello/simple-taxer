@@ -21,6 +21,10 @@ module.exports = {
           yellow: '#F8D35D',
           background: '#F6F6F6',
         },
+        text: {
+          dark: '#121D3E',
+          regular: '#222325',
+        },
       },
       fontSize: {
         '2xs': '0.625rem',

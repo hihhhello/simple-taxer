@@ -244,14 +244,14 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900"
+              className="text-text-dark py-3.5 pl-4 pr-3 text-left text-sm font-semibold"
             >
               Id
             </th>
 
             <th
               scope="col"
-              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
             >
               <div
                 className="flex cursor-pointer items-center"
@@ -272,7 +272,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
             >
               <div
                 className="flex cursor-pointer items-center"
@@ -293,14 +293,14 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
             >
               Bank Name
             </th>
 
             <th
               scope="col"
-              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
             >
               Source Name
             </th>
@@ -343,11 +343,11 @@ export const TransactionTable = ({
 
                 {transactionToEditId === transaction.id ? (
                   <>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900">
+                    <td className="text-text-regular whitespace-nowrap py-2 pl-4 pr-3 text-sm">
                       {transaction.id}
                     </td>
 
-                    <td className="whitespace-nowrap text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap">
                       <input
                         value={
                           transactionToEditValues?.date ??
@@ -363,7 +363,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="whitespace-nowrap text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap">
                       <DollarInput
                         value={
                           transactionToEditValues?.amount ??
@@ -375,7 +375,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="whitespace-nowrap text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap">
                       <input
                         value={
                           transactionToEditValues?.bankName ??
@@ -390,7 +390,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="whitespace-nowrap text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap">
                       <input
                         value={
                           transactionToEditValues?.sourceName ??
@@ -407,29 +407,29 @@ export const TransactionTable = ({
                   </>
                 ) : (
                   <>
-                    <td className="whitespace-nowrap py-2 pl-2 pr-3 text-sm font-medium text-gray-900">
+                    <td className="text-text-regular whitespace-nowrap py-2 pl-2 pr-3 text-sm">
                       {transaction.id}
                     </td>
 
-                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
                       {format(transaction.date, 'MM-dd-yyyy')}
                     </td>
 
-                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
                       {formatUSDDecimal(transaction.amount)}
                     </td>
 
-                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
                       {transaction.bankName ?? '--'}
                     </td>
 
-                    <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
+                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
                       {transaction.sourceName ?? '--'}
                     </td>
                   </>
                 )}
 
-                <td className="whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm text-gray-500">
+                <td className="text-text-regular whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm">
                   <div className="flex justify-end gap-2">
                     {transactionToEditId === transaction.id && (
                       <button onClick={handleCancelTransactionEdit}>
