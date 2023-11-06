@@ -140,6 +140,8 @@ export const TransactionsPageContent = ({
   const makeHandleDuplicateTransaction = (transactionId: number) => () => {
     const toastId = loadingToast.showLoading('Duplicating...');
 
+    debugger;
+
     apiDuplicateTransaction(
       {
         transactionId,

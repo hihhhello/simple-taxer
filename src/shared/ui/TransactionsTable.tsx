@@ -451,17 +451,16 @@ export const TransactionTable = ({
                       </button>
                     )}
 
-                    <button>
+                    <button
+                      onClick={makeHandleDuplicateTransaction(transaction.id)}
+                    >
                       <DocumentDuplicateIcon className="h-5 w-5 cursor-pointer hover:text-gray-600" />
                     </button>
 
                     <button
-                      onClick={makeHandleDuplicateTransaction(transaction.id)}
+                      onClick={makeHandleDeleteTransaction(transaction.id)}
                     >
-                      <TrashIcon
-                        onClick={makeHandleDeleteTransaction(transaction.id)}
-                        className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900"
-                      />
+                      <TrashIcon className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900" />
                     </button>
                   </div>
                 </td>
