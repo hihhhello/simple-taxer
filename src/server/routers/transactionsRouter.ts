@@ -4,6 +4,7 @@ import { publicProcedure, router } from '../trpc';
 import { Prisma } from '@prisma/client';
 import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
+import { omit } from 'lodash';
 
 const SortString = z.union([
   z.literal('amount:asc'),
@@ -242,7 +243,7 @@ export const transactionsRouter = router({
       }
 
       const duplicatedTransaction = await ctx.prisma.transaction.create({
-        data: transactionToDuplicate,
+        data: omit(transactionToDuplicate, 'id'),
       });
 
       return {
