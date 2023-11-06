@@ -23,6 +23,7 @@ import {
 } from '@/shared/types/transactionTypes';
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { SortOrder } from '../types/types';
+import { ChevronLeftIcon } from '../icons/ChevronLeftIcon';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
@@ -260,12 +261,12 @@ export const TransactionTable = ({
                 Date{' '}
                 {sort?.field === 'date' ? (
                   sort.order === 'desc' ? (
-                    <>&#x25BC;</>
+                    <ChevronLeftIcon className="-rotate-90 text-primary-light-blue" />
                   ) : (
-                    <>&#x25B2;</>
+                    <ChevronLeftIcon className="rotate-90 text-primary-light-blue" />
                   )
                 ) : (
-                  <>&#x25BC;</>
+                  <ChevronLeftIcon className="-rotate-90 text-primary-light-blue" />
                 )}
               </div>
             </th>
@@ -281,12 +282,12 @@ export const TransactionTable = ({
                 Amount{' '}
                 {sort?.field === 'amount' ? (
                   sort.order === 'desc' ? (
-                    <>&#x25BC;</>
+                    <ChevronLeftIcon className="-rotate-90 text-primary-light-blue" />
                   ) : (
-                    <>&#x25B2;</>
+                    <ChevronLeftIcon className="rotate-90 text-primary-light-blue" />
                   )
                 ) : (
-                  <>&#x25BC;</>
+                  <ChevronLeftIcon className="-rotate-90 text-primary-light-blue" />
                 )}
               </div>
             </th>
