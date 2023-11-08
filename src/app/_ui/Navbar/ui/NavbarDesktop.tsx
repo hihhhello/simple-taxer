@@ -23,7 +23,7 @@ export const NavbarDesktop = ({
   isAuthenticating,
 }: NavbarDesktopProps) => (
   <div className="flex items-center justify-between rounded-full bg-white py-4 pl-10 pr-6">
-    <div className="flex items-center gap-36">
+    <div className="flex items-center gap-10">
       <div>
         <SimpleTaxLogoIllustration />
       </div>

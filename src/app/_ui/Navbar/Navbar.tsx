@@ -7,14 +7,14 @@ import { usePathname } from 'next/navigation';
 
 import { NavbarDesktop } from './ui/NavbarDesktop';
 import { NavbarMobile } from './ui/NavbarMobile';
-import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
+import { useIsBreakpoint } from '@/shared/utils/hooks';
 
 type NavbarProps = {
   me: User | undefined | null;
 };
 
 export const Navbar = ({ me }: NavbarProps) => {
-  const isDesktop = useIsBreakpoint(Breakpoints.SM);
+  const isDesktop = useIsBreakpoint(1100);
 
   const handleSignOut = useCallback(() => signOut(), []);
 
