@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  blockquote,
+  dl,
+  dd,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  figure,
+  p,
+  pre,
+  span,
+  button,
+  ol,
+  ul,
+  li {
+    @apply leading-tight;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
