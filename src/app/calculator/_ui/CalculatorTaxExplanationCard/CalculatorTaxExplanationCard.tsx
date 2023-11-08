@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from '@/shared/icons/ChevronLeftIcon';
 import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
-import { useIsDesktop } from '@/shared/utils/hooks';
+import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
 import { Disclosure, Transition } from '@headlessui/react';
 import { twMerge } from 'tailwind-merge';
 
@@ -19,7 +19,7 @@ export const CalculatorTaxExplanationCard = ({
   shadowBgClassName = 'bg-primary-light-blue',
   description,
 }: CalculatorTaxExplanationCardProps) => {
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsBreakpoint(Breakpoints.SM);
 
   return (
     <Disclosure

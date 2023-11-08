@@ -8,7 +8,7 @@ import {
   classNames,
   formatUSDInteger,
 } from '@/shared/utils/helpers';
-import { useIsDesktop } from '@/shared/utils/hooks';
+import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
 import { api } from '@/shared/api';
 
 type TotalIncomeWidgetProps = {
@@ -18,7 +18,7 @@ type TotalIncomeWidgetProps = {
 export const TotalIncomeWidget = ({
   transactions: initialTransactions,
 }: TotalIncomeWidgetProps) => {
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsBreakpoint(Breakpoints.SM);
 
   const { data: transactions } = api.transactions.getAll.useQuery(
     {},

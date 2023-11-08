@@ -43,7 +43,15 @@ export const useLoadingToast = () => {
   );
 };
 
-export const useIsDesktop = () => {
+export enum Breakpoints {
+  'SM' = 640,
+  'MD' = 768,
+  'LG' = 1024,
+  'XL' = 1280,
+  '2XL' = 1536,
+}
+
+export const useIsBreakpoint = (breakpoint: Breakpoints) => {
   const [width, setWidth] = useState(window.innerWidth);
   const handleWindowSizeChange = debounce(() => {
     setWidth(window.innerWidth);
@@ -59,5 +67,5 @@ export const useIsDesktop = () => {
     };
   }, [handleWindowSizeChange]);
 
-  return width > 640;
+  return width > breakpoint;
 };

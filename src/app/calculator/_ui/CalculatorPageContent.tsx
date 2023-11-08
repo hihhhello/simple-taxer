@@ -29,7 +29,7 @@ import { CalculatorIllustrationDesktop } from '@/shared/illustartions/Calculator
 import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorIllustrationMobile';
 import { CalculatorTaxExplanationCard } from './CalculatorTaxExplanationCard/CalculatorTaxExplanationCard';
 import { CheckOnDesktopIllustration } from '@/shared/illustartions/CheckOnDesktopIllustration';
-import { useIsDesktop } from '@/shared/utils/hooks';
+import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -40,7 +40,7 @@ export const CalculatorPageContent = ({
   transactions: initialTransactions,
   me,
 }: CalculatorPageContentProps) => {
-  const isDesktop = useIsDesktop();
+  const isDesktop = useIsBreakpoint(Breakpoints.SM);
 
   const [filingStatus, setFilingStatus] =
     useState<IncomeTaxCalculatorFilingStatus>(
