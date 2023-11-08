@@ -21,6 +21,7 @@ import { TransactionSortField } from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Input } from '@/shared/ui/Input';
+import { TransactionsPageLogInCard } from './TransactionsPageLogInCard';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -253,7 +254,11 @@ export const TransactionsPageContent = ({
   );
 
   if (!me) {
-    return <GoogleSignInButton />;
+    return (
+      <div className="mx-auto max-w-4xl pt-16">
+        <TransactionsPageLogInCard />
+      </div>
+    );
   }
 
   return (
