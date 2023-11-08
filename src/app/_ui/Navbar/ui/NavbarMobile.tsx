@@ -9,9 +9,9 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { twMerge } from 'tailwind-merge';
 import { SignOutIcon } from '@/shared/icons/SignOutIcon';
 import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
+import { LogInButton } from '@/features/LogInButton';
 
 type NavbarMobileProps = {
-  handleSignIn: () => void;
   handleSignOut: () => void;
   pathname: string;
   me: User | undefined | null;
@@ -22,7 +22,6 @@ export const NavbarMobile = ({
   pathname,
   me,
   isAuthenticating,
-  handleSignIn,
   handleSignOut,
 }: NavbarMobileProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -78,12 +77,7 @@ export const NavbarMobile = ({
               ) : !me && isAuthenticating ? (
                 <div className="h-10 w-[108px] animate-pulse rounded-3xl bg-slate-200"></div>
               ) : (
-                <button
-                  onClick={handleSignIn}
-                  className="rounded-3xl bg-primary-blue px-8 py-2 text-white"
-                >
-                  Log In
-                </button>
+                <LogInButton className="rounded-3xl bg-primary-blue px-8 py-2 text-white" />
               )}
             </div>
 

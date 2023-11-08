@@ -4,8 +4,6 @@ import { useCallback } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { User } from 'next-auth';
 import { usePathname } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { getProviders, signIn } from 'next-auth/react';
 
 import { NavbarDesktop } from './ui/NavbarDesktop';
 import { NavbarMobile } from './ui/NavbarMobile';
@@ -24,21 +22,11 @@ export const Navbar = ({ me }: NavbarProps) => {
 
   const pathname = usePathname();
 
-  const { data: providers } = useQuery({
-    queryKey: ['getProviders'],
-    queryFn: getProviders,
-  });
-
-  const handleSignIn = useCallback(() => {
-    signIn(providers?.google.id);
-  }, [providers?.google.id]);
-
   const isAuthenticating = status === 'loading';
 
   if (isDesktop) {
     return (
       <NavbarDesktop
-        handleSignIn={handleSignIn}
         handleSignOut={handleSignOut}
         isAuthenticating={isAuthenticating}
         me={me}
@@ -49,7 +37,6 @@ export const Navbar = ({ me }: NavbarProps) => {
 
   return (
     <NavbarMobile
-      handleSignIn={handleSignIn}
       handleSignOut={handleSignOut}
       isAuthenticating={isAuthenticating}
       me={me}

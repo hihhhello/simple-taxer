@@ -7,9 +7,9 @@ import { Menu, Transition } from '@headlessui/react';
 
 import { classNames } from '@/shared/utils/helpers';
 import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
+import { LogInButton } from '@/features/LogInButton';
 
 type NavbarDesktopProps = {
-  handleSignIn: () => void;
   handleSignOut: () => void;
   pathname: string;
   me: User | undefined | null;
@@ -17,7 +17,6 @@ type NavbarDesktopProps = {
 };
 
 export const NavbarDesktop = ({
-  handleSignIn,
   handleSignOut,
   pathname,
   me,
@@ -118,12 +117,7 @@ export const NavbarDesktop = ({
     ) : !me && isAuthenticating ? (
       <div className="h-10 w-[108px] animate-pulse rounded-3xl bg-slate-200"></div>
     ) : (
-      <button
-        onClick={handleSignIn}
-        className="rounded-3xl bg-primary-blue px-8 py-2  text-white"
-      >
-        Log In
-      </button>
+      <LogInButton className="rounded-3xl bg-primary-blue px-8 py-2  text-white" />
     )}
   </div>
 );
