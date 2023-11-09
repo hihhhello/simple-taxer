@@ -6,6 +6,7 @@ import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 import { api } from '@/shared/api';
+import { AnalyticsPageLogInCard } from './AnalyticsPageLogInCard';
 
 type AnalyticsPageContentProps = {
   me: User | undefined | null;
@@ -27,7 +28,11 @@ export const AnalyticsPageContent = ({
     );
 
   if (!me) {
-    return <GoogleSignInButton />;
+    return (
+      <div className="mx-auto max-w-4xl pt-16">
+        <AnalyticsPageLogInCard />
+      </div>
+    );
   }
 
   if (!transactionsBySourceName) {
