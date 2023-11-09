@@ -216,7 +216,7 @@ export const TransactionTable = ({
       <table className="relative min-w-full border-separate border-spacing-y-2 divide-y divide-gray-300">
         <thead className="bg-primary-background sticky top-0 z-10">
           {selectedTransactions.length > 0 && (
-            <div className="absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 bg-white sm:left-12">
+            <div className="bg-primary-background absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 sm:left-12">
               <button
                 onClick={handleDeleteAllTransactions}
                 type="button"
