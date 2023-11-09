@@ -6,7 +6,7 @@ export const Input = ({
 }: JSX.IntrinsicElements['input']) => (
   <input
     className={twMerge(
-      'focus-primary block w-full rounded-md border-0 px-4 py-1.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-base',
+      'block w-full rounded-md border-0 px-4 py-1.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-primary-green sm:text-base',
       className,
     )}
     {...inputProps}
