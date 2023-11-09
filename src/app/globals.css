@@ -23,12 +23,11 @@
   li {
     @apply leading-tight;
   }
+}
 
-  a,
-  button,
-  input,
-  select {
-    @apply outline-none  focus:ring-2 focus:ring-inset focus:ring-primary-green;
+@layer components {
+  .focus-primary {
+    @apply outline-none focus:ring-2 focus:ring-inset focus:ring-primary-green;
   }
 }
 

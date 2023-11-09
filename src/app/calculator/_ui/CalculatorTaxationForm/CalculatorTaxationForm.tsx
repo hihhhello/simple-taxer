@@ -13,6 +13,7 @@ import {
 } from './utils/calculatorTaxationFormConstants';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Select } from '@/shared/ui/Select';
+import { Button } from '@/shared/ui/Button';
 
 export type CalculatorTaxationFormProps = {
   totalIncome: number | undefined;
@@ -123,12 +124,12 @@ export const CalculatorTaxationForm = ({
         </div>
 
         <div className="w-full sm:w-auto">
-          <button
+          <Button
             className="w-full rounded-full bg-primary-blue px-8 py-4 leading-none text-white sm:w-auto"
             onClick={handleCalculate}
           >
             Calculate
-          </button>
+          </Button>
         </div>
       </div>
     </div>

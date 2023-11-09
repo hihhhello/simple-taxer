@@ -33,7 +33,7 @@ export const NavbarDesktop = ({
           href="/transactions"
           tabIndex={0}
           className={twMerge(
-            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
             pathname === '/transactions' && 'bg-primary-blue text-white',
           )}
         >
@@ -43,7 +43,7 @@ export const NavbarDesktop = ({
         <Link
           href="/analytics"
           className={twMerge(
-            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
             pathname === '/analytics' && 'bg-primary-blue text-white',
           )}
         >
@@ -53,7 +53,7 @@ export const NavbarDesktop = ({
         <Link
           href="/calculator"
           className={twMerge(
-            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
             pathname === '/calculator' && 'bg-primary-blue text-white',
           )}
         >
