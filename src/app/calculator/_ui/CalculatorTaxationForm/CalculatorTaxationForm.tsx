@@ -12,6 +12,7 @@ import {
   INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME,
 } from './utils/calculatorTaxationFormConstants';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
+import { Select } from '@/shared/ui/Select';
 
 export type CalculatorTaxationFormProps = {
   totalIncome: number | undefined;
@@ -87,25 +88,25 @@ export const CalculatorTaxationForm = ({
         <div className="flex flex-1 items-end gap-6">
           <div className="flex-1">
             <InputWrapper label="Filing Status" htmlFor="filingStatus">
-              <select
+              <Select
                 id="filingStatus"
                 name="filingStatus"
-                className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
+                className="sm:min-w-[200px] sm:max-w-[250px]"
                 value={filingStatus}
                 onChange={handleChangeFilingStatus}
               >
                 <option value="single">Single</option>
                 <option value="married">Married</option>
-              </select>
+              </Select>
             </InputWrapper>
           </div>
 
           <div className="flex-1">
             <InputWrapper label="State" htmlFor="taxState">
-              <select
+              <Select
                 id="taxState"
                 name="taxState"
-                className="w-full rounded-xl border-none bg-white text-sm sm:min-w-[200px] sm:max-w-[250px] sm:text-base"
+                className="sm:min-w-[200px] sm:max-w-[250px]"
                 value={taxStateKey ?? ''}
                 onChange={handleChangeTaxState}
               >
@@ -116,7 +117,7 @@ export const CalculatorTaxationForm = ({
                     {INCOME_TAX_CALCULATOR_US_STATE_KEY_TO_NAME[stateKey]}
                   </option>
                 ))}
-              </select>
+              </Select>
             </InputWrapper>
           </div>
         </div>
