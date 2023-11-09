@@ -24,6 +24,7 @@ import {
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { SortOrder } from '../types/types';
 import { ChevronLeftIcon } from '../icons/ChevronLeftIcon';
+import { Input } from './Input';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
@@ -232,8 +233,9 @@ export const TransactionTable = ({
                 disabled={areTransactionsEmpty}
                 ref={bulkCheckboxRef}
                 type="checkbox"
+                name="bulkCheckbox"
                 className={classNames(
-                  'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600',
+                  'absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-primary-green focus:ring-primary-green',
                   areTransactionsEmpty
                     ? 'cursor-not-allowed opacity-50'
                     : 'cursor-pointer',
@@ -252,12 +254,11 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
+              className="text-text-dark focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold"
+              onClick={makeHandleSortTransaction('date')}
+              tabIndex={0}
             >
-              <div
-                className="flex cursor-pointer items-center"
-                onClick={makeHandleSortTransaction('date')}
-              >
+              <div className="flex items-center">
                 Date{' '}
                 {sort?.field === 'date' ? (
                   sort.order === 'desc' ? (
@@ -273,12 +274,11 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
+              className="text-text-dark focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold"
+              onClick={makeHandleSortTransaction('amount')}
+              tabIndex={0}
             >
-              <div
-                className="flex cursor-pointer items-center"
-                onClick={makeHandleSortTransaction('amount')}
-              >
+              <div className="flex items-center">
                 Amount{' '}
                 {sort?.field === 'amount' ? (
                   sort.order === 'desc' ? (
@@ -330,12 +330,13 @@ export const TransactionTable = ({
               >
                 <td className="relative rounded-l-md px-7 sm:w-12 sm:px-6">
                   {isTransactionSelected && (
-                    <div className="absolute inset-y-0 left-0 w-0.5 bg-indigo-600" />
+                    <div className="absolute inset-y-0 left-0 w-0.5 bg-primary-green" />
                   )}
 
                   <input
                     type="checkbox"
-                    className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    name="isTransactionSelected"
+                    className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-primary-green focus:ring-primary-green"
                     value={transaction.id}
                     checked={isTransactionSelected}
                     onChange={makeHandleSelectTransaction(transaction)}
