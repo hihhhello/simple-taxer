@@ -29,37 +29,35 @@ export const NavbarDesktop = ({
       </div>
 
       <div>
-        <Link href="/transactions">
-          <span
-            className={twMerge(
-              'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-              pathname === '/transactions' && 'bg-primary-blue text-white',
-            )}
-          >
-            Transactions
-          </span>
+        <Link
+          href="/transactions"
+          tabIndex={0}
+          className={twMerge(
+            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            pathname === '/transactions' && 'bg-primary-blue text-white',
+          )}
+        >
+          Transactions
         </Link>
 
-        <Link href="/analytics">
-          <span
-            className={twMerge(
-              'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-              pathname === '/analytics' && 'bg-primary-blue text-white',
-            )}
-          >
-            Analytics
-          </span>
+        <Link
+          href="/analytics"
+          className={twMerge(
+            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            pathname === '/analytics' && 'bg-primary-blue text-white',
+          )}
+        >
+          Analytics
         </Link>
 
-        <Link href="/calculator">
-          <span
-            className={twMerge(
-              'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-              pathname === '/calculator' && 'bg-primary-blue text-white',
-            )}
-          >
-            Calculator
-          </span>
+        <Link
+          href="/calculator"
+          className={twMerge(
+            'rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+            pathname === '/calculator' && 'bg-primary-blue text-white',
+          )}
+        >
+          Calculator
         </Link>
       </div>
     </div>
@@ -70,7 +68,7 @@ export const NavbarDesktop = ({
 
         <Menu as="div" className="relative ml-3">
           <div>
-            <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <Menu.Button className="relative flex rounded-full bg-white text-sm outline focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               <span className="absolute -inset-1.5" />
 
               <span className="sr-only">Open user menu</span>
