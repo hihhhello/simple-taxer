@@ -68,7 +68,7 @@ export const NavbarDesktop = ({
 
         <Menu as="div" className="relative ml-3">
           <div>
-            <Menu.Button className="relative flex rounded-full bg-white text-sm outline focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <Menu.Button className="relative flex rounded-full bg-white text-sm outline focus:outline-none focus:ring-2 focus:ring-primary-green focus:ring-offset-2">
               <span className="absolute -inset-1.5" />
 
               <span className="sr-only">Open user menu</span>
