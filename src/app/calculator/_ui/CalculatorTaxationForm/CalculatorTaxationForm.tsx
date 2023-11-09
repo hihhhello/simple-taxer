@@ -77,7 +77,7 @@ export const CalculatorTaxationForm = ({
               name="householdIncome"
               id="householdIncome"
               placeholder="$00.00"
-              className="w-full border-none text-3xl font-light sm:text-6xl"
+              className="w-full border-none text-3xl font-light shadow-none sm:text-6xl"
               handleValueChange={setHouseholdIncome}
               value={householdIncome}
             />
