@@ -8,6 +8,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { classNames } from '@/shared/utils/helpers';
 import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
 import { LogInButton } from '@/features/LogInButton';
+import { NAVIGATION_ITEMS } from '@/shared/utils/navigation';
 
 type NavbarDesktopProps = {
   handleSignOut: () => void;
@@ -29,36 +30,19 @@ export const NavbarDesktop = ({
       </div>
 
       <div>
-        <Link
-          href="/transactions"
-          tabIndex={0}
-          className={twMerge(
-            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-            pathname === '/transactions' && 'bg-primary-blue text-white',
-          )}
-        >
-          Transactions
-        </Link>
-
-        <Link
-          href="/analytics"
-          className={twMerge(
-            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-            pathname === '/analytics' && 'bg-primary-blue text-white',
-          )}
-        >
-          Analytics
-        </Link>
-
-        <Link
-          href="/calculator"
-          className={twMerge(
-            'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
-            pathname === '/calculator' && 'bg-primary-blue text-white',
-          )}
-        >
-          Calculator
-        </Link>
+        {NAVIGATION_ITEMS.map((item) => (
+          <Link
+            key={item.key}
+            href={item.href}
+            tabIndex={0}
+            className={twMerge(
+              'focus-primary rounded-3xl px-4 py-2 leading-tight text-primary-blue',
+              pathname === item.href && 'bg-primary-blue text-white',
+            )}
+          >
+            {item.title}
+          </Link>
+        ))}
       </div>
     </div>
 
