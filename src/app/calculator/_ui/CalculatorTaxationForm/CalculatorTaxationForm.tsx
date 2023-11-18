@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { User } from 'next-auth';
 
 import { DollarInput } from '@/shared/ui/DollarInput';
@@ -60,7 +60,9 @@ export const CalculatorTaxationForm = ({
     [],
   );
 
-  const handleCalculate = () => {
+  const handleCalculate = (e: FormEvent) => {
+    e.preventDefault();
+
     if (!householdIncome || !taxStateKey) {
       return;
     }
@@ -69,11 +71,12 @@ export const CalculatorTaxationForm = ({
   };
 
   return (
-    <div className="w-full">
+    <form onSubmit={handleCalculate} className="w-full">
       <div className="mb-4">
         <div className="relative rounded-2xl bg-white px-4 py-2">
           <InputWrapper label="Household Income" htmlFor="householdIncome">
             <DollarInput
+              required
               name="householdIncome"
               id="householdIncome"
               placeholder="$00.00"
@@ -105,6 +108,7 @@ export const CalculatorTaxationForm = ({
           <div className="flex-1">
             <InputWrapper label="State" htmlFor="taxState">
               <Select
+                required
                 id="taxState"
                 name="taxState"
                 className="sm:min-w-[200px] sm:max-w-[250px]"
@@ -126,12 +130,12 @@ export const CalculatorTaxationForm = ({
         <div className="w-full sm:w-auto">
           <Button
             className="w-full rounded-full bg-primary-blue px-8 py-4 leading-none text-white sm:w-auto"
-            onClick={handleCalculate}
+            type="submit"
           >
             Calculate
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
