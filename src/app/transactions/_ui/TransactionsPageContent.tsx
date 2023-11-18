@@ -13,7 +13,6 @@ import {
 } from '@/shared/ui/TransactionsTable';
 import { api } from '@/shared/api';
 import { useLoadingToast } from '@/shared/utils/hooks';
-import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { classNames } from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';

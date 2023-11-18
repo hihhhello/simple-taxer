@@ -24,7 +24,6 @@ import {
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { SortOrder } from '../types/types';
 import { ChevronLeftIcon } from '../icons/ChevronLeftIcon';
-import { Input } from './Input';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
@@ -214,9 +213,9 @@ export const TransactionTable = ({
   return (
     <div className="relative">
       <table className="relative min-w-full border-separate border-spacing-y-2 divide-y divide-gray-300">
-        <thead className="bg-primary-background sticky top-0 z-10">
+        <thead className="sticky top-0 z-10 bg-primary-background">
           {selectedTransactions.length > 0 && (
-            <div className="bg-primary-background absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 sm:left-12">
+            <div className="absolute left-14 top-0 z-20 flex h-12 items-center space-x-3 bg-primary-background sm:left-12">
               <button
                 onClick={handleDeleteAllTransactions}
                 type="button"
@@ -247,14 +246,14 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="text-text-dark py-3.5 pl-4 pr-3 text-left text-sm font-semibold"
+              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text-dark"
             >
               Id
             </th>
 
             <th
               scope="col"
-              className="text-text-dark focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold"
+              className="focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
               onClick={makeHandleSortTransaction('date')}
               tabIndex={0}
             >
@@ -274,7 +273,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="text-text-dark focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold"
+              className="focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
               onClick={makeHandleSortTransaction('amount')}
               tabIndex={0}
             >
@@ -294,14 +293,14 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
+              className="px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
             >
               Bank Name
             </th>
 
             <th
               scope="col"
-              className="text-text-dark px-3 py-3.5 text-left text-sm font-semibold"
+              className="px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
             >
               Source Name
             </th>
@@ -345,11 +344,11 @@ export const TransactionTable = ({
 
                 {transactionToEditId === transaction.id ? (
                   <>
-                    <td className="text-text-regular whitespace-nowrap py-2 pl-4 pr-3 text-sm">
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-text-regular">
                       {transaction.id}
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap">
+                    <td className="whitespace-nowrap text-text-regular">
                       <input
                         value={
                           transactionToEditValues?.date ??
@@ -365,7 +364,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap">
+                    <td className="whitespace-nowrap text-text-regular">
                       <DollarInput
                         value={
                           transactionToEditValues?.amount ??
@@ -377,7 +376,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap">
+                    <td className="whitespace-nowrap text-text-regular">
                       <input
                         value={
                           transactionToEditValues?.bankName ??
@@ -392,7 +391,7 @@ export const TransactionTable = ({
                       />
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap">
+                    <td className="whitespace-nowrap text-text-regular">
                       <input
                         value={
                           transactionToEditValues?.sourceName ??
@@ -409,29 +408,29 @@ export const TransactionTable = ({
                   </>
                 ) : (
                   <>
-                    <td className="text-text-regular whitespace-nowrap py-2 pl-2 pr-3 text-sm">
+                    <td className="whitespace-nowrap py-2 pl-2 pr-3 text-sm text-text-regular">
                       {transaction.id}
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
+                    <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
                       {format(transaction.date, 'MM-dd-yyyy')}
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
+                    <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
                       {formatUSDDecimal(transaction.amount)}
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
+                    <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
                       {transaction.bankName ?? '--'}
                     </td>
 
-                    <td className="text-text-regular whitespace-nowrap px-3 py-2 text-sm">
+                    <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
                       {transaction.sourceName ?? '--'}
                     </td>
                   </>
                 )}
 
-                <td className="text-text-regular whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm">
+                <td className="whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm text-text-regular">
                   <div className="flex justify-end gap-2">
                     {transactionToEditId === transaction.id && (
                       <button onClick={handleCancelTransactionEdit}>
