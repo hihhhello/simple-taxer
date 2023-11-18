@@ -39,12 +39,12 @@ export const CalculatorTaxationForm = ({
     useState<IncomeTaxCalculatorUSState | null>(null);
 
   const handleUseTotalIncome = useCallback(() => {
-    if (!totalIncome) {
+    if (!totalIncome || !me) {
       return;
     }
 
     setHouseholdIncome(totalIncome);
-  }, [totalIncome]);
+  }, [me, totalIncome]);
 
   const handleChangeFilingStatus = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -74,7 +74,19 @@ export const CalculatorTaxationForm = ({
     <form onSubmit={handleCalculate} className="w-full">
       <div className="mb-4">
         <div className="relative rounded-2xl bg-white px-4 py-2">
-          <InputWrapper label="Household Income" htmlFor="householdIncome">
+          <InputWrapper
+            label="Household Income"
+            htmlFor="householdIncome"
+            InlineEndElement={
+              <button
+                type="button"
+                onClick={handleUseTotalIncome}
+                className="rounded-md bg-primary-light-blue px-4 py-1 text-xs text-white sm:text-sm"
+              >
+                Use total income
+              </button>
+            }
+          >
             <DollarInput
               required
               name="householdIncome"
