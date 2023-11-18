@@ -10,6 +10,7 @@ import { twMerge } from 'tailwind-merge';
 import { SignOutIcon } from '@/shared/icons/SignOutIcon';
 import { SimpleTaxLogoIllustration } from '@/shared/illustartions/SimpleTaxLogoIllustration';
 import { LogInButton } from '@/features/LogInButton';
+import { NAVIGATION_ITEMS } from '@/shared/utils/navigation';
 
 type NavbarMobileProps = {
   handleSignOut: () => void;
@@ -50,7 +51,7 @@ export const NavbarMobile = ({
         onClose={handleCloseMenu}
         className="relative z-50"
       >
-        <div className="bg-primary-background fixed inset-0 flex h-screen w-screen items-center justify-center px-4">
+        <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-primary-background px-4">
           <Dialog.Panel className="flex h-full w-full items-center justify-center">
             <div className="absolute top-1">
               {me ? (
@@ -89,35 +90,18 @@ export const NavbarMobile = ({
             </button>
 
             <div className="flex w-60 flex-col items-center justify-center gap-8">
-              <Link
-                href="/transactions"
-                className={twMerge(
-                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
-                  pathname === '/transactions' && 'bg-primary-blue text-white',
-                )}
-              >
-                <span className="text-xl leading-tight">Transactions</span>
-              </Link>
-
-              <Link
-                href="/analytics"
-                className={twMerge(
-                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
-                  pathname === '/analytics' && 'bg-primary-blue text-white',
-                )}
-              >
-                <span className="text-xl leading-tight">Analytics</span>
-              </Link>
-
-              <Link
-                href="/calculator"
-                className={twMerge(
-                  'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
-                  pathname === '/calculator' && 'bg-primary-blue text-white',
-                )}
-              >
-                <span className="text-xl leading-tight">Calculator</span>
-              </Link>
+              {NAVIGATION_ITEMS.map((item) => (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className={twMerge(
+                    'w-full rounded-full bg-white px-4 py-2 text-center text-primary-blue',
+                    pathname === item.href && 'bg-primary-blue text-white',
+                  )}
+                >
+                  <span className="text-xl leading-tight">{item.title}</span>
+                </Link>
+              ))}
             </div>
           </Dialog.Panel>
         </div>
