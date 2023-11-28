@@ -362,7 +362,7 @@ export const TransactionsPageContent = ({
 
             <div
               className={classNames(
-                'relative max-h-[calc(70vh)] overflow-y-auto',
+                'relative',
                 isTransactionsFetching && 'pointer-events-none opacity-50',
               )}
             >
