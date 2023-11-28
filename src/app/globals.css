@@ -26,8 +26,12 @@
 }
 
 @layer components {
-  .focus-primary {
+  .focus-primary-green {
     @apply outline-none focus:ring-2 focus:ring-inset focus:ring-primary-green;
+  }
+
+  .focus-primary-blue {
+    @apply outline-none focus:ring-2 focus:ring-inset focus:ring-primary-blue;
   }
 }
 

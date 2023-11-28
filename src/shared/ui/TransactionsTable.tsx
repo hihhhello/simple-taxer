@@ -252,7 +252,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
+              className="focus-primary-green cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
               onClick={makeHandleSortTransaction('date')}
               tabIndex={0}
             >
@@ -272,7 +272,7 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="focus-primary cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
+              className="focus-primary-green cursor-pointer px-3 py-3.5 text-left text-sm font-semibold text-text-dark"
               onClick={makeHandleSortTransaction('amount')}
               tabIndex={0}
             >
