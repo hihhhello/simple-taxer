@@ -20,6 +20,8 @@ module.exports = {
           green: '#5EAC8D',
           yellow: '#F8D35D',
           background: '#F6F6F6',
+          'background-blue': '#E6F0FF',
+          gray: '#83868C',
         },
         text: {
           dark: '#121D3E',

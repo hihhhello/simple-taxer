@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   Dispatch,
+  Fragment,
   SetStateAction,
   useCallback,
   useEffect,
@@ -9,12 +10,8 @@ import {
   useState,
 } from 'react';
 import { format, formatISO } from 'date-fns';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
-import {
-  CheckCircleIcon,
-  XCircleIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
+import { PencilIcon } from '@heroicons/react/24/solid';
+import { DocumentDuplicateIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
 import {
@@ -24,6 +21,8 @@ import {
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { SortOrder } from '../types/types';
 import { ChevronLeftIcon } from '../icons/ChevronLeftIcon';
+import { ThreeDotsVerticalIcon } from '../icons/ThreeDotsVerticalIcon';
+import { Menu, Transition } from '@headlessui/react';
 
 type EditTransactionValues = Partial<
   Omit<Transaction, 'id' | 'date'> & { date: string }
@@ -246,9 +245,9 @@ export const TransactionTable = ({
 
             <th
               scope="col"
-              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text-dark"
+              className="py-3.5 pl-2 pr-3 text-left text-sm font-semibold text-text-dark"
             >
-              Id
+              ID
             </th>
 
             <th
@@ -431,39 +430,137 @@ export const TransactionTable = ({
                 )}
 
                 <td className="whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm text-text-regular">
-                  <div className="flex justify-end gap-2">
-                    {transactionToEditId === transaction.id && (
-                      <button onClick={handleCancelTransactionEdit}>
-                        <XCircleIcon className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900" />
-                      </button>
-                    )}
+                  <Menu as="div" className="relative ml-3">
+                    <Menu.Button className="rounded-md bg-primary-green">
+                      <ThreeDotsVerticalIcon className="text-white" />
+                    </Menu.Button>
 
-                    {transactionToEditId === transaction.id ? (
-                      <button onClick={handleSubmitEditTransaction}>
-                        <CheckCircleIcon className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900" />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={makeHandleSelectTransactionToEdit(
-                          transaction.id,
-                        )}
-                      >
-                        <PencilIcon className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900" />
-                      </button>
-                    )}
-
-                    <button
-                      onClick={makeHandleDuplicateTransaction(transaction.id)}
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
                     >
-                      <DocumentDuplicateIcon className="h-5 w-5 cursor-pointer hover:text-gray-600" />
-                    </button>
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        {/* <Menu.Item>
+                          {transactionToEditId === transaction.id && (
+                            <button onClick={handleCancelTransactionEdit}>
+                              <XCircleIcon className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900" />
+                            </button>
+                          )}
+                        </Menu.Item> */}
 
-                    <button
-                      onClick={makeHandleDeleteTransaction(transaction.id)}
-                    >
-                      <TrashIcon className="h-5 w-5 cursor-pointer text-red-600 hover:text-red-900" />
-                    </button>
-                  </div>
+                        {/* <Menu.Item>
+                          {transactionToEditId === transaction.id ? (
+                            <button onClick={handleSubmitEditTransaction}>
+                              <CheckCircleIcon className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900" />
+                            </button>
+                          ) : (
+                            <button
+                              onClick={makeHandleSelectTransactionToEdit(
+                                transaction.id,
+                              )}
+                            >
+                              <PencilIcon className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900" />
+                            </button>
+                          )}
+                        </Menu.Item> */}
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={makeHandleSelectTransactionToEdit(
+                                transaction.id,
+                              )}
+                              className={classNames(
+                                'flex w-full items-center gap-2 rounded-t-md px-4 py-2',
+                                active && 'bg-primary-background-blue',
+                              )}
+                            >
+                              <PencilIcon
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-primary-light-blue',
+                                )}
+                              />
+
+                              <span
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-primary-light-blue',
+                                )}
+                              >
+                                Edit
+                              </span>
+                            </button>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={makeHandleDuplicateTransaction(
+                                transaction.id,
+                              )}
+                              className={classNames(
+                                'flex w-full items-center gap-2 px-4 py-2',
+                                active && 'bg-primary-background-blue',
+                              )}
+                            >
+                              <DocumentDuplicateIcon
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-primary-light-blue',
+                                )}
+                              />
+
+                              <span
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-primary-light-blue',
+                                )}
+                              >
+                                Copy
+                              </span>
+                            </button>
+                          )}
+                        </Menu.Item>
+
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={makeHandleDeleteTransaction(
+                                transaction.id,
+                              )}
+                              className={classNames(
+                                'flex w-full items-center gap-2 rounded-b-md px-4 py-2',
+                                active && 'bg-red-100',
+                              )}
+                            >
+                              <TrashIcon
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-red-600',
+                                )}
+                              />
+
+                              <span
+                                className={classNames(
+                                  'text-primary-gray h-5 w-5',
+                                  active && 'text-red-600',
+                                )}
+                              >
+                                Delete
+                              </span>
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
                 </td>
               </tr>
             );
