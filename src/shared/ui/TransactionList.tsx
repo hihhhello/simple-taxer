@@ -1,11 +1,12 @@
-import { Transaction } from '@/shared/types/transactionTypes';
-import { Menu, Transition } from '@headlessui/react';
-import { ThreeDotsVerticalIcon } from '../icons/ThreeDotsVerticalIcon';
-import { classNames, formatUSDDecimal } from '../utils/helpers';
 import { Fragment } from 'react';
-import { PencilIcon } from '@heroicons/react/24/solid';
-import { DocumentDuplicateIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
+import { PencilIcon } from '@heroicons/react/24/solid';
+import { Menu, Transition } from '@headlessui/react';
+import { DocumentDuplicateIcon, TrashIcon } from '@heroicons/react/24/outline';
+
+import { Transaction } from '@/shared/types/transactionTypes';
+import { ThreeDotsVerticalIcon } from '@/shared/icons/ThreeDotsVerticalIcon';
+import { classNames, formatUSDDecimal } from '@/shared/utils/helpers';
 
 type TransactionListProps = {
   transactions: Transaction[] | undefined;
