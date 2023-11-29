@@ -25,6 +25,7 @@ import { SortOrder } from '@/shared/types/types';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Input } from '@/shared/ui/Input';
 import { TransactionsPageLogInCard } from './TransactionsPageLogInCard';
+import { TransactionList } from '@/shared/ui/TransactionList';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -376,16 +377,28 @@ export const TransactionsPageContent = ({
                 isTransactionsFetching && 'pointer-events-none opacity-50',
               )}
             >
-              <TransactionTable
-                transactions={searchedTransactions}
-                handleDeleteAllTransactions={handleDeleteAllTransactions}
-                makeHandleDeleteTransaction={makeHandleDeleteTransaction}
-                makeHandleDuplicateTransaction={makeHandleDuplicateTransaction}
-                transactionToDeleteId={transactionToDeleteId}
-                handleSubmitEditTransaction={handleEditTransaction}
-                sort={transactionsSort}
-                handleSortTransactions={handleSortTransactions}
-              />
+              {isDesktop ? (
+                <TransactionTable
+                  transactions={searchedTransactions}
+                  handleDeleteAllTransactions={handleDeleteAllTransactions}
+                  makeHandleDeleteTransaction={makeHandleDeleteTransaction}
+                  makeHandleDuplicateTransaction={
+                    makeHandleDuplicateTransaction
+                  }
+                  transactionToDeleteId={transactionToDeleteId}
+                  handleSubmitEditTransaction={handleEditTransaction}
+                  sort={transactionsSort}
+                  handleSortTransactions={handleSortTransactions}
+                />
+              ) : (
+                <TransactionList
+                  makeHandleDeleteTransaction={makeHandleDeleteTransaction}
+                  makeHandleDuplicateTransaction={
+                    makeHandleDuplicateTransaction
+                  }
+                  transactions={searchedTransactions}
+                />
+              )}
             </div>
           </div>
         </div>

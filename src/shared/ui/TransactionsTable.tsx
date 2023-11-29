@@ -29,7 +29,7 @@ type EditTransactionValues = Partial<
 >;
 
 export type TransactionTableProps = {
-  transactions?: Transaction[];
+  transactions: Transaction[] | undefined;
   transactionToDeleteId?: number;
   makeHandleDeleteTransaction: (transactionId: number) => () => void;
   makeHandleDuplicateTransaction: (transactionId: number) => () => void;
