@@ -180,7 +180,7 @@ export const TransactionList = ({
           </div>
 
           <div className="align-center flex justify-between">
-            <span>{format(transaction.date, 'MM-dd-yyyy')}</span>
+            <span>{format(transaction.date, 'MM/dd/yyyy')}</span>
 
             <span>{transaction.bankName}</span>
           </div>

@@ -412,7 +412,7 @@ export const TransactionTable = ({
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
-                      {format(transaction.date, 'MM-dd-yyyy')}
+                      {format(transaction.date, 'MM/dd./yyyy')}
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
