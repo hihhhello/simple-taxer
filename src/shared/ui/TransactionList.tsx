@@ -27,9 +27,12 @@ export const TransactionList = ({
           key={transaction.id}
           className="flex flex-col rounded-md bg-white p-2"
         >
-          <div>
-            <span>#{transaction.id}</span>
-            <span>{transaction.sourceName}</span>
+          <div className="align-center flex justify-between">
+            <div>
+              <span>#{transaction.id}</span>
+
+              <span className="ml-2">{transaction.sourceName}</span>
+            </div>
 
             <Menu as="div" className="relative ml-3">
               {({ open }) => (
@@ -52,7 +55,7 @@ export const TransactionList = ({
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute left-0 top-0 z-10 ml-8 w-[115px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute left-0 top-0 z-10 w-[115px] origin-top-right -translate-x-full rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {/* <Menu.Item>
                           {transactionToEditId === transaction.id && (
                             <button onClick={handleCancelTransactionEdit}>
@@ -170,11 +173,13 @@ export const TransactionList = ({
             </Menu>
           </div>
 
-          <div>
-            <span>{formatUSDDecimal(transaction.amount)}</span>
+          <div className="mb-1">
+            <span className="font-bold">
+              {formatUSDDecimal(transaction.amount)}
+            </span>
           </div>
 
-          <div>
+          <div className="align-center flex justify-between">
             <span>{format(transaction.date, 'MM-dd-yyyy')}</span>
 
             <span>{transaction.bankName}</span>
