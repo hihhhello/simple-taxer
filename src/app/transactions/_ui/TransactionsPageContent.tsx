@@ -12,7 +12,11 @@ import {
   TransactionTableProps,
 } from '@/shared/ui/TransactionsTable';
 import { api } from '@/shared/api';
-import { useLoadingToast } from '@/shared/utils/hooks';
+import {
+  Breakpoints,
+  useIsBreakpoint,
+  useLoadingToast,
+} from '@/shared/utils/hooks';
 import { classNames } from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
@@ -31,6 +35,8 @@ export const TransactionsPageContent = ({
   transactions: initialTransactions,
   me,
 }: TransactionsPageContentProps) => {
+  const isDesktop = useIsBreakpoint(Breakpoints.SM);
+
   const queryClient = useQueryClient();
 
   const loadingToast = useLoadingToast();
@@ -270,66 +276,70 @@ export const TransactionsPageContent = ({
         </div>
 
         <div className="col-span-8">
-          <div className="mb-4 grid grid-cols-1 items-end gap-x-10 gap-y-4 sm:grid-cols-2">
-            <div>
-              <Input
-                name="transactionSearchQuery"
-                id="transactionSearchQuery"
-                placeholder="Search source or bank name"
-                value={transactionSearchQuery}
-                onChange={handleChangeTransactionSearchQuery}
-              />
-            </div>
-
-            <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
-              <div className="flex-1">
-                <InputWrapper
-                  label="Start date"
-                  htmlFor="transactionsStartDate"
-                >
-                  <Input
-                    type="date"
-                    name="transactionsStartDate"
-                    id="transactionsStartDate"
-                    className={
-                      transactionsStartDate ? 'text-gray-900' : 'text-gray-400'
-                    }
-                    placeholder="Start date"
-                    value={
-                      transactionsStartDate
-                        ? formatISO(transactionsStartDate, {
-                            representation: 'date',
-                          })
-                        : ''
-                    }
-                    onChange={handleChangeTransactionsStartDate}
-                  />
-                </InputWrapper>
+          {isDesktop && (
+            <div className="mb-4 grid grid-cols-1 items-end gap-x-10 gap-y-4 sm:grid-cols-2">
+              <div>
+                <Input
+                  name="transactionSearchQuery"
+                  id="transactionSearchQuery"
+                  placeholder="Search source or bank name"
+                  value={transactionSearchQuery}
+                  onChange={handleChangeTransactionSearchQuery}
+                />
               </div>
 
-              <div className="flex-1">
-                <InputWrapper label="End date" htmlFor="transactionsEndDate">
-                  <Input
-                    type="date"
-                    name="transactionsEndDate"
-                    id="transactionsEndDate"
-                    className={
-                      transactionsEndDate ? 'text-gray-900' : 'text-gray-400'
-                    }
-                    placeholder="End date"
-                    value={
-                      transactionsEndDate
-                        ? formatISO(transactionsEndDate, {
-                            representation: 'date',
-                          })
-                        : ''
-                    }
-                    onChange={handleChangeTransactionsEndDate}
-                  />
-                </InputWrapper>
+              <div className="flex flex-col gap-x-2 gap-y-4 sm:flex-row">
+                <div className="flex-1">
+                  <InputWrapper
+                    label="Start date"
+                    htmlFor="transactionsStartDate"
+                  >
+                    <Input
+                      type="date"
+                      name="transactionsStartDate"
+                      id="transactionsStartDate"
+                      className={
+                        transactionsStartDate
+                          ? 'text-gray-900'
+                          : 'text-gray-400'
+                      }
+                      placeholder="Start date"
+                      value={
+                        transactionsStartDate
+                          ? formatISO(transactionsStartDate, {
+                              representation: 'date',
+                            })
+                          : ''
+                      }
+                      onChange={handleChangeTransactionsStartDate}
+                    />
+                  </InputWrapper>
+                </div>
+
+                <div className="flex-1">
+                  <InputWrapper label="End date" htmlFor="transactionsEndDate">
+                    <Input
+                      type="date"
+                      name="transactionsEndDate"
+                      id="transactionsEndDate"
+                      className={
+                        transactionsEndDate ? 'text-gray-900' : 'text-gray-400'
+                      }
+                      placeholder="End date"
+                      value={
+                        transactionsEndDate
+                          ? formatISO(transactionsEndDate, {
+                              representation: 'date',
+                            })
+                          : ''
+                      }
+                      onChange={handleChangeTransactionsEndDate}
+                    />
+                  </InputWrapper>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="relative">
             <div
