@@ -14,18 +14,23 @@ import {
 import { api } from '@/shared/api';
 import {
   Breakpoints,
+  useBoolean,
   useIsBreakpoint,
   useLoadingToast,
 } from '@/shared/utils/hooks';
 import { classNames } from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
-import { TransactionSortField } from '@/shared/types/transactionTypes';
+import {
+  Transaction,
+  TransactionSortField,
+} from '@/shared/types/transactionTypes';
 import { SortOrder } from '@/shared/types/types';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Input } from '@/shared/ui/Input';
 import { TransactionsPageLogInCard } from './TransactionsPageLogInCard';
 import { TransactionList } from '@/shared/ui/TransactionList';
+import { EditTransactionModal } from '@/features/EditTransactionModal';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -44,6 +49,15 @@ export const TransactionsPageContent = ({
 
   const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
   const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
+
+  const {
+    value: isEditTransactionModalOpen,
+    setFalse: handleCloseEditTransactionModal,
+    setTrue: handleOpenEditTransactionModal,
+  } = useBoolean(false);
+
+  const [transactionToEdit, setTransactionToEdit] =
+    useState<Transaction | null>(null);
 
   const [transactionsSort, setTransactionsSort] = useState<{
     field: TransactionSortField;
@@ -174,7 +188,7 @@ export const TransactionsPageContent = ({
     );
   };
 
-  const handleEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
+  const handleSubmitEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
     useCallback(
       ({ newValues, transactionId }) => {
         const toastId = loadingToast.showLoading('Editing transaction...');
@@ -246,7 +260,7 @@ export const TransactionsPageContent = ({
             );
           })
         : transactions?.data,
-    [transactionSearchQuery, transactions],
+    [transactionSearchQuery, transactions?.data],
   );
 
   const handleSortTransactions = useCallback(
@@ -257,6 +271,14 @@ export const TransactionsPageContent = ({
       });
     },
     [],
+  );
+
+  const handleEditTransaction = useCallback(
+    (transaction: Transaction) => {
+      handleOpenEditTransactionModal();
+      setTransactionToEdit(transaction);
+    },
+    [handleOpenEditTransactionModal],
   );
 
   if (!me) {
@@ -382,7 +404,7 @@ export const TransactionsPageContent = ({
                     makeHandleDuplicateTransaction
                   }
                   transactionToDeleteId={transactionToDeleteId}
-                  handleSubmitEditTransaction={handleEditTransaction}
+                  handleSubmitEditTransaction={handleSubmitEditTransaction}
                   sort={transactionsSort}
                   handleSortTransactions={handleSortTransactions}
                 />
@@ -393,12 +415,20 @@ export const TransactionsPageContent = ({
                     makeHandleDuplicateTransaction
                   }
                   transactions={searchedTransactions}
+                  handleEdit={handleEditTransaction}
                 />
               )}
             </div>
           </div>
         </div>
       </div>
+
+      <EditTransactionModal
+        isModalOpen={isEditTransactionModalOpen}
+        handleClose={handleCloseEditTransactionModal}
+        handleSubmit={() => {}}
+        transaction={transactionToEdit}
+      />
     </div>
   );
 };

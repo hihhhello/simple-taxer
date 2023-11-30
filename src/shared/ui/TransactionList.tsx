@@ -13,6 +13,7 @@ type TransactionListProps = {
   transactionToDeleteId?: number;
   makeHandleDeleteTransaction: (transactionId: number) => () => void;
   makeHandleDuplicateTransaction: (transactionId: number) => () => void;
+  handleEdit: (transaction: Transaction) => void;
 };
 
 export const TransactionList = ({
@@ -20,6 +21,7 @@ export const TransactionList = ({
   makeHandleDeleteTransaction,
   makeHandleDuplicateTransaction,
   transactionToDeleteId,
+  handleEdit,
 }: TransactionListProps) => {
   return (
     <div className="flex flex-col gap-2">
@@ -84,6 +86,7 @@ export const TransactionList = ({
                       <Menu.Item>
                         {({ active }) => (
                           <button
+                            onClick={() => handleEdit(transaction)}
                             className={classNames(
                               'flex w-full items-center gap-2 rounded-t-md px-4 py-2',
                               active && 'bg-primary-background-blue',
