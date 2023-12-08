@@ -412,7 +412,7 @@ export const TransactionTable = ({
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
-                      {format(transaction.date, 'MM/dd./yyyy')}
+                      {format(transaction.date, 'MM/dd/yyyy')}
                     </td>
 
                     <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
@@ -489,14 +489,14 @@ export const TransactionTable = ({
                                 >
                                   <PencilIcon
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-primary-light-blue',
                                     )}
                                   />
 
                                   <span
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-primary-light-blue',
                                     )}
                                   >
@@ -519,14 +519,14 @@ export const TransactionTable = ({
                                 >
                                   <DocumentDuplicateIcon
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-primary-light-blue',
                                     )}
                                   />
 
                                   <span
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-primary-light-blue',
                                     )}
                                   >
@@ -549,14 +549,14 @@ export const TransactionTable = ({
                                 >
                                   <TrashIcon
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-red-600',
                                     )}
                                   />
 
                                   <span
                                     className={classNames(
-                                      'text-primary-gray h-5 w-5',
+                                      'h-5 w-5 text-primary-gray',
                                       active && 'text-red-600',
                                     )}
                                   >
