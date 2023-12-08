@@ -59,30 +59,6 @@ export const TransactionList = ({
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute left-0 top-0 z-10 w-[115px] origin-top-right -translate-x-full rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {/* <Menu.Item>
-                          {transactionToEditId === transaction.id && (
-                            <button onClick={handleCancelTransactionEdit}>
-                              <XCircleIcon className="h-5 w-5 cursor-pointer text-gray-600 hover:text-gray-900" />
-                            </button>
-                          )}
-                        </Menu.Item> */}
-
-                      {/* <Menu.Item>
-                          {transactionToEditId === transaction.id ? (
-                            <button onClick={handleSubmitEditTransaction}>
-                              <CheckCircleIcon className="h-5 w-5 cursor-pointer text-green-600 hover:text-green-900" />
-                            </button>
-                          ) : (
-                            <button
-                              onClick={makeHandleSelectTransactionToEdit(
-                                transaction.id,
-                              )}
-                            >
-                              <PencilIcon className="h-5 w-5 cursor-pointer text-indigo-600 hover:text-indigo-900" />
-                            </button>
-                          )}
-                        </Menu.Item> */}
-
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -94,14 +70,14 @@ export const TransactionList = ({
                           >
                             <PencilIcon
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-primary-light-blue',
                               )}
                             />
 
                             <span
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-primary-light-blue',
                               )}
                             >
@@ -124,14 +100,14 @@ export const TransactionList = ({
                           >
                             <DocumentDuplicateIcon
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-primary-light-blue',
                               )}
                             />
 
                             <span
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-primary-light-blue',
                               )}
                             >
@@ -154,14 +130,14 @@ export const TransactionList = ({
                           >
                             <TrashIcon
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-red-600',
                               )}
                             />
 
                             <span
                               className={classNames(
-                                'text-primary-gray h-5 w-5',
+                                'h-5 w-5 text-primary-gray',
                                 active && 'text-red-600',
                               )}
                             >
