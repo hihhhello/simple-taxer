@@ -188,43 +188,46 @@ export const TransactionsPageContent = ({
     );
   };
 
-  const handleSubmitEditTransaction: TransactionTableProps['handleSubmitEditTransaction'] =
-    useCallback(
-      ({ newValues, transactionId }) => {
-        const toastId = loadingToast.showLoading('Editing transaction...');
+  /**
+   * TODO: refactor submit logic with Edit Modal.
+   */
+  // const handleSubmitEditTransaction =
+  //   useCallback(
+  //     ({ newValues, transactionId }) => {
+  //       const toastId = loadingToast.showLoading('Editing transaction...');
 
-        apiEditTransaction(
-          {
-            newValues: {
-              ...newValues,
-              date: newValues.date ? parseISO(newValues.date) : undefined,
-            },
-            transactionId,
-          },
-          {
-            onSuccess: () => {
-              loadingToast.handleSuccess({
-                toastId,
-                message: 'Transactions successfully changed.',
-              });
+  //       apiEditTransaction(
+  //         {
+  //           newValues: {
+  //             ...newValues,
+  //             date: newValues.date ? parseISO(newValues.date) : undefined,
+  //           },
+  //           transactionId,
+  //         },
+  //         {
+  //           onSuccess: () => {
+  //             loadingToast.handleSuccess({
+  //               toastId,
+  //               message: 'Transactions successfully changed.',
+  //             });
 
-              handleRefetchTransactionsGetAllQueries();
-            },
-            onError: () => {
-              loadingToast.handleError({
-                toastId,
-                message: 'Transaction editing error. Try again.',
-              });
-            },
-          },
-        );
-      },
-      [
-        apiEditTransaction,
-        handleRefetchTransactionsGetAllQueries,
-        loadingToast,
-      ],
-    );
+  //             handleRefetchTransactionsGetAllQueries();
+  //           },
+  //           onError: () => {
+  //             loadingToast.handleError({
+  //               toastId,
+  //               message: 'Transaction editing error. Try again.',
+  //             });
+  //           },
+  //         },
+  //       );
+  //     },
+  //     [
+  //       apiEditTransaction,
+  //       handleRefetchTransactionsGetAllQueries,
+  //       loadingToast,
+  //     ],
+  //   );
 
   const handleChangeTransactionSearchQuery = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
@@ -404,9 +407,9 @@ export const TransactionsPageContent = ({
                     makeHandleDuplicateTransaction
                   }
                   transactionToDeleteId={transactionToDeleteId}
-                  handleSubmitEditTransaction={handleSubmitEditTransaction}
                   sort={transactionsSort}
                   handleSortTransactions={handleSortTransactions}
+                  handleEditTransaction={handleEditTransaction}
                 />
               ) : (
                 <TransactionList
