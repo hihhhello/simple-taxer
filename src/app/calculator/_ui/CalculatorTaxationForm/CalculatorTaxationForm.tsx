@@ -78,13 +78,15 @@ export const CalculatorTaxationForm = ({
             label="Household Income"
             htmlFor="householdIncome"
             InlineEndElement={
-              <button
-                type="button"
-                onClick={handleUseTotalIncome}
-                className="rounded-md bg-primary-light-blue px-4 py-1 text-xs text-white sm:text-sm"
-              >
-                Use total income
-              </button>
+              me && (
+                <button
+                  type="button"
+                  onClick={handleUseTotalIncome}
+                  className="rounded-md bg-primary-light-blue px-4 py-1 text-xs text-white sm:text-sm"
+                >
+                  Use total income
+                </button>
+              )
             }
           >
             <DollarInput
