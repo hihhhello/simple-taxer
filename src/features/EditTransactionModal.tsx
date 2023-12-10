@@ -1,20 +1,27 @@
 'use client';
 
-import { FormEvent, Fragment, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { isEmpty } from 'lodash';
-import { classNames } from '@/shared/utils/helpers';
 import { XMarkIcon } from '@/shared/icons/XMarkIcon';
 import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Input } from '@/shared/ui/Input';
 import { DollarInput } from '@/shared/ui/DollarInput';
 import { Transaction } from '@/shared/types/transactionTypes';
+import { formatISO, parseISO } from 'date-fns';
+
+type TransactionEditFields = {
+  amount: number;
+  bankName: string | null;
+  sourceName: string | null;
+  date: string;
+};
 
 type EditTransactionModalProps = {
   isModalOpen: boolean;
   handleClose: () => void;
-  handleSubmit: (transaction: Transaction) => Promise<void> | undefined | void;
+  handleSubmit: (
+    editedTransaction: Transaction,
+  ) => Promise<void> | undefined | void;
   transaction: Transaction | null;
 };
 
@@ -24,14 +31,25 @@ export const EditTransactionModal = ({
   handleSubmit: propsHandleSubmit,
   transaction,
 }: EditTransactionModalProps) => {
-  const [transactionValues, setTransactionValues] = useState(transaction);
+  const [transactionValues, setTransactionValues] =
+    useState<TransactionEditFields | null>(
+      getInitialTransactionValues(transaction),
+    );
+
+  useEffect(() => {
+    setTransactionValues(getInitialTransactionValues(transaction));
+  }, [transaction]);
 
   const handleSubmit = () => {
-    if (!transactionValues) {
+    if (!transactionValues || !transaction) {
       return;
     }
 
-    propsHandleSubmit(transactionValues)?.then(() => {
+    propsHandleSubmit({
+      ...transaction,
+      ...transactionValues,
+      date: parseISO(transactionValues.date),
+    })?.then(() => {
       handleClose();
     });
   };
@@ -78,7 +96,7 @@ export const EditTransactionModal = ({
               </div>
 
               <div className="h-full overflow-y-auto p-4">
-                <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <InputWrapper label="Date" htmlFor="date">
                     <Input
                       required
@@ -86,6 +104,7 @@ export const EditTransactionModal = ({
                       name="date"
                       id="date"
                       placeholder="Date"
+                      value={transactionValues?.date}
                     />
                   </InputWrapper>
 
@@ -96,7 +115,7 @@ export const EditTransactionModal = ({
                       id="amount"
                       min={0}
                       placeholder="Amount"
-                      value={null}
+                      value={transactionValues?.amount ?? null}
                     />
                   </InputWrapper>
 
@@ -106,6 +125,7 @@ export const EditTransactionModal = ({
                       name="bankName"
                       id="bankName"
                       placeholder="Bank Name"
+                      value={transactionValues?.bankName ?? ''}
                     />
                   </InputWrapper>
 
@@ -115,6 +135,7 @@ export const EditTransactionModal = ({
                       name="sourceName"
                       id="sourceName"
                       placeholder="Source Name"
+                      value={transactionValues?.sourceName ?? ''}
                     />
                   </InputWrapper>
                 </div>
@@ -136,3 +157,18 @@ export const EditTransactionModal = ({
     </Transition>
   );
 };
+
+function getInitialTransactionValues(
+  transaction: Transaction | null,
+): TransactionEditFields | null {
+  if (!transaction) {
+    return null;
+  }
+
+  return {
+    amount: transaction.amount,
+    bankName: transaction.bankName,
+    date: formatISO(transaction.date, { representation: 'date' }),
+    sourceName: transaction.sourceName,
+  };
+}
