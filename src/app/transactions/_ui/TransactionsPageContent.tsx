@@ -30,7 +30,7 @@ import { InputWrapper } from '@/shared/ui/InputWrapper';
 import { Input } from '@/shared/ui/Input';
 import { TransactionsPageLogInCard } from './TransactionsPageLogInCard';
 import { TransactionList } from '@/shared/ui/TransactionList';
-import { EditTransactionModal } from '@/features/EditTransactionModal';
+import { EditTransactionModal } from '@/features/EditTransactionModal/EditTransactionModal';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -88,10 +88,6 @@ export const TransactionsPageContent = ({
     api.transactions.delete.useMutation();
   const { mutate: apiDeleteManyTransactions } =
     api.transactions.deleteMany.useMutation();
-  /**
-   * TODO: refactor submit logic with Edit Modal.
-   */
-  // const { mutate: apiEditTransaction } = api.transactions.edit.useMutation();
   const { mutate: apiDuplicateTransaction } =
     api.transactions.duplicate.useMutation();
 
@@ -190,47 +186,6 @@ export const TransactionsPageContent = ({
       },
     );
   };
-
-  /**
-   * TODO: refactor submit logic with Edit Modal.
-   */
-  // const handleSubmitEditTransaction =
-  //   useCallback(
-  //     ({ newValues, transactionId }) => {
-  //       const toastId = loadingToast.showLoading('Editing transaction...');
-
-  //       apiEditTransaction(
-  //         {
-  //           newValues: {
-  //             ...newValues,
-  //             date: newValues.date ? parseISO(newValues.date) : undefined,
-  //           },
-  //           transactionId,
-  //         },
-  //         {
-  //           onSuccess: () => {
-  //             loadingToast.handleSuccess({
-  //               toastId,
-  //               message: 'Transactions successfully changed.',
-  //             });
-
-  //             handleRefetchTransactionsGetAllQueries();
-  //           },
-  //           onError: () => {
-  //             loadingToast.handleError({
-  //               toastId,
-  //               message: 'Transaction editing error. Try again.',
-  //             });
-  //           },
-  //         },
-  //       );
-  //     },
-  //     [
-  //       apiEditTransaction,
-  //       handleRefetchTransactionsGetAllQueries,
-  //       loadingToast,
-  //     ],
-  //   );
 
   const handleChangeTransactionSearchQuery = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
@@ -432,7 +387,6 @@ export const TransactionsPageContent = ({
       <EditTransactionModal
         isModalOpen={isEditTransactionModalOpen}
         handleClose={handleCloseEditTransactionModal}
-        handleSubmit={() => {}}
         transaction={transactionToEdit}
       />
     </div>
