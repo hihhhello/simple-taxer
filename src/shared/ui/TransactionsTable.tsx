@@ -271,6 +271,26 @@ export const TransactionTable = ({
                   />
                 </td>
 
+                <td className="whitespace-nowrap py-2 pl-2 pr-3 text-sm text-text-regular">
+                  {transaction.id}
+                </td>
+
+                <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
+                  {format(transaction.date, 'MM/dd/yyyy')}
+                </td>
+
+                <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
+                  {formatUSDDecimal(transaction.amount)}
+                </td>
+
+                <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
+                  {transaction.bankName ?? '--'}
+                </td>
+
+                <td className="whitespace-nowrap px-3 py-2 text-sm text-text-regular">
+                  {transaction.sourceName ?? '--'}
+                </td>
+
                 <td className="whitespace-nowrap rounded-r-md px-3 py-2 pr-4 text-sm text-text-regular">
                   <Menu as="div" className="relative ml-3">
                     {({ open }) => (
