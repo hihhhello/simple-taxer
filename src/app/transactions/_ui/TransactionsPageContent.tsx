@@ -88,7 +88,10 @@ export const TransactionsPageContent = ({
     api.transactions.delete.useMutation();
   const { mutate: apiDeleteManyTransactions } =
     api.transactions.deleteMany.useMutation();
-  const { mutate: apiEditTransaction } = api.transactions.edit.useMutation();
+  /**
+   * TODO: refactor submit logic with Edit Modal.
+   */
+  // const { mutate: apiEditTransaction } = api.transactions.edit.useMutation();
   const { mutate: apiDuplicateTransaction } =
     api.transactions.duplicate.useMutation();
 
