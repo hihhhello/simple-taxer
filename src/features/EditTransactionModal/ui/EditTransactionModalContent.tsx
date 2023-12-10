@@ -61,6 +61,7 @@ export const EditTransactionModalContent = ({
           queryClient.refetchQueries({
             queryKey: getQueryKey(api.transactions.getAll),
           });
+          handleClose();
         },
         onError: () => {
           loadingToast.handleError({
