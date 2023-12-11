@@ -50,7 +50,7 @@ export const IncomeBySourcePieChart = ({
 
     const arcOuterRadius = Math.min(width, height) / 2 - 1;
 
-    const getPieArc = d3
+    const getPieSection = d3
       .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
       .innerRadius(radius * 0.67)
       .outerRadius(arcOuterRadius);
@@ -89,7 +89,7 @@ export const IncomeBySourcePieChart = ({
         getPieSectionColor(data.sourceName ?? `Unknown-${data._sum.amount}`),
       )
       // "d" for each <path>
-      .attr('d', getPieArc)
+      .attr('d', getPieSection)
       // <title> for each <d>
       .append('title')
       // Specify text node for the <title>
