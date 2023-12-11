@@ -101,7 +101,7 @@ export const CalculatorPageContent = ({
     !isNil(stateTax) && !isNil(federalTax) ? stateTax + federalTax : undefined;
 
   return (
-    <div className="pb-10 pt-8">
+    <div>
       <div className="mb-12 flex flex-col gap-6 sm:flex-row">
         <div className="justify-space-between flex items-center gap-12 rounded-2xl bg-white px-6 py-4">
           <div>

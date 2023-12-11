@@ -25,7 +25,7 @@ export const BaseLayout = async ({ children }: BaseLayoutProps) => {
         <div>
           <Navbar me={session?.user} />
 
-          <main>{children}</main>
+          <main className="pb-10 pt-8">{children}</main>
         </div>
       </div>
     </div>
