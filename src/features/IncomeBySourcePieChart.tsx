@@ -44,7 +44,7 @@ export const IncomeBySourcePieChart = ({
     // Create the pie layout and arc generator.
     const getPieLayout = d3
       .pie<AnalyticsSourceIncome>()
-      .padAngle(1 / radius)
+      .padAngle(0.04)
       .sort(null)
       .value((d) => d._sum.amount ?? 0);
 
@@ -53,7 +53,8 @@ export const IncomeBySourcePieChart = ({
     const getPieSection = d3
       .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
       .innerRadius(radius * 0.67)
-      .outerRadius(arcOuterRadius);
+      .outerRadius(arcOuterRadius)
+      .cornerRadius(15);
 
     const labelRadius = arcOuterRadius * 0.8;
 
