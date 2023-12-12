@@ -1,7 +1,7 @@
 'use client';
 
 import * as d3 from 'd3';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { formatUSDDecimal } from '@/shared/utils/helpers';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
@@ -35,16 +35,19 @@ export const IncomeBySourcePieChart = ({
 }: IncomeBySourcePieChartProps) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
-  const getPieSectionColor = (sourceName: string) => {
-    // Map the source name to a number between 0 and 1
-    const index = transactionsBySourceName.findIndex(
-      (d) => d.sourceName === sourceName,
-    );
-    const scalePosition = index / (transactionsBySourceName.length - 1);
+  const getPieSectionColor = useCallback(
+    (sourceName: string) => {
+      // Map the source name to a number between 0 and 1
+      const index = transactionsBySourceName.findIndex(
+        (d) => d.sourceName === sourceName,
+      );
+      const scalePosition = index / (transactionsBySourceName.length - 1);
 
-    // Use the continuous color scale to get the color
-    return colorScale(scalePosition);
-  };
+      // Use the continuous color scale to get the color
+      return colorScale(scalePosition);
+    },
+    [transactionsBySourceName],
+  );
 
   useEffect(() => {
     if (!ref.current) {
@@ -126,8 +129,44 @@ export const IncomeBySourcePieChart = ({
   }, [getPieSectionColor, transactionsBySourceName]);
 
   return (
-    <div className="h-[400px] w-[250px]">
-      <svg ref={ref} />
+    <div className="rounded-2xl bg-white">
+      <div className="mb-4 p-6">
+        <p className="text-2xl font-semibold text-primary-blue">
+          Income Distribution
+        </p>
+      </div>
+
+      <div className="mb-8 flex w-full items-center justify-center">
+        <div className="h-[335px] w-[335px]">
+          <svg ref={ref} />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 px-10 pb-6">
+        {transactionsBySourceName.map(({ _sum, sourceName }) => (
+          <div
+            key={sourceName}
+            className="flex items-center justify-between rounded-md bg-primary-background px-4 py-1"
+          >
+            {sourceName && (
+              <div
+                style={{
+                  backgroundColor: String(getPieSectionColor(sourceName)),
+                }}
+                className="h-5 w-5 rounded-full"
+              ></div>
+            )}
+
+            <div>
+              <p className="text-[#2B2C3B]">{sourceName}</p>
+            </div>
+
+            <div>
+              <p>xx%</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
