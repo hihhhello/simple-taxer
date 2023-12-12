@@ -123,7 +123,7 @@ export const IncomeBySourcePieChart = ({
       .data(pieArcsData)
       .join('text')
       .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`);
-  }, [transactionsBySourceName]);
+  }, [getPieSectionColor, transactionsBySourceName]);
 
   return <svg ref={ref} />;
 };
