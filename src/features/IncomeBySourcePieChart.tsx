@@ -35,6 +35,17 @@ export const IncomeBySourcePieChart = ({
 }: IncomeBySourcePieChartProps) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
+  const getPieSectionColor = (sourceName: string) => {
+    // Map the source name to a number between 0 and 1
+    const index = transactionsBySourceName.findIndex(
+      (d) => d.sourceName === sourceName,
+    );
+    const scalePosition = index / (transactionsBySourceName.length - 1);
+
+    // Use the continuous color scale to get the color
+    return colorScale(scalePosition);
+  };
+
   useEffect(() => {
     if (!ref.current) {
       return;
@@ -45,16 +56,6 @@ export const IncomeBySourcePieChart = ({
     const radius = Math.min(width, height) / 2;
 
     // Create the color scale.
-    const getPieSectionColor = (sourceName: string) => {
-      // Map the source name to a number between 0 and 1
-      const index = transactionsBySourceName.findIndex(
-        (d) => d.sourceName === sourceName,
-      );
-      const scalePosition = index / (transactionsBySourceName.length - 1);
-
-      // Use the continuous color scale to get the color
-      return colorScale(scalePosition);
-    };
 
     // Create the pie layout and arc generator.
     const getPieLayout = d3
