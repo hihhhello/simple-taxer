@@ -30,6 +30,7 @@ import { CalculatorIllustrationMobile } from '@/shared/illustartions/CalculatorI
 import { CalculatorTaxExplanationCard } from './CalculatorTaxExplanationCard/CalculatorTaxExplanationCard';
 import { CheckOnDesktopIllustration } from '@/shared/illustartions/CheckOnDesktopIllustration';
 import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
+import { CalculatorTakeHomePayPieChart } from './CalculatorTakeHomePayPieChart';
 
 type CalculatorPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -177,18 +178,30 @@ export const CalculatorPageContent = ({
             </div>
 
             <div className="sm:col-span-2 sm:row-span-2">
-              <CalculatorTaxExplanationCard
-                amount={householdIncome - totalTax}
-                title="Take home pay"
-                percent={((householdIncome - totalTax) * 100) / householdIncome}
-                description="Take-home pay, in the context of your household income,
+              {isDesktop ? (
+                <CalculatorTakeHomePayPieChart
+                  taxData={[
+                    { name: 'federalTax', amount: federalTax },
+                    { name: 'stateTax', amount: stateTax },
+                    { name: 'takeHomePay', amount: householdIncome - totalTax },
+                  ]}
+                />
+              ) : (
+                <CalculatorTaxExplanationCard
+                  amount={householdIncome - totalTax}
+                  title="Take home pay"
+                  percent={
+                    ((householdIncome - totalTax) * 100) / householdIncome
+                  }
+                  description="Take-home pay, in the context of your household income,
                 represents the amount of money you receive after all
                 applicable taxes and deductions have been subtracted from
                 your gross income. It is the income that you can actually
                 use for your everyday expenses, savings, and discretionary
                 spending."
-                shadowBgClassName="bg-primary-green"
-              />
+                  shadowBgClassName="bg-primary-green"
+                />
+              )}
             </div>
           </div>
 
