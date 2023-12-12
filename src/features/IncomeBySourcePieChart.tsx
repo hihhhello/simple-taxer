@@ -3,7 +3,11 @@
 import * as d3 from 'd3';
 import { useCallback, useEffect, useRef } from 'react';
 
-import { formatUSDDecimal } from '@/shared/utils/helpers';
+import {
+  formatUSDCompact,
+  formatUSDDecimal,
+  formatUSDInteger,
+} from '@/shared/utils/helpers';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 
 const colors = {
@@ -58,9 +62,29 @@ export const IncomeBySourcePieChart = ({
     const height = 335;
     const radius = Math.min(width, height) / 2;
 
-    // Create the color scale.
+    const svg = d3
+      .select(ref.current)
+      .attr('width', '100%')
+      .attr('height', '100%')
+      .attr('viewBox', [-width / 2, -height / 2, width, height])
+      .attr('style', 'max-width: 100%; height: auto; font-size: 18px;');
 
-    // Create the pie layout and arc generator.
+    const label = svg
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#888')
+      .style('opacity', 0);
+
+    label
+      .append('tspan')
+      .attr('class', 'percentage')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('dy', '-0.1em')
+      .attr('font-size', '2rem')
+      .text('');
+
+    // Create the pie layout generator..
     const getPieLayout = d3
       .pie<AnalyticsSourceIncome>()
       .padAngle(0.04)
@@ -68,6 +92,8 @@ export const IncomeBySourcePieChart = ({
       .value((d) => d._sum.amount ?? 0);
 
     const arcOuterRadius = Math.min(width, height) / 2 - 1;
+
+    // Create pie section generator
 
     const getPieSection = d3
       .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
@@ -78,13 +104,6 @@ export const IncomeBySourcePieChart = ({
     // Generates a pie for the given array of data, returning an array of objects representing each datum’s arc angles.
     //  {"data":  1, "value":  1, "index": 6, "startAngle": 6.050474740247008, "endAngle": 6.166830023713296, "padAngle": 0}
     const pieArcsData = getPieLayout(transactionsBySourceName);
-
-    const svg = d3
-      .select<SVGElement, d3.PieArcDatum<AnalyticsSourceIncome>>(ref.current)
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('viewBox', [-width / 2, -height / 2, width, height])
-      .attr('style', 'max-width: 100%; height: auto; font-size: 18px;');
 
     // Add colored sectors
     svg
@@ -115,6 +134,13 @@ export const IncomeBySourcePieChart = ({
 
             return 0.5;
           });
+
+        label
+          .transition()
+          .duration(300)
+          .style('opacity', 1)
+          .select('.percentage')
+          .text(formatUSDCompact(d.data._sum.amount ?? undefined));
       })
       .on('mouseout', function (e, d) {
         svg
@@ -122,6 +148,8 @@ export const IncomeBySourcePieChart = ({
           .transition()
           .duration(300)
           .attr('opacity', 1);
+
+        label.transition().duration(300).style('opacity', 0);
       })
       // <title> for each <d>
       .append('title')
@@ -166,7 +194,9 @@ export const IncomeBySourcePieChart = ({
             </div>
 
             <div>
-              <p>xx%</p>
+              <p className="font-medium text-[#2B2C3B]">
+                {formatUSDInteger(_sum.amount ?? undefined)}
+              </p>
             </div>
           </div>
         ))}

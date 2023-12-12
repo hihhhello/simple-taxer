@@ -25,6 +25,19 @@ export const formatUSDInteger = (value: number | undefined) => {
   return usdIntegerFormatter.format(value);
 };
 
+const usdCompactFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  compactDisplay: 'short',
+});
+
+export const formatUSDCompact = (value: number | undefined) => {
+  if (value === undefined) {
+    return '';
+  }
+  return usdCompactFormatter.format(value);
+};
+
 export const classNames = (...classes: (string | boolean | undefined)[]) => {
   return classes.filter(Boolean).join(' ');
 };
