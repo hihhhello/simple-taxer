@@ -51,8 +51,8 @@ export const IncomeBySourcePieChart = ({
       return;
     }
 
-    const width = 928;
-    const height = 500;
+    const width = 335;
+    const height = 335;
     const radius = Math.min(width, height) / 2;
 
     // Create the color scale.
@@ -86,8 +86,8 @@ export const IncomeBySourcePieChart = ({
 
     const svg = d3
       .select(ref.current)
-      .attr('width', width)
-      .attr('height', height)
+      .attr('width', '100%')
+      .attr('height', '100%')
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('style', 'max-width: 100%; height: auto; font-size: 18px;');
 
@@ -125,5 +125,9 @@ export const IncomeBySourcePieChart = ({
       .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`);
   }, [getPieSectionColor, transactionsBySourceName]);
 
-  return <svg ref={ref} />;
+  return (
+    <div className="h-[400px] w-[250px]">
+      <svg ref={ref} />
+    </div>
+  );
 };
