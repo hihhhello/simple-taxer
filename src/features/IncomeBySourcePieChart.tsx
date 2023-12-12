@@ -121,24 +121,7 @@ export const IncomeBySourcePieChart = ({
       .selectAll()
       .data(pieArcsData)
       .join('text')
-      .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`)
-      .call((text) =>
-        text
-          .append('tspan')
-          .attr('y', '-0.4em')
-          .attr('font-weight', 'bold')
-          .text(
-            ({ data }) => data.sourceName ?? `Unknown-${data._sum.amount ?? 0}`,
-          ),
-      )
-      .call((text) =>
-        text
-          .append('tspan')
-          .attr('x', 0)
-          .attr('y', '0.7em')
-          .attr('class', 'fill-gray-700')
-          .text(({ data }) => formatUSDDecimal(data._sum.amount ?? 0)),
-      );
+      .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`);
   }, [transactionsBySourceName]);
 
   return <svg ref={ref} />;
