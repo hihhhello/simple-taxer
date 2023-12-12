@@ -3,7 +3,7 @@
 import { User } from 'next-auth';
 
 import { GoogleSignInButton } from '@/features/GoogleSignInButton';
-import { IncomeBySourcePieChart } from '@/features/IncomeBySourcePieChart';
+import { AnalyticsIncomeBySourcePieChart } from '@/app/analytics/_ui/AnalyticsIncomeBySourcePieChart';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 import { api } from '@/shared/api';
 import { AnalyticsPageLogInCard } from './AnalyticsPageLogInCard';
@@ -67,7 +67,7 @@ export const AnalyticsPageContent = ({
         </div>
       </div>
 
-      <IncomeBySourcePieChart
+      <AnalyticsIncomeBySourcePieChart
         transactionsBySourceName={transactionsBySourceName.data}
       />
     </div>

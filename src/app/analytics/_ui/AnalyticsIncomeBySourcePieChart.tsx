@@ -30,13 +30,13 @@ const colorScale = d3
   //@ts-ignore
   .interpolate(d3.interpolateHsl); // Choose an interpolation method
 
-type IncomeBySourcePieChartProps = {
+type AnalyticsIncomeBySourcePieChartProps = {
   transactionsBySourceName: AnalyticsSourceIncome[];
 };
 
-export const IncomeBySourcePieChart = ({
+export const AnalyticsIncomeBySourcePieChart = ({
   transactionsBySourceName,
-}: IncomeBySourcePieChartProps) => {
+}: AnalyticsIncomeBySourcePieChartProps) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
   const getPieSectionColor = useCallback(
