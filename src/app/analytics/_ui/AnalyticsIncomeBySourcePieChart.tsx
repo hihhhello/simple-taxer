@@ -69,6 +69,8 @@ export const AnalyticsIncomeBySourcePieChart = ({
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('style', 'max-width: 100%; height: auto; font-size: 18px;');
 
+    svg.selectAll('g').remove();
+
     const label = svg
       .append('text')
       .attr('text-anchor', 'middle')
