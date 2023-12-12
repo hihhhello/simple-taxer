@@ -80,7 +80,7 @@ export const IncomeBySourcePieChart = ({
     const pieArcsData = getPieLayout(transactionsBySourceName);
 
     const svg = d3
-      .select(ref.current)
+      .select<SVGElement, d3.PieArcDatum<AnalyticsSourceIncome>>(ref.current)
       .attr('width', '100%')
       .attr('height', '100%')
       .attr('viewBox', [-width / 2, -height / 2, width, height])
@@ -104,10 +104,24 @@ export const IncomeBySourcePieChart = ({
       .attr('d', getPieSection)
       .attr('opacity', 1)
       .on('mouseover', function (e, d) {
-        d3.select(this).transition().duration(50).attr('opacity', 0.85);
+        svg
+          .selectAll<d3.BaseType, d3.PieArcDatum<AnalyticsSourceIncome>>('path')
+          .transition()
+          .duration(300)
+          .attr('opacity', (data) => {
+            if (data.index === d.index) {
+              return 0.85;
+            }
+
+            return 0.5;
+          });
       })
       .on('mouseout', function (e, d) {
-        d3.select(this).transition().duration(50).attr('opacity', 1);
+        svg
+          .selectAll<d3.BaseType, d3.PieArcDatum<AnalyticsSourceIncome>>('path')
+          .transition()
+          .duration(300)
+          .attr('opacity', 1);
       })
       // <title> for each <d>
       .append('title')
