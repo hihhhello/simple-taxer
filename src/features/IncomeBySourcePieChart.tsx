@@ -102,6 +102,13 @@ export const IncomeBySourcePieChart = ({
       )
       // "d" for each <path>
       .attr('d', getPieSection)
+      .attr('opacity', 1)
+      .on('mouseover', function (e, d) {
+        d3.select(this).transition().duration(50).attr('opacity', 0.85);
+      })
+      .on('mouseout', function (e, d) {
+        d3.select(this).transition().duration(50).attr('opacity', 1);
+      })
       // <title> for each <d>
       .append('title')
       // Specify text node for the <title>
