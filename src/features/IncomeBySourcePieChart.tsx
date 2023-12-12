@@ -75,14 +75,6 @@ export const IncomeBySourcePieChart = ({
       .outerRadius(arcOuterRadius)
       .cornerRadius(15);
 
-    const labelRadius = arcOuterRadius * 0.8;
-
-    // A separate arc generator for labels.
-    const getPieLabelArc = d3
-      .arc<d3.PieArcDatum<AnalyticsSourceIncome>>()
-      .innerRadius(labelRadius)
-      .outerRadius(labelRadius);
-
     // Generates a pie for the given array of data, returning an array of objects representing each datum’s arc angles.
     //  {"data":  1, "value":  1, "index": 6, "startAngle": 6.050474740247008, "endAngle": 6.166830023713296, "padAngle": 0}
     const pieArcsData = getPieLayout(transactionsBySourceName);
@@ -117,15 +109,6 @@ export const IncomeBySourcePieChart = ({
         (d) =>
           `${d.data.sourceName}: ${formatUSDDecimal(d.data._sum.amount ?? 0)}`,
       );
-
-    // Add sector labels
-    svg
-      .append('g')
-      .attr('text-anchor', 'middle')
-      .selectAll()
-      .data(pieArcsData)
-      .join('text')
-      .attr('transform', (d) => `translate(${getPieLabelArc.centroid(d)})`);
   }, [getPieSectionColor, transactionsBySourceName]);
 
   return (
