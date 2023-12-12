@@ -29,6 +29,7 @@ const usdCompactFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   compactDisplay: 'short',
+  notation: 'compact',
 });
 
 export const formatUSDCompact = (value: number | undefined) => {
