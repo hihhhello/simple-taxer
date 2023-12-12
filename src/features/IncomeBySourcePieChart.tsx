@@ -6,6 +6,26 @@ import { useEffect, useRef } from 'react';
 import { formatUSDDecimal } from '@/shared/utils/helpers';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 
+const colors = {
+  blue: '#13165C',
+  lightBlue: '#306FD8',
+  green: '#5EAC8D',
+  yellow: '#F8D35D',
+  red: '#F0907D',
+};
+
+// Create an array of your colors
+const colorRange = [colors.lightBlue, colors.red];
+
+// Create a linear scale
+const colorScale = d3
+  .scaleLinear()
+  .domain([0, 1, 2, 3]) // Define domains based on the number of colors
+  //@ts-ignore
+  .range(colorRange) // Use your color range
+  //@ts-ignore
+  .interpolate(d3.interpolateHsl); // Choose an interpolation method
+
 type IncomeBySourcePieChartProps = {
   transactionsBySourceName: AnalyticsSourceIncome[];
 };
@@ -25,21 +45,16 @@ export const IncomeBySourcePieChart = ({
     const radius = Math.min(width, height) / 2;
 
     // Create the color scale.
-    const getPieSectionColor = d3
-      .scaleOrdinal<string>()
-      .domain(
-        transactionsBySourceName.map(
-          (d) => d.sourceName ?? 'Unknown source name',
-        ),
-      )
-      .range(
-        d3
-          .quantize(
-            (t) => d3.interpolateSpectral(t * 0.8 + 0.1),
-            transactionsBySourceName.length,
-          )
-          .reverse(),
+    const getPieSectionColor = (sourceName: string) => {
+      // Map the source name to a number between 0 and 1
+      const index = transactionsBySourceName.findIndex(
+        (d) => d.sourceName === sourceName,
       );
+      const scalePosition = index / (transactionsBySourceName.length - 1);
+
+      // Use the continuous color scale to get the color
+      return colorScale(scalePosition);
+    };
 
     // Create the pie layout and arc generator.
     const getPieLayout = d3
