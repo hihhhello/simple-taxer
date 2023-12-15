@@ -272,4 +272,24 @@ export const transactionsRouter = router({
         data: transactionsBySourceName,
       };
     }),
+
+  getByDate: publicProcedure.input(z.object({})).query(async ({ ctx }) => {
+    if (!ctx.user) {
+      return;
+    }
+
+    const transactionsByDate = await ctx.prisma.transaction.groupBy({
+      by: ['date'],
+      where: {
+        userId: ctx.user.id,
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    return {
+      data: transactionsByDate,
+    };
+  }),
 });

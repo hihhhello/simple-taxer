@@ -9,6 +9,7 @@ import { api } from '@/shared/api';
 import { AnalyticsPageLogInCard } from './AnalyticsPageLogInCard';
 import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
 import { PieChartHeroIllustrationDesktop } from '@/shared/illustartions/PieChartHeroIllustrationDesktop';
+import { useEffect } from 'react';
 
 type AnalyticsPageContentProps = {
   me: User | undefined | null;
@@ -31,16 +32,16 @@ export const AnalyticsPageContent = ({
       { initialData: initialSourceIncomes },
     );
 
+  const { data: transactionsByDate } = api.transactions.getByDate.useQuery({});
+
+  console.log(transactionsByDate);
+
   if (!me) {
     return (
       <div className="mx-auto max-w-4xl pt-16">
         <AnalyticsPageLogInCard />
       </div>
     );
-  }
-
-  if (!transactionsBySourceName) {
-    return null;
   }
 
   return (
@@ -67,9 +68,11 @@ export const AnalyticsPageContent = ({
         </div>
       </div>
 
-      <AnalyticsIncomeBySourcePieChart
-        transactionsBySourceName={transactionsBySourceName.data}
-      />
+      {transactionsBySourceName && (
+        <AnalyticsIncomeBySourcePieChart
+          transactionsBySourceName={transactionsBySourceName.data}
+        />
+      )}
     </div>
   );
 };
