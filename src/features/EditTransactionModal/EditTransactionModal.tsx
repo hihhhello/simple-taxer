@@ -31,7 +31,7 @@ export const EditTransactionModal = ({
           <div className="fixed inset-0 hidden bg-black/30 sm:block" />
         </Transition.Child>
 
-        <div className="fixed inset-0 flex w-screen items-center justify-center sm:p-4">
+        <div className="fixed inset-0 w-screen sm:p-4">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -41,7 +41,7 @@ export const EditTransactionModal = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div>
+            <div className="flex h-full w-full items-center justify-center">
               {transaction && (
                 <EditTransactionModalContent
                   handleClose={handleClose}
