@@ -2,14 +2,13 @@
 
 import { User } from 'next-auth';
 
-import { GoogleSignInButton } from '@/features/GoogleSignInButton';
 import { AnalyticsIncomeBySourcePieChart } from '@/app/analytics/_ui/AnalyticsIncomeBySourcePieChart';
 import { AnalyticsSourceIncome } from '@/shared/types/analyticsTypes';
 import { api } from '@/shared/api';
 import { AnalyticsPageLogInCard } from './AnalyticsPageLogInCard';
 import { Breakpoints, useIsBreakpoint } from '@/shared/utils/hooks';
 import { PieChartHeroIllustrationDesktop } from '@/shared/illustartions/PieChartHeroIllustrationDesktop';
-import { useEffect } from 'react';
+import { AnalyticsIncomeTrendsLineChart } from './AnalyticsIncomeTrendsLineChart';
 
 type AnalyticsPageContentProps = {
   me: User | undefined | null;
@@ -31,10 +30,6 @@ export const AnalyticsPageContent = ({
       {},
       { initialData: initialSourceIncomes },
     );
-
-  const { data: transactionsByDate } = api.transactions.getByDate.useQuery({});
-
-  console.log(transactionsByDate);
 
   if (!me) {
     return (
@@ -67,6 +62,8 @@ export const AnalyticsPageContent = ({
           )}
         </div>
       </div>
+
+      <AnalyticsIncomeTrendsLineChart />
 
       {transactionsBySourceName && (
         <AnalyticsIncomeBySourcePieChart
