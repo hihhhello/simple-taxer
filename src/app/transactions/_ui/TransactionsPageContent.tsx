@@ -12,12 +12,7 @@ import {
   TransactionTableProps,
 } from '@/shared/ui/TransactionsTable';
 import { api } from '@/shared/api';
-import {
-  Breakpoints,
-  useBoolean,
-  useIsBreakpoint,
-  useLoadingToast,
-} from '@/shared/utils/hooks';
+import { useBoolean, useLoadingToast } from '@/shared/utils/hooks';
 import {
   calculateTotalIncome,
   classNames,
@@ -45,8 +40,6 @@ export const TransactionsPageContent = ({
   transactions: initialTransactions,
   me,
 }: TransactionsPageContentProps) => {
-  const isDesktop = useIsBreakpoint(Breakpoints.SM);
-
   const queryClient = useQueryClient();
 
   const loadingToast = useLoadingToast();
@@ -387,7 +380,7 @@ export const TransactionsPageContent = ({
                 isTransactionsFetching && 'pointer-events-none opacity-50',
               )}
             >
-              {isDesktop ? (
+              <div className="hidden sm:block">
                 <TransactionTable
                   transactions={searchedTransactions}
                   handleDeleteAllTransactions={handleDeleteAllTransactions}
@@ -400,7 +393,9 @@ export const TransactionsPageContent = ({
                   handleSortTransactions={handleSortTransactions}
                   handleEditTransaction={handleEditTransaction}
                 />
-              ) : (
+              </div>
+
+              <div className="sm:hidden">
                 <TransactionList
                   makeHandleDeleteTransaction={makeHandleDeleteTransaction}
                   makeHandleDuplicateTransaction={
@@ -409,7 +404,7 @@ export const TransactionsPageContent = ({
                   transactions={searchedTransactions}
                   handleEdit={handleEditTransaction}
                 />
-              )}
+              </div>
             </div>
           </div>
         </div>
