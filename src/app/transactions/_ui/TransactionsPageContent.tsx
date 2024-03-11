@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { formatISO, parseISO } from 'date-fns';
+import { formatISO, parseISO, startOfYear } from 'date-fns';
 import { User } from 'next-auth';
 import { twMerge } from 'tailwind-merge';
 
@@ -47,7 +47,9 @@ export const TransactionsPageContent = ({
 
   const loadingToast = useLoadingToast();
 
-  const [transactionsStartDate, setTransactionsStartDate] = useState<Date>();
+  const [transactionsStartDate, setTransactionsStartDate] = useState<
+    Date | undefined
+  >(startOfYear(new Date()));
   const [transactionsEndDate, setTransactionsEndDate] = useState<Date>();
 
   const {
