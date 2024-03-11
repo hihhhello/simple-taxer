@@ -1,7 +1,7 @@
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
 
 import { QueryClientProvider } from '@/features/QueryClientProvider';
@@ -38,10 +38,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={classNames('bg-primary-background h-full', outfit.className)}
+      className={classNames('h-full bg-primary-background', outfit.className)}
       lang="en"
     >
       <body className="h-full">
