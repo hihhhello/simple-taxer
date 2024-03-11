@@ -7,15 +7,12 @@ import { usePathname } from 'next/navigation';
 
 import { NavbarDesktop } from './ui/NavbarDesktop';
 import { NavbarMobile } from './ui/NavbarMobile';
-import { useIsBreakpoint } from '@/shared/utils/hooks';
 
 type NavbarProps = {
   me: User | undefined | null;
 };
 
 export const Navbar = ({ me }: NavbarProps) => {
-  const isDesktop = useIsBreakpoint(1100);
-
   const handleSignOut = useCallback(() => signOut(), []);
 
   const { status } = useSession();
@@ -24,23 +21,21 @@ export const Navbar = ({ me }: NavbarProps) => {
 
   const isAuthenticating = status === 'loading';
 
-  if (isDesktop) {
-    return (
+  return (
+    <>
       <NavbarDesktop
         handleSignOut={handleSignOut}
         isAuthenticating={isAuthenticating}
         me={me}
         pathname={pathname}
       />
-    );
-  }
 
-  return (
-    <NavbarMobile
-      handleSignOut={handleSignOut}
-      isAuthenticating={isAuthenticating}
-      me={me}
-      pathname={pathname}
-    />
+      <NavbarMobile
+        handleSignOut={handleSignOut}
+        isAuthenticating={isAuthenticating}
+        me={me}
+        pathname={pathname}
+      />
+    </>
   );
 };
