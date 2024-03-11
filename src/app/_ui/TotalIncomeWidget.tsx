@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { ChevronLeftIcon } from '@/shared/icons/ChevronLeftIcon';
 import {
@@ -29,7 +29,10 @@ export const TotalIncomeWidget = ({
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(true);
 
-  const totalIncome = calculateTotalIncome(transactions?.data);
+  const totalIncome = useMemo(
+    () => calculateTotalIncome(transactions?.data),
+    [transactions?.data],
+  );
 
   if (isDesktop) {
     return (

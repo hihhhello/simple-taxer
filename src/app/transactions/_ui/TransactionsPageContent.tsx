@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { formatISO, parseISO, startOfYear } from 'date-fns';
+import { formatISO, parseISO, startOfYear, format, isValid } from 'date-fns';
 import { User } from 'next-auth';
 import { twMerge } from 'tailwind-merge';
 
@@ -18,7 +18,11 @@ import {
   useIsBreakpoint,
   useLoadingToast,
 } from '@/shared/utils/hooks';
-import { classNames } from '@/shared/utils/helpers';
+import {
+  calculateTotalIncome,
+  classNames,
+  formatUSDCompact,
+} from '@/shared/utils/helpers';
 import { useQueryClient } from '@tanstack/react-query';
 import { getQueryKey } from '@trpc/react-query';
 import {
@@ -198,7 +202,7 @@ export const TransactionsPageContent = ({
   const handleChangeTransactionsStartDate = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
       setTransactionsStartDate(
-        event.target.value ? parseISO(event.target.value) : undefined,
+        isValid(event.target.value) ? parseISO(event.target.value) : undefined,
       ),
     [],
   );
@@ -206,7 +210,7 @@ export const TransactionsPageContent = ({
   const handleChangeTransactionsEndDate = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
       setTransactionsEndDate(
-        event.target.value ? parseISO(event.target.value) : undefined,
+        isValid(event.target.value) ? parseISO(event.target.value) : undefined,
       ),
     [],
   );
@@ -244,6 +248,11 @@ export const TransactionsPageContent = ({
     [handleOpenEditTransactionModal],
   );
 
+  const totalIncome = useMemo(
+    () => calculateTotalIncome(transactions?.data),
+    [transactions?.data],
+  );
+
   if (!me) {
     return (
       <div className="mx-auto max-w-4xl pt-16">
@@ -262,6 +271,26 @@ export const TransactionsPageContent = ({
         </div>
 
         <div className="col-span-8">
+          <div className="mb-4 flex flex-col sm:flex-row">
+            <div className="flex flex-col items-center justify-start gap-2 rounded-lg bg-white px-6 py-4">
+              <span className="text-gray-500 sm:text-left">
+                Total income (from{' '}
+                {transactionsStartDate
+                  ? format(transactionsStartDate, 'MMM dd yyyy')
+                  : '--'}{' '}
+                to{' '}
+                {transactionsEndDate
+                  ? format(transactionsEndDate, 'MMM dd yyyy')
+                  : '--'}
+                )
+              </span>
+
+              <span className="w-full text-center text-2xl font-semibold text-primary-blue sm:text-left">
+                {formatUSDCompact(totalIncome)}
+              </span>
+            </div>
+          </div>
+
           <div className="mb-4 grid grid-cols-1 items-end gap-x-10 gap-y-4 sm:grid-cols-2">
             <div>
               <Input
