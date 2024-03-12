@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { AnalyticsPageContent } from './_ui/AnalyticsPageContent';
 import { createAuthorizedCaller } from '@/server';
-import { NEXT_AUTH_OPTIONS } from '../api/auth/[...nextauth]/route';
+import { NEXT_AUTH_OPTIONS } from '@/shared/utils/nextAuth';
 
 const AnalyticsPage = async () => {
   const caller = await createAuthorizedCaller();

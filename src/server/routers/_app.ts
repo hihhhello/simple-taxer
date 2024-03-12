@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 
 import { router } from '@/server/trpc';
 import { transactionsRouter } from './transactionsRouter';
-import { NEXT_AUTH_OPTIONS } from '@/app/api/auth/[...nextauth]/route';
+import { NEXT_AUTH_OPTIONS } from '@/shared/utils/nextAuth';
 import { prisma } from '@/server';
 
 export const appRouter = router({

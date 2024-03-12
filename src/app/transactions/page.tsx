@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { TransactionsPageContent } from './_ui/TransactionsPageContent';
 import { createAuthorizedCaller } from '@/server';
-import { NEXT_AUTH_OPTIONS } from '../api/auth/[...nextauth]/route';
+import { NEXT_AUTH_OPTIONS } from '@/shared/utils/nextAuth';
 import { startOfYear } from 'date-fns';
 
 const TransactionsPage = async () => {

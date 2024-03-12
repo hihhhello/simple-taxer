@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import { CalculatorPageContent } from './_ui/CalculatorPageContent';
 import { createAuthorizedCaller } from '@/server';
-import { NEXT_AUTH_OPTIONS } from '../api/auth/[...nextauth]/route';
+import { NEXT_AUTH_OPTIONS } from '@/shared/utils/nextAuth';
 
 const CalculatorPage = async () => {
   const caller = await createAuthorizedCaller();
