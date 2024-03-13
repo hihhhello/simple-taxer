@@ -58,25 +58,24 @@ export const CalculatorTaxExplanationCard = ({
             </div>
           </div>
 
-          {isDesktop && (
-            <p className="text-xs text-primary-blue">
-              <span className="text-sm font-semibold text-primary-light-blue">
-                Exp.:
-              </span>
+          <p className="hidden text-xs text-primary-blue sm:block">
+            <span className="text-sm font-semibold text-primary-light-blue">
+              Exp.:
+            </span>
 
-              {description}
-            </p>
-          )}
+            {description}
+          </p>
 
-          {!isDesktop && (
-            <Disclosure.Panel as="p" className="text-xs text-primary-blue">
-              <span className="text-sm font-semibold text-primary-light-blue">
-                Exp.:
-              </span>
+          <Disclosure.Panel
+            as="p"
+            className="text-xs text-primary-blue sm:hidden"
+          >
+            <span className="text-sm font-semibold text-primary-light-blue">
+              Exp.:
+            </span>
 
-              {description}
-            </Disclosure.Panel>
-          )}
+            {description}
+          </Disclosure.Panel>
 
           <Disclosure.Button className="absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center justify-center text-[8px] text-white sm:hidden">
             <span>{open ? 'Hide' : 'Details'}</span>
