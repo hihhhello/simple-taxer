@@ -30,6 +30,7 @@ import { Input } from '@/shared/ui/Input';
 import { TransactionsPageLogInCard } from './TransactionsPageLogInCard';
 import { TransactionList } from '@/shared/ui/TransactionList';
 import { EditTransactionModal } from '@/features/EditTransactionModal/EditTransactionModal';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 
 type TransactionsPageContentProps = {
   transactions: ApiRouterOutputs['transactions']['getAll'];
@@ -246,6 +247,14 @@ export const TransactionsPageContent = ({
     [transactions?.data],
   );
 
+  const handleCopyTotalIncome = () => {
+    navigator.clipboard.writeText(totalIncome.toString());
+
+    toast.success('Total income copied to clipboard.', {
+      autoClose: 1500,
+    });
+  };
+
   if (!me) {
     return (
       <div className="mx-auto max-w-4xl pt-16">
@@ -278,9 +287,16 @@ export const TransactionsPageContent = ({
                 )
               </span>
 
-              <span className="w-full text-center text-2xl font-semibold text-primary-blue sm:text-left">
-                {formatUSDCompact(totalIncome)}
-              </span>
+              <div
+                onClick={handleCopyTotalIncome}
+                className="flex cursor-pointer items-center justify-start"
+              >
+                <span className="w-full text-center text-2xl font-semibold text-primary-blue sm:text-left">
+                  {formatUSDCompact(totalIncome)}
+                </span>
+
+                <DocumentDuplicateIcon width={16} height={16} />
+              </div>
             </div>
           </div>
 

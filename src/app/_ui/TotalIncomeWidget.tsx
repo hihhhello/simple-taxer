@@ -1,6 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { toast } from 'react-toastify';
 
 import { ChevronLeftIcon } from '@/shared/icons/ChevronLeftIcon';
 import {
@@ -31,12 +33,27 @@ export const TotalIncomeWidget = ({
     [transactions?.data],
   );
 
+  const handleCopyTotalIncome = () => {
+    navigator.clipboard.writeText(totalIncome.toString());
+
+    toast.success('Total income copied to clipboard.', {
+      autoClose: 1500,
+    });
+  };
+
   return (
     <>
       <div className="fixed right-0 top-[116px] z-50 hidden flex-col rounded-l-2xl bg-primary-light-blue py-4 pl-6 pr-9 font-semibold text-white sm:flex">
         <span>Total Income</span>
 
-        <span className="text-3xl">{formatUSDInteger(totalIncome)}</span>
+        <div
+          onClick={handleCopyTotalIncome}
+          className="flex cursor-pointer items-center justify-start"
+        >
+          <span className="text-3xl">{formatUSDInteger(totalIncome)}</span>
+
+          <DocumentDuplicateIcon width={16} height={16} />
+        </div>
       </div>
 
       <div
@@ -48,7 +65,14 @@ export const TotalIncomeWidget = ({
         <div className="flex items-center gap-1">
           <span className="text-sm">Total Income:</span>
 
-          <span className="text-xl">{formatUSDInteger(totalIncome)}</span>
+          <div
+            onClick={handleCopyTotalIncome}
+            className="flex cursor-pointer items-center justify-start"
+          >
+            <span className="text-xl">{formatUSDInteger(totalIncome)}</span>
+
+            <DocumentDuplicateIcon width={16} height={16} />
+          </div>
         </div>
 
         <button onClick={() => setIsWidgetOpen((prev) => !prev)}>
